@@ -1,0 +1,178 @@
+/* Toolbar */
+.ple-toolbar {
+	$height: 42px;
+
+	position: relative;
+	height: $height;
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+
+	.wrap {
+		position: fixed;
+		height: $height;
+		z-index: 11;
+		width: 100%;
+		background: #fff;
+		box-shadow: 0 1px 4px rgba(0,0,0,.2);
+	}
+	.pop {
+		position: relative;
+		display: none;
+	}
+	.block {
+		float: left;
+		margin-right: 1px;
+		> button {
+			display: block;
+			position: relative;
+			margin: 0;
+			padding: 0;
+			width: $height;
+			height: $height;
+			border: none;
+			background: $col-blur;
+			cursor: pointer;
+			outline: 0;
+			i {
+				position: absolute;
+				display: block;
+				left: 50%;
+				top: 50%;
+			}
+			&:active {
+				background: mix($col-key, #000, 98%);
+			}
+		}
+		&.key {
+			> button {
+				background: $col-active;
+				&:active {
+					background: mix($col-active, #000, 75%);
+				}
+			}
+		}
+		&.active {
+			> button {
+				background: mix($col-key, #000, 98%);
+			}
+			.pop {
+				display: block;
+			}
+			&.key {
+				> button {
+					background: mix($col-active, #000, 75%);
+				}
+			}
+		}
+	}
+	.edit-setting {
+		form {
+			position: absolute;
+			left: -5px;
+			top: 0;
+			z-index: 99999;
+			min-width: 270px;
+			background: #fff;
+			box-shadow: 1px 1px 8px rgba(0,0,0,.4);
+			fieldset {
+				margin: 0;
+				padding: 20px;
+				border: none;
+			}
+		}
+		legend {
+			@extend %blind;
+		}
+		h1 {
+			margin: 0 0 10px;
+			font-size: 18px;
+			color: $col-key;
+		}
+		dl {
+			display: table;
+			width: 100%;
+			margin: 1px 0;
+			> * {
+				display: table-cell;
+				vertical-align: middle;
+				padding: 3px 0;
+			}
+			dt {
+				width: 95px;
+				font-size: 12px;
+				color: #333;
+				label {
+					display: inline;
+				}
+			}
+			dd {
+				margin: 0 0 0 100px;
+			}
+		}
+		nav {
+			&:after {
+				content: '';
+				display: block;
+				clear: both;
+			}
+			span {
+				display: block;
+				width: 50%;
+				float: left;
+				&:first-child {
+					padding-right: 1px;
+				}
+			}
+			button {
+				margin: 0;
+				padding: 12px 0;
+				width: 100%;
+				font-size: 12px;
+				color: #fff;
+				background: $col-blur;
+				border: none;
+				cursor: pointer;
+				-webkit-appearance: none;
+				&.submit {
+					background: $col-key;
+				}
+			}
+		}
+		.type-input {
+			input[type=number] {
+				margin: 0;
+				padding: 6px 6px;
+				font-size: 12px;
+				color: #111;
+				border: 1px solid #c4c7c8;
+				border-radius: 2px;
+				box-shadow: inset 0 2px 3px rgba(0,0,0,.2);
+			}
+			span {
+				padding-left: 5px;
+				font-size: 12px; color: #333;
+			}
+		}
+		.type-checkbox {
+			label {
+				padding: 6px 12px 6px 0;
+				display: inline-block;
+			}
+			input {
+				margin: 0 0 0 4px;
+				padding: 0;
+			}
+			span {
+				padding-left: 6px;
+				font-size: 12px; color: #333;
+			}
+		}
+	}
+
+	.colorpicker {
+		left: -20px;
+	}
+}

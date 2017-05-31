@@ -1,0 +1,95 @@
+// init icon
+%sp-ico {
+	background: transparent url('./images/sp-ico.png') no-repeat;
+	@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 1.33dppx) {
+		background-image: url('./images/sp-ico@2x.png');
+		background-size: 200px 100px;
+	}
+}
+.sp-ico {
+	display: inline-block; text-align: left; text-indent: -9999px; overflow: hidden;
+	@extend %sp-ico;
+}
+
+
+@mixin sp-size($width, $height) {
+	width: $width; height: $height;
+	&.abs {margin-left: -#{$width/2}; margin-top: -#{$height/2};}
+}
+
+
+// set icon classes
+.ico-reply {
+	background-position: 0 0;
+	@include sp-size(16px, 13px);
+}
+.ico-select {
+	background-position: -26px 0;
+	@include sp-size(16px, 16px);
+}
+.ico-upload {
+	background-position: -52px 0;
+	@include sp-size(12px, 15px);
+}
+.ico-trash {
+	background-position: -74px 0;
+	@include sp-size(12px, 16px);
+}
+.ico-arrow-left {
+	background-position: -96px 0;
+	@include sp-size(7px, 12px);
+}
+.ico-arrow-right {
+	background-position: -112px 0;
+	@include sp-size(7px, 12px);
+}
+.ico-empty {
+	background-position: -130px 0;
+	@include sp-size(16px, 16px);
+}
+.ico-palette {
+	background-position: -156px 0;
+	@include sp-size(18px, 18px);
+}
+
+.ico-setting {
+	background-position: 0 -36px;
+	@include sp-size(16px, 16px);
+}
+.ico-arrow-random {
+	background-position: -26px -36px;
+	@include sp-size(16px, 16px);
+}
+.ico-plus {
+	background-position: -52px -36px;
+	@include sp-size(16px, 16px);
+}
+.ico-pencil {
+	background-position: -78px -36px;
+	@include sp-size(16px, 16px);
+}
+.ico-duplicate {
+	background-position: -104px -36px;
+	@include sp-size(14px, 16px);
+}
+.ico-close {
+	background-position: -128px -36px;
+	@include sp-size(14px, 14px);
+}
+.ico-resize {
+	background-position: -152px -36px;
+	@include sp-size(14px, 14px);
+}
+.ico-reduction {
+	background-position: -176px -36px;
+	@include sp-size(16px, 16px);
+}
+
+.ico-clamp {
+	background-position: 0 -72px;
+	@include sp-size(20px, 20px);
+}
+.ico-close2 {
+	background-position: -30px -72px;
+	@include sp-size(24px, 24px);
+}

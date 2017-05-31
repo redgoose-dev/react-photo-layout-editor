@@ -1,0 +1,26 @@
+/* popup mode */
+html.ple-popup-mode {overflow: hidden;}
+
+
+.ple-editor {
+	position: relative;
+	min-height: 480px;
+	overflow: hidden;
+	*, *:before, *:after {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.ple-container {
+		margin: 0;
+		padding: 0;
+		-webkit-transition: margin-right 1s ease-out;
+		transition: margin-right .3s ease-out;
+	}
+	.ple-body {}
+
+	&.side-active {
+		.ple-container {margin-right: $sidebar-width;}
+	}
+}
