@@ -21,7 +21,7 @@ export function toggle()
 export function addFiles(files)
 {
 	return {
-		type: types.ADD_FILES,
+		type: types.SIDE_ADD_FILES,
 		files: files,
 	};
 }

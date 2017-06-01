@@ -1,23 +1,12 @@
+import Layout from './Layout';
 import Side from './Side';
+import Grid from './Grid';
 
 
-let store = null;
+export default function API(store) {
 
+	this.layout = new Layout(store);
+	this.side = new Side(store);
+	this.grid = new Grid(store);
 
-export default {
-
-	init: (getStore) => {
-		store = getStore;
-	},
-
-	checkStore: () => {
-		console.log('check state:', store);
-	},
-
-	getStore: () => {
-		return store;
-	},
-
-	side: new Side(store),
-
-};
+}

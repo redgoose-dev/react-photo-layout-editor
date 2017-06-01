@@ -21,16 +21,25 @@ const initialSettings = {
 	},
 	side: {
 		visible: true,
-		items: [],
+		items: null,
 	},
 };
 
 
-function setting(state=null, action)
+export function setting(state=null, action)
 {
 	switch (action.type) {
-		case types.INIT_SETTING:
-			return Object.assign({}, initialSettings, action.value);
+		case types.INIT_PLE:
+			return Object.assign({}, {
+				side: {
+					...initialSettings.side,
+					...action.preference.side,
+				},
+				grid: {
+					...initialSettings.grid,
+					...action.preference.grid,
+				},
+			});
 			break;
 
 		default:
@@ -39,4 +48,19 @@ function setting(state=null, action)
 }
 
 
-export default setting;
+export function api(state=null, action)
+{
+	switch (action.type) {
+		case types.INIT_PLE:
+			return action.api;
+
+		default:
+			return state;
+	}
+}
+
+
+export function keyboard(state=null, action)
+{
+
+}

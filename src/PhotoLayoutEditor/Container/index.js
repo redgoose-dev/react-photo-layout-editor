@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import * as actionCore from '../actions/core';
+import * as actions from '../actions';
 
 //import Body from './Body';
 import Side from './Side';
@@ -24,7 +24,10 @@ class Container extends React.Component {
 	{
 		const { props } = this;
 
-		props.dispatch(actionCore.setting(props.preference || {}));
+		props.dispatch(actions.core.init(
+			props.parent.api,
+			props.parent.preference || {}
+		));
 	}
 
 	render()

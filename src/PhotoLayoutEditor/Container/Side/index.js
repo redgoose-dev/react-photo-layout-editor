@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import $ from 'jquery/dist/jquery.slim';
 
-import * as actionsSide from '../../actions/side';
-import * as actionsBody from '../../actions/body';
+import * as actions from '../../actions';
 import * as lib from '../../lib';
-import API from '../../API';
 
 import ToggleSideButton from './ToggleSideButton';
 import Navigation from './Navigation';
@@ -19,8 +17,9 @@ let firstSelectIdx = null;
 class Side extends React.Component {
 
 	static defaultProps = {
-		tree: {}, // reduce data
-		ple: null, // root object
+		tree: {}, // data tree in reduce
+		setting: {}, // setting in reduce
+		api: {}, // api
 		dispatch: null, // redux dispatch
 	};
 
@@ -43,28 +42,10 @@ class Side extends React.Component {
 	componentDidMount()
 	{
 		const { props } = this;
-		//this.getItems(props.ple.preference.side.items);
-	}
 
-	/**
-	 * Get items
-	 *
-	 * @param {Array|String} items
-	 */
-	getItems(items)
-	{
-		const { dispatch } = this.props;
-
-		if (typeof items === 'string')
+		if (props.setting.side.items && props.setting.side.items.length)
 		{
-			console.log('TODO')
-			// axios.get(items)
-			// 	.then( (res) => dispatch(actionsSide.addFiles(res.data)) )
-			// 	.catch( (error) => console.log('ERROR', error) );
-		}
-		else if (items instanceof Array)
-		{
-			dispatch(actionsSide.addFiles(items));
+			props.api.side.add(props.setting.side.items);
 		}
 	}
 
@@ -103,6 +84,7 @@ class Side extends React.Component {
 	 */
 	_selectItem(id)
 	{
+		console.log('selectItem', id);
 		return;
 		const { dispatch, ple, tree } = this.props;
 		const { keyName } = ple.keyboard;
@@ -329,30 +311,26 @@ class Side extends React.Component {
 	render()
 	{
 		const { state, props } = this;
-		const { ple, tree, dispatch } = props;
 
 		return (
 			<aside className="ple-side">
 				<div className={classNames(
 					'wrap',
-					{ 'show': tree.side.layout.visible }
+					{ 'show': props.tree.side.layout.visible }
 				)}>
 					<span
-						onClick={() => dispatch(actionsSide.changeActiveFile(null, 'none', null))}
+						onClick={() => props.dispatch(actions.side.changeActiveFile(null, 'none', null))}
 						className="background"/>
 					<ToggleSideButton
-						show={tree.side.layout.visible}
-						onClick={() => {
-							//console.log('toggle side', API.getStore().getState());
-							API.side.toggleVisible();
-						}}/>
+						show={props.tree.side.layout.visible}
+						onClick={() => props.api.layout.toggleSide()}/>
 					<Navigation
 						onAttach={this._attach.bind(this)}
 						onToggleSelect={this._toggleSelect.bind(this)}
 						onUpload={this._upload.bind(this)}
 						onRemove={this._removeItems.bind(this)}/>
 					<Items
-						files={tree.side.files}
+						files={props.tree.side.files}
 						onSelect={this._selectItem.bind(this)}
 						onDragStart={this._dragStartItem.bind(this)}
 						onDragEnd={this._dragEndItem.bind(this)}

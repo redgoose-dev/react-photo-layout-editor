@@ -40,12 +40,12 @@ function setting(state=defaults.setting, action)
 {
 	switch(action.type)
 	{
-		case types.INIT_PLE:
-			return {
-				...state,
-				...action.value.preference.body.setting,
-			};
-			break;
+		// case types.INIT_PLE:
+		// 	return {
+		// 		...state,
+		// 		...action.value.preference.body.setting,
+		// 	};
+		// 	break;
 
 		case types.GRID_SETTING_UPDATE:
 			return {
@@ -129,16 +129,16 @@ function grid(state=[], action)
 
 	switch (action.type)
 	{
-		case types.INIT_PLE:
-			return (action.value.preference.body.grid || state).map((o, k) => {
-				lastGridId = lastGridId === null ? 0 : lastGridId + 1;
-				return {
-					color: null,
-					...o,
-					index: lastGridId,
-					indexPrefix: shuffleIndex,
-				};
-			});
+		// case types.INIT_PLE:
+		// 	return (action.value.preference.body.grid || state).map((o, k) => {
+		// 		lastGridId = lastGridId === null ? 0 : lastGridId + 1;
+		// 		return {
+		// 			color: null,
+		// 			...o,
+		// 			index: lastGridId,
+		// 			indexPrefix: shuffleIndex,
+		// 		};
+		// 	});
 
 		case types.GRID_ADD_BLOCK:
 			lastGridId = lastGridId === null ? 0 : lastGridId + 1;

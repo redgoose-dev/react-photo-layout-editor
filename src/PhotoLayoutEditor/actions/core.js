@@ -1,10 +1,11 @@
-import { INIT_SETTING } from './types';
+import * as types from './types';
 
 
-export function setting(value)
+export function init(api, preference)
 {
 	return {
-		type: INIT_SETTING,
-		value,
+		type: types.INIT_PLE,
+		api,
+		preference,
 	};
 }

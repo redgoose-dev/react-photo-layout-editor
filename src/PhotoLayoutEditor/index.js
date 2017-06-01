@@ -8,27 +8,26 @@ import API from './API';
 import Container from './Container';
 
 
-const store = createStore(reducers);
-
-
 export default class PhotoLayoutEditor extends React.Component {
 
-	constructor(props)
+	constructor()
 	{
 		super();
-		API.init(store);
-	}
 
-	componentDidMount()
-	{}
+		// set store
+		this.store = createStore(reducers);
+
+		// set api
+		this.api = new API(this.store);
+	}
 
 	render()
 	{
 		const { props } = this;
 
 		return (
-			<Provider store={store}>
-				<Container preference={props}/>
+			<Provider store={this.store}>
+				<Container parent={{ preference: props, api: this.api }}/>
 			</Provider>
 		);
 	}

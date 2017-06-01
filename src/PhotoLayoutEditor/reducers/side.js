@@ -97,7 +97,7 @@ function layout(state=initialLayout, action)
 		case types.INIT_SETTING:
 			return {
 				...state,
-				visible: action.value.side.visible,
+				visible: action.preference.side.visible,
 			};
 			break;
 		case types.SIDE_VISIBLE:
@@ -120,7 +120,7 @@ function layout(state=initialLayout, action)
 function files(state=[], action)
 {
 	switch (action.type) {
-		case types.ADD_FILES:
+		case types.SIDE_ADD_FILES:
 			return [
 				...state,
 				...action.files.map((o) => {

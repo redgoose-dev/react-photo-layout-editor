@@ -14,7 +14,7 @@ const config = (env) => {
 		entry: {
 			photoLayoutEditor: ifProd(
 				[ './PhotoLayoutEditor/index.js' ],
-				[ './index.dev.js' ]
+				[ './dev/index.js' ]
 			)
 		},
 
