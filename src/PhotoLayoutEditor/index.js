@@ -2,10 +2,10 @@ import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import Container from './Container';
+
 import reducers from './reducers';
 import API from './API';
-
-import Container from './Container';
 
 
 export default class PhotoLayoutEditor extends React.Component {

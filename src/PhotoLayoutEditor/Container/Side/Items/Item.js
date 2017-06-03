@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import * as lib from '../../lib';
+import * as lib from '../../../lib';
 
 
 export default class Item extends React.Component {

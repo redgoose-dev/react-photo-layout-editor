@@ -27,26 +27,22 @@ class Side extends React.Component {
 	{
 		super(props);
 
-		this.state = {
-			uploading: false,
-			itemProgress: null,
-		};
-
 		this.dragType = null;
 		this.dragTarget = null;
 		this.dragPosition = [];
 		this.$gridItems = null;
 		this.$dragItem = null;
+		this.uploading = false;
 	}
 
 	componentDidMount()
 	{
 		const { props } = this;
 
-		if (props.setting.side.items && props.setting.side.items.length)
-		{
-			props.api.side.add(props.setting.side.items);
-		}
+		// if (props.setting.side.items && props.setting.side.items.length)
+		// {
+		// 	props.api.side.add(props.setting.side.items);
+		// }
 	}
 
 	/**
@@ -55,6 +51,7 @@ class Side extends React.Component {
 	 *
 	 * @return {Object} gridster item
 	 */
+	// TODO
 	getGridsterItem()
 	{
 		const { props } = this;
@@ -84,15 +81,14 @@ class Side extends React.Component {
 	 */
 	_selectItem(id)
 	{
-		console.log('selectItem', id);
-		return;
-		const { dispatch, ple, tree } = this.props;
-		const { keyName } = ple.keyboard;
+		const { props } = this;
+		const { keyName } = props.keyboard;
+		let type = null;
 
-		if (keyName !== 'shift')
+		if (keyName !== 'SHIFT')
 		{
 			let currentItem = null;
-			tree.side.files.forEach((o) => {
+			props.tree.side.files.forEach((o, k) => {
 				if (o.id === id)
 				{
 					currentItem = o;
@@ -100,9 +96,22 @@ class Side extends React.Component {
 				}
 			});
 			firstSelectIdx = (currentItem.active === true) ? null : id;
+			if (!firstSelectIdx && currentItem.active === true)
+			{
+				firstSelectIdx = currentItem.id;
+			}
 		}
 
-		dispatch(actionsSide.changeActiveFile(id, keyName, firstSelectIdx));
+		switch (keyName) {
+			case 'CTRL':
+			case 'CMD':
+				type = 'add';
+				break;
+			case 'SHIFT':
+				type = 'range';
+		}
+
+		props.dispatch(actions.side.changeActiveFile(firstSelectIdx, id, type));
 	}
 
 	/**
@@ -110,26 +119,26 @@ class Side extends React.Component {
 	 */
 	_removeItems()
 	{
-		const { tree, dispatch } = this.props;
+		const { props } = this;
 		let activeItems = [];
 
-		if (!tree.side.files.length) return;
+		if (!props.tree.side.files.length) return;
 
-		tree.side.files.forEach(o => {
+		props.tree.side.files.forEach(o => {
 			if (o.active) activeItems.push(o.id);
 		});
 
 		if (!activeItems.length)
 		{
-			if (confirm('모두 지울까요?'))
+			if (confirm('Delete all?'))
 			{
-				tree.side.files.forEach(o => {
+				props.tree.side.files.forEach(o => {
 					activeItems.push(o.id);
 				});
 			}
 		}
 
-		dispatch(actionsSide.removeFiles(activeItems));
+		props.dispatch(actions.side.removeFiles(activeItems));
 	}
 
 	/**
@@ -137,65 +146,29 @@ class Side extends React.Component {
 	 */
 	_toggleSelect()
 	{
-		const { tree, dispatch } = this.props;
-		let active = false;
+		const { props } = this;
+		let type = 'all';
 
-		tree.side.files.some((o) => {
-			if (o.active) active = true;
+		props.tree.side.files.some((o) => {
+			if (o.active) type = 'none';
 			return o.active;
 		});
 
-		if (active)
-		{
-			dispatch(actionsSide.changeActiveFile(null, 'none', null));
-		}
-		else
-		{
-			dispatch(actionsSide.changeActiveFile(null, 'all', null));
-		}
+		props.dispatch(actions.side.changeActiveFile(null, null, type));
 	}
 
 	/**
 	 * upload
 	 *
-	 * @param {Array} files
+	 * @param {FileList} files
 	 */
 	_upload(files)
 	{
-		if (this.state.uploading) return;
-
-		const { ple, dispatch } = this.props;
-
-		this.setState({ uploading: true }, () => {
-			// lib.uploader.multiple(files, ple.preference.side.upload)
-			// 	.done(() => {
-			// 		console.warn('upload complete');
-			// 		this.uploading = false;
-			// 		this.setState({ uploading: false });
-			// 	})
-			// 	.progress((state, res) => {
-			// 		switch(state)
-			// 		{
-			// 			case 'start':
-			// 				this.setState({ itemProgress: 0 });
-			// 				break;
-			// 			case 'progress':
-			// 				const percent = parseInt((res.loaded / res.total * 100));
-			// 				this.setState({ itemProgress: percent });
-			// 				break;
-			// 			case 'done':
-			// 				this.setState({ itemProgress: null });
-			// 				if (res.src) dispatch(actionsSide.addFiles([res.src]));
-			// 				break;
-			// 		}
-			// 	})
-			// 	.fail(() => {
-			// 		console.warn('upload fail');
-			// 		this.setState({ uploading: false });
-			// 	});
-		});
+		const { props } = this;
+		props.api.side.upload(files);
 	}
 
+	// TODO
 	_attach()
 	{
 		const { props } = this;
@@ -221,6 +194,7 @@ class Side extends React.Component {
 		));
 	}
 
+	// TODO
 	_dragStartItem(e)
 	{
 		const { props } = this;
@@ -239,6 +213,7 @@ class Side extends React.Component {
 			this.dragTarget = $(e.currentTarget).data('index');
 		});
 	}
+	// TODO
 	_dragEndItem(e)
 	{
 		const { props } = this;
@@ -258,6 +233,7 @@ class Side extends React.Component {
 		// empty dragTarget
 		this.dragTarget = null;
 	}
+	// TODO
 	_touchStartItem(e)
 	{
 		e.preventDefault();
@@ -271,6 +247,7 @@ class Side extends React.Component {
 
 		$('body').append(this.$dragItem);
 	}
+	// TODO
 	_touchMoveItem(e)
 	{
 		e.preventDefault();
@@ -281,6 +258,7 @@ class Side extends React.Component {
 			top: touch.pageY - (this.$dragItem.height() * 0.5)
 		});
 	}
+	// TODO
 	_touchEndItem(e)
 	{
 		const { props } = this;
@@ -310,20 +288,20 @@ class Side extends React.Component {
 
 	render()
 	{
-		const { state, props } = this;
+		const { props } = this;
 
 		return (
 			<aside className="ple-side">
 				<div className={classNames(
 					'wrap',
-					{ 'show': props.tree.side.layout.visible }
+					{ 'show': props.tree.side.visible }
 				)}>
 					<span
-						onClick={() => props.dispatch(actions.side.changeActiveFile(null, 'none', null))}
+						onClick={() => props.dispatch(actions.side.changeActiveFile(null, null, 'none'))}
 						className="background"/>
 					<ToggleSideButton
-						show={props.tree.side.layout.visible}
-						onClick={() => props.api.layout.toggleSide()}/>
+						show={props.tree.side.visible}
+						onClick={() => props.api.layout.toggleSide(undefined)}/>
 					<Navigation
 						onAttach={this._attach.bind(this)}
 						onToggleSelect={this._toggleSelect.bind(this)}
@@ -337,7 +315,7 @@ class Side extends React.Component {
 						onTouchStart={this._touchStartItem.bind(this)}
 						onTouchMove={this._touchMoveItem.bind(this)}
 						onTouchEnd={this._touchEndItem.bind(this)}
-						progress={state.itemProgress}/>
+						progress={props.tree.side.progressPercent}/>
 				</div>
 			</aside>
 		);

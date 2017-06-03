@@ -26,7 +26,7 @@ class Container extends React.Component {
 
 		props.dispatch(actions.core.init(
 			props.parent.api,
-			props.parent.preference || {}
+			props.parent.preference || { side: {}, grid: {} }
 		));
 	}
 
@@ -39,7 +39,7 @@ class Container extends React.Component {
 
 		return (
 			<div className={classNames('ple-editor', {
-				'side-active': props.tree.side.layout.visible
+				'side-active': props.tree.side.visible
 			})}>
 				<div className="ple-wrap">
 					{/*<Body/>*/}

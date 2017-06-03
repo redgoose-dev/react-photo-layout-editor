@@ -1,7 +1,12 @@
 import * as types from '../actions/types';
+import Keyboard from '../lib/Keyboard';
 
 
 const initialSettings = {
+	base: {
+		uploadScript: null,
+		uploadParamsConvertFunc: null,
+	},
 	grid: {
 		setting: {
 			width: 100,
@@ -20,8 +25,9 @@ const initialSettings = {
 		],
 	},
 	side: {
+		files: [],
 		visible: true,
-		items: null,
+		progressPercent: null,
 	},
 };
 
@@ -31,14 +37,19 @@ export function setting(state=null, action)
 	switch (action.type) {
 		case types.INIT_PLE:
 			return Object.assign({}, {
+				base: {
+					...initialSettings.base,
+					uploadScript: action.preference.uploadScript || initialSettings.base.uploadScript,
+					uploadParamsConvertFunc: action.preference.uploadParamsConvertFunc || initialSettings.base.uploadParamsConvertFunc
+				},
 				side: {
 					...initialSettings.side,
-					...action.preference.side,
+					...action.preference.side
 				},
 				grid: {
 					...initialSettings.grid,
 					...action.preference.grid,
-				},
+				}
 			});
 			break;
 
@@ -62,5 +73,11 @@ export function api(state=null, action)
 
 export function keyboard(state=null, action)
 {
+	switch (action.type) {
+		case types.INIT_PLE:
+			return new Keyboard();
 
+		default:
+			return state;
+	}
 }

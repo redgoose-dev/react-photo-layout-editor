@@ -1,33 +1,35 @@
 import { combineReducers } from 'redux';
+
 import * as types from '../actions/types';
 
 
-const initialLayout = {
-	visible: true,
-};
 let nextFileId = 0;
+const initialSide = {
+	files: [],
+	visible: true,
+	progressPercent: null,
+};
 
 
 /**
  * Change active
  *
  * @param {Object} item
- * @param {Number} n
- * @param {String} key press key name and select type
- * @param {Number} first
+ * @param {Number} start
+ * @param {Number} end
+ * @param {String} type press key name and select type
  * @param {Number} activeCount
  */
-function changeActive(item, n, key, first, activeCount)
+function changeActive(item, start, end, type, activeCount)
 {
-	switch(key)
+	switch(type)
 	{
 		case 'all':
 			return Object.assign({}, item, { active: true });
 		case 'none':
 			return Object.assign({}, item, { active: false });
-		case 'cmd':
-		case 'ctrl':
-			if (item.id === n)
+		case 'add':
+			if (item.id === end)
 			{
 				return Object.assign({}, item, { active: !item.active });
 			}
@@ -35,11 +37,11 @@ function changeActive(item, n, key, first, activeCount)
 			{
 				return item;
 			}
-		case 'shift':
-			first = first || 0;
-			if (first < n)
+		case 'range':
+			start = start || 0;
+			if (start < end)
 			{
-				if (item.id >= first && item.id <= n)
+				if (item.id >= start && item.id <= end)
 				{
 					return Object.assign({}, item, { active: true });
 				}
@@ -50,7 +52,7 @@ function changeActive(item, n, key, first, activeCount)
 			}
 			else
 			{
-				if (item.id <= first && item.id >= n)
+				if (item.id <= start && item.id >= end)
 				{
 					return Object.assign({}, item, { active: true });
 				}
@@ -59,15 +61,15 @@ function changeActive(item, n, key, first, activeCount)
 					return Object.assign({}, item, { active: false });
 				}
 			}
-
 			return item;
 	}
 
-	if (activeCount >= 2 && item.id === n)
+	// not fount key
+	if (activeCount >= 2 && item.id === end)
 	{
 		return Object.assign({}, item, { active: true });
 	}
-	else if (item.id === n)
+	else if (item.id === end)
 	{
 		return Object.assign({}, item, { active: !item.active });
 	}
@@ -91,75 +93,93 @@ function getActiveItems(items)
 }
 
 
-function layout(state=initialLayout, action)
+/**
+ * Reducers
+ */
+
+// status
+export default function base(state=initialSide, action)
 {
 	switch (action.type) {
-		case types.INIT_SETTING:
-			return {
-				...state,
-				visible: action.preference.side.visible,
-			};
-			break;
+		case types.INIT_PLE:
+			try {
+				return {
+					...state,
+					...action.preference.side,
+					files: [
+						...state,
+						...action.preference.side.files.map((o) => {
+							return {
+								id: nextFileId++,
+								image: o,
+								active: false,
+							}
+						})
+					]
+				};
+			} catch(e) {
+				return state;
+			}
+
 		case types.SIDE_VISIBLE:
 			return {
 				...state,
 				visible: action.value,
 			};
-			break;
+
 		case types.SIDE_TOGGLE:
 			return {
 				...state,
 				visible: !state.visible,
 			};
-			break;
-		default:
-			return state;
-	}
-}
 
-function files(state=[], action)
-{
-	switch (action.type) {
 		case types.SIDE_ADD_FILES:
-			return [
+			return {
 				...state,
-				...action.files.map((o) => {
-					return {
-						id: nextFileId++,
-						image: o,
-						active: false,
-					};
-				}),
-			];
+				files: [
+					...state.files,
+					...action.files.map((o) => {
+						return {
+							id: nextFileId++,
+							image: o,
+							active: false,
+						};
+					})
+				]
+			};
 
-		case types.REMOVE_FILES:
+		case types.SIDE_REMOVE_FILES:
 			if (!action.ids.length) return state;
 			let selectItems = [];
-			state.forEach(o => {
+			state.files.forEach(o => {
 				if (action.ids.indexOf(o.id) < 0) selectItems.push(o);
 			});
-			return selectItems;
+			return {
+				...state,
+				files: selectItems
+			};
 
-		case types.CHANGE_ACTIVE_FILE:
-			return state.map(item => {
-				return changeActive(
-					item,
-					action.num,
-					action.keyName,
-					action.firstNum,
-					getActiveItems(state).length,
-				);
-			});
+		case types.SIDE_CHANGE_ACTIVE_FILE:
+			return {
+				...state,
+				files: state.files.map(item => {
+					return changeActive(
+						item,
+						action.start,
+						action.end,
+						action.selectType,
+						getActiveItems(state.files).length,
+					);
+				})
+			};
+
+		case types.SIDE_UPDATE_PROGRESS:
+			return {
+				...state,
+				progressPercent: action.value
+			};
 
 		default:
 			return state;
 	}
 }
-
-
-const ple = combineReducers({
-	layout,
-	files,
-});
-
-export default ple;

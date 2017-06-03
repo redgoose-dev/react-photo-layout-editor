@@ -29,17 +29,25 @@ export function addFiles(files)
 export function removeFiles(ids)
 {
 	return {
-		type: types.REMOVE_FILES,
+		type: types.SIDE_REMOVE_FILES,
 		ids: ids,
 	};
 }
 
-export function changeActiveFile(n, key, first)
+export function changeActiveFile(start, end, selectType)
 {
 	return {
-		type: types.CHANGE_ACTIVE_FILE,
-		num: n,
-		keyName: key,
-		firstNum: first,
+		type: types.SIDE_CHANGE_ACTIVE_FILE,
+		start,
+		end,
+		selectType
+	};
+}
+
+export function updateProgress(percent)
+{
+	return {
+		type: types.SIDE_UPDATE_PROGRESS,
+		value: percent
 	};
 }

@@ -32,3 +32,14 @@ export function getRatioForResize(min, max)
 {
 	return (max > min) ? min / max : max / min;
 }
+
+
+/**
+ * Get timestamp
+ *
+ * @return {Number}
+ */
+export function getTimeStamp()
+{
+	return Math.round(+new Date()/1000);
+}
