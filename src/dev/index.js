@@ -41,7 +41,14 @@ class App extends React.Component {
 								onClick={() => {
 									this._photoLayoutEditor.api.layout.toggleSide();
 								}}>
-								call test
+								toggle side
+							</button>
+							<button
+								type="button"
+								onClick={() => {
+									alert('test');
+								}}>
+								test button
 							</button>
 						</nav>
 					</section>

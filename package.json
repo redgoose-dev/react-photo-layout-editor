@@ -1,6 +1,6 @@
 {
   "name": "react-photo-layout-editor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Photo layout editor for react",
   "main": "index.js",
   "repository": {
@@ -26,7 +26,8 @@
   "homepage": "https://github.com/RedgooseDev/react-photo-layout-editor#readme",
   "scripts": {
     "start": "webpack-dev-server --env=dev --host 0.0.0.0 --port 4040",
-    "build": "webpack --env=prod -p --progress"
+    "build": "webpack --env=prod -p --progress",
+    "postversion": "git push origin master --tags && npm publish"
   },
   "engines": {
     "node": ">=7.8.0"
