@@ -1,16 +1,7 @@
-import { combineReducers } from 'redux';
 import * as types from '../actions/types';
 
 
-const initialOptions = {
-	image: null,
-	color: '#fff',
-	imageResize: false,
-	style: null,
-};
-
-
-function visible(state=false, action)
+export function visible(state=false, action)
 {
 	switch(action.type)
 	{
@@ -25,22 +16,14 @@ function visible(state=false, action)
 	}
 }
 
-function setting(state=initialOptions, action)
+export function item(state=null, action)
 {
 	switch(action.type)
 	{
 		case types.CROPPER_OPEN:
-			return {
-				...action.value
-			};
+			return action.value;
 
 		default:
 			return state;
 	}
 }
-
-
-export default combineReducers({
-	visible,
-	setting,
-});

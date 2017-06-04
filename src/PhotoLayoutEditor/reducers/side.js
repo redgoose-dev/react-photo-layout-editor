@@ -1,14 +1,8 @@
-import { combineReducers } from 'redux';
-
 import * as types from '../actions/types';
+import * as defaults from './defaults';
 
 
 let nextFileId = 0;
-const initialSide = {
-	files: [],
-	visible: true,
-	progressPercent: null,
-};
 
 
 /**
@@ -97,8 +91,8 @@ function getActiveItems(items)
  * Reducers
  */
 
-// status
-export default function base(state=initialSide, action)
+// base
+export default function base(state=defaults.side, action)
 {
 	switch (action.type) {
 		case types.INIT_PLE:
@@ -107,7 +101,6 @@ export default function base(state=initialSide, action)
 					...state,
 					...action.preference.side,
 					files: [
-						...state,
 						...action.preference.side.files.map((o) => {
 							return {
 								id: nextFileId++,

@@ -18,6 +18,6 @@ export default function Layout(store) {
 		} catch(e) {
 			console.warn('Error action', e)
 		}
-	}
+	};
 
 }

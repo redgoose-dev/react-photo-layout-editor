@@ -1,30 +1,8 @@
-import { combineReducers } from 'redux';
 import * as types from '../actions/types';
+import * as libs from '../lib';
+import * as defaults from './defaults';
 
-import { randomRange } from '../lib/number';
-import { findObjectValueInArray } from '../lib/object';
 
-
-const defaults = {
-	setting: {
-		width: 100,
-		height: 100,
-		maxColumn: 5,
-		outerMargin: 10,
-		innerMargin: 10,
-	},
-	visibleToolbarButtons: {
-		setting: true,
-		shuffle: true,
-		add: true,
-		select: true,
-		edit: false,
-		removeImage: false,
-		duplicate: false,
-		removeBlock: false,
-		editColor: false,
-	}
-};
 let lastGridId = null;
 let shuffleIndex = 0;
 
@@ -36,16 +14,19 @@ let shuffleIndex = 0;
  * @param {*} action
  * @return {Object}
  */
-function setting(state=defaults.setting, action)
+export function setting(state=defaults.setting.body.setting, action)
 {
 	switch(action.type)
 	{
-		// case types.INIT_PLE:
-		// 	return {
-		// 		...state,
-		// 		...action.value.preference.body.setting,
-		// 	};
-		// 	break;
+		case types.INIT_PLE:
+			try {
+				return {
+					...state,
+					...action.preference.body.setting
+				};
+			} catch(e) {
+				return state;
+			}
 
 		case types.GRID_SETTING_UPDATE:
 			return {
@@ -63,7 +44,7 @@ function setting(state=defaults.setting, action)
  * @param {*} action
  * @return {Object}
  */
-function visibleToolbarButtons(state=defaults.visibleToolbarButtons, action)
+export function visibleToolbarButtons(state=defaults.body.visibleToolbarButtons, action)
 {
 	switch(action.type) {
 		case types.GRID_ACTIVE_BLOCK:
@@ -104,13 +85,13 @@ function visibleToolbarButtons(state=defaults.visibleToolbarButtons, action)
 				duplicate: false,
 				removeBlock: false,
 				editColor: false,
-			}
+			};
 
 		case types.GRID_REMOVE_IMAGES:
 			return {
 				...state,
 				edit: false,
-			}
+			};
 	}
 	return state;
 }
@@ -122,23 +103,30 @@ function visibleToolbarButtons(state=defaults.visibleToolbarButtons, action)
  * @param {*} action
  * @return {Array}
  */
-function grid(state=[], action)
+export function grid(state=defaults.setting.body.grid, action)
 {
 	let newState = null;
 	let n = null;
 
 	switch (action.type)
 	{
-		// case types.INIT_PLE:
-		// 	return (action.value.preference.body.grid || state).map((o, k) => {
-		// 		lastGridId = lastGridId === null ? 0 : lastGridId + 1;
-		// 		return {
-		// 			color: null,
-		// 			...o,
-		// 			index: lastGridId,
-		// 			indexPrefix: shuffleIndex,
-		// 		};
-		// 	});
+		case types.INIT_PLE:
+			let grid = [];
+			try {
+				grid = action.preference.body.grid || state;
+			} catch(e) {
+				grid = state;
+			}
+
+			return grid.map((o, k) => {
+				lastGridId = lastGridId === null ? 0 : lastGridId + 1;
+				return {
+					color: null,
+					...o,
+					index: lastGridId,
+					indexPrefix: shuffleIndex,
+				};
+			});
 
 		case types.GRID_ADD_BLOCK:
 			lastGridId = lastGridId === null ? 0 : lastGridId + 1;
@@ -155,7 +143,7 @@ function grid(state=[], action)
 			newState = Object.assign([], state);
 			for (let i=0; i<action.index.length; i++)
 			{
-				const n = findObjectValueInArray(newState, 'index', action.index[i]);
+				const n = libs.object.findObjectValueInArray(newState, 'index', action.index[i]);
 				newState.splice(n, 1);
 			}
 			return newState;
@@ -167,10 +155,10 @@ function grid(state=[], action)
 				return {
 					...o,
 					layout: {
-						x: randomRange(0, action.value.x - 1),
-						y: randomRange(0, action.value.y - 1),
-						w: randomRange(1, action.value.w),
-						h: randomRange(1, action.value.h),
+						x: libs.number.randomRange(0, action.value.x - 1),
+						y: libs.number.randomRange(0, action.value.y - 1),
+						w: libs.number.randomRange(1, action.value.w),
+						h: libs.number.randomRange(1, action.value.h),
 					},
 					indexPrefix: shuffleIndex,
 				};
@@ -179,7 +167,7 @@ function grid(state=[], action)
 		case types.GRID_DUPLICATE_BLOCK:
 			newState = Object.assign([], state);
 			action.index.forEach((o, k) => {
-				n = findObjectValueInArray(state, 'index', o);
+				n = libs.object.findObjectValueInArray(state, 'index', o);
 				if (!newState[n]) return;
 				lastGridId = lastGridId === null ? 0 : lastGridId + 1;
 				newState = newState.concat({
@@ -192,13 +180,13 @@ function grid(state=[], action)
 		case types.GRID_CHANGE_COLOR:
 			newState = Object.assign([], state);
 			action.item.forEach((o, k) => {
-				n = findObjectValueInArray(newState, 'index', o);
+				n = libs.object.findObjectValueInArray(newState, 'index', o);
 				if (newState[n]) newState[n].color = action.color;
 			});
 			return newState;
 
 		case types.ATTACH_IMAGES:
-			if (!(action.value && action.value.length)) return state;
+			if (!libs.object.isArray(action.value)) return state;
 			newState = Object.assign([], state);
 
 			if (action.activeBlocks && action.activeBlocks.length)
@@ -254,7 +242,7 @@ function grid(state=[], action)
 			if (!(action.index !== null && typeof action.index === 'number')) return state;
 
 			newState = Object.assign([], state);
-			n = findObjectValueInArray(newState, 'index', action.index);
+			n = libs.object.findObjectValueInArray(newState, 'index', action.index);
 			newState[n].image = {
 				src: action.image,
 				position: '50% 50%',
@@ -266,7 +254,7 @@ function grid(state=[], action)
 		case types.GRID_REMOVE_IMAGES:
 			newState = Object.assign([], state);
 			action.value.forEach((o) => {
-				n = findObjectValueInArray(newState, 'index', o);
+				n = libs.object.findObjectValueInArray(newState, 'index', o);
 				if (newState[n] && newState[n].image)
 				{
 					delete newState[n].image;
@@ -279,7 +267,7 @@ function grid(state=[], action)
 
 		case types.CROPPER_CLOSE:
 			newState = Object.assign([], state);
-			n = findObjectValueInArray(state, 'index', action.value.index);
+			n = libs.object.findObjectValueInArray(state, 'index', action.value.index);
 
 			newState[n].image.position = action.value.position;
 			newState[n].image.size = action.value.size;
@@ -297,7 +285,7 @@ function grid(state=[], action)
  * @param {*} action
  * @return {Array}
  */
-function activeBlock(state=[], action)
+export function activeBlock(state=[], action)
 {
 	let newState = null;
 
@@ -321,11 +309,3 @@ function activeBlock(state=[], action)
 
 	return state;
 }
-
-
-export default combineReducers({
-	setting,
-	visibleToolbarButtons,
-	grid,
-	activeBlock,
-});

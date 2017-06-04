@@ -31,3 +31,14 @@ export function findObjectValueInArray(array=[], key='index', value=null)
 		if (array[i][key] === value) return i;
 	}
 }
+
+/**
+ * is array
+ *
+ * @param {Array} arr
+ * @return {Boolean}
+ */
+export function isArray(arr=[])
+{
+	return !!(arr && arr.length);
+}

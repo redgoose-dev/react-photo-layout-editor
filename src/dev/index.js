@@ -24,7 +24,6 @@ class App extends React.Component {
 							'http://goose.redgoose.me/data/upload/original/201705/rg-20170515-000134.jpg',
 							'http://goose.redgoose.me/data/upload/original/201501/a93e9f2c844c4e8d6a80c89c9e3840ec.jpg'
 						],
-						visible: true,
 					}}
 					uploadScript="http://localhost/lab/uploader/upload.php"
 					uploadParamsConvertFunc={(file) => { return file.url; }}

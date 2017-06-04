@@ -51,12 +51,11 @@ class Side extends React.Component {
 	 *
 	 * @return {Object} gridster item
 	 */
-	// TODO
 	getGridsterItem()
 	{
 		const { props } = this;
 		let target = null;
-		this.$gridItems = $(props.ple.el).find('.ple-grid > div');
+		this.$gridItems = $(props.element).find('.ple-grid > div');
 
 		this.$gridItems.each((n, el) => {
 			const $this = $(el);
@@ -168,7 +167,9 @@ class Side extends React.Component {
 		props.api.side.upload(files);
 	}
 
-	// TODO
+	/**
+	 * Attach images to grid
+	 */
 	_attach()
 	{
 		const { props } = this;
@@ -187,19 +188,18 @@ class Side extends React.Component {
 			return;
 		}
 
-		props.dispatch(actionsBody.attachImages(
+		props.dispatch(actions.body.attachImages(
 			selectedImages,
 			props.tree.body.setting.column,
 			props.tree.body.activeBlock
 		));
 	}
 
-	// TODO
 	_dragStartItem(e)
 	{
 		const { props } = this;
 
-		this.$gridItems = $(props.ple.el).find('.ple-grid > div');
+		this.$gridItems = $(props.element).find('.ple-grid > div');
 		this.$gridItems.on('dragover', (e) => {
 			e.preventDefault();
 			if ($(e.currentTarget).hasClass('hover')) return;
@@ -213,7 +213,6 @@ class Side extends React.Component {
 			this.dragTarget = $(e.currentTarget).data('index');
 		});
 	}
-	// TODO
 	_dragEndItem(e)
 	{
 		const { props } = this;
@@ -225,7 +224,7 @@ class Side extends React.Component {
 		if (this.dragTarget === null) return;
 
 		// play redux
-		props.dispatch(actionsBody.attachImage(
+		props.dispatch(actions.body.attachImage(
 			this.dragTarget,
 			$(e.currentTarget).data('image')
 		));
@@ -233,11 +232,8 @@ class Side extends React.Component {
 		// empty dragTarget
 		this.dragTarget = null;
 	}
-	// TODO
 	_touchStartItem(e)
 	{
-		e.preventDefault();
-
 		this.$dragItem = $(e.currentTarget)
 			.clone()
 			.removeAttr('draggable')
@@ -247,10 +243,8 @@ class Side extends React.Component {
 
 		$('body').append(this.$dragItem);
 	}
-	// TODO
 	_touchMoveItem(e)
 	{
-		e.preventDefault();
 		let touch = e.nativeEvent.touches[0];
 		this.dragPosition = [touch.pageX, touch.pageY];
 		this.$dragItem.css({
@@ -258,7 +252,6 @@ class Side extends React.Component {
 			top: touch.pageY - (this.$dragItem.height() * 0.5)
 		});
 	}
-	// TODO
 	_touchEndItem(e)
 	{
 		const { props } = this;
@@ -274,7 +267,7 @@ class Side extends React.Component {
 			if (this.dragTarget === null) return;
 
 			// play redux
-			props.dispatch(actionsBody.attachImage(
+			props.dispatch(actions.body.attachImage(
 				this.dragTarget,
 				$(e.currentTarget).data('image')
 			));
@@ -323,6 +316,4 @@ class Side extends React.Component {
 }
 
 
-export default connect((state) => {
-	return Object.assign({}, state, {});
-})(Side);
+export default connect((state) => Object.assign({}, state, {}))(Side);

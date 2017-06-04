@@ -1,11 +1,11 @@
 import * as types from './types';
 
 
-export function open(options)
+export function open(item)
 {
 	return {
 		type: types.CROPPER_OPEN,
-		value: options,
+		value: item,
 	};
 }
 

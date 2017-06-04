@@ -4,20 +4,24 @@ import classNames from 'classnames';
 
 import * as actions from '../actions';
 
-//import Body from './Body';
+import Body from './Body';
 import Side from './Side';
-//import Cropper from './Cropper';
+import Cropper from './Cropper';
 
 
 class Container extends React.Component {
 
 	static defaultProps = {
-
+		parent: {},
+		dispatch: null,
+		tree: {},
+		setting: null,
 	};
 
-	constructor(props)
-	{
+	constructor() {
 		super();
+
+		this.el = null;
 	}
 
 	componentDidMount()
@@ -26,7 +30,8 @@ class Container extends React.Component {
 
 		props.dispatch(actions.core.init(
 			props.parent.api,
-			props.parent.preference || { side: {}, grid: {} }
+			props.parent.preference || { side: {}, grid: {} },
+			this.el
 		));
 	}
 
@@ -34,18 +39,17 @@ class Container extends React.Component {
 	{
 		const { props } = this;
 
-		// check Setting
-		if (!props.setting) return null;
-
 		return (
-			<div className={classNames('ple-editor', {
-				'side-active': props.tree.side.visible
-			})}>
-				<div className="ple-wrap">
-					{/*<Body/>*/}
-					<Side/>
-					{/*{props.tree.cropper.visible ? ( <Cropper/> ) : null}*/}
-				</div>
+			<div
+				ref={(r) => { this.el = r; }}
+				className={classNames('ple-editor', { 'side-active': props.tree.side.visible })}>
+				{props.setting && (
+					<div className="ple-wrap">
+						<Body/>
+						<Side/>
+						{props.tree.cropper.visible ? ( <Cropper/> ) : null}
+					</div>
+				)}
 			</div>
 		);
 	}
@@ -53,6 +57,4 @@ class Container extends React.Component {
 }
 
 
-export default connect((state) => {
-	return Object.assign({}, state, {});
-})(Container);
+export default connect((state) => Object.assign({}, state, {}))(Container);

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 import * as core from './core';
-import grid from './grid';
+import * as body from './body';
 import side from './side';
-import cropper from './cropper';
+import * as cropper from './cropper';
 
 
 export default combineReducers({
@@ -17,11 +17,22 @@ export default combineReducers({
 	// keyboard event
 	keyboard: core.keyboard,
 
+	// element
+	element: core.element,
+
 	// data tree
 	tree: combineReducers({
 		side,
-		grid,
-		cropper
+		body: combineReducers({
+			setting: body.setting,
+			visibleToolbarButtons: body.visibleToolbarButtons,
+			grid: body.grid,
+			activeBlock: body.activeBlock,
+		}),
+		cropper: combineReducers({
+			visible: cropper.visible,
+			item: cropper.item,
+		})
 	}),
 
 });
