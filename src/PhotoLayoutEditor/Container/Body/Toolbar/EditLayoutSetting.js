@@ -3,6 +3,8 @@ import React from 'react';
 
 export default class EditLayoutSetting extends React.Component {
 
+	static displayName = 'EditLayoutSetting';
+
 	static defaultProps = {
 		submit: () => {},
 		setting: null,

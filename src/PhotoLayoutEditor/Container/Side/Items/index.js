@@ -5,6 +5,8 @@ import Item from './Item';
 
 export default class Items extends React.Component {
 
+	static displayName = 'Items';
+
 	static defaultProps = {
 		files: [], // files
 		onSelect: (id) => {}, // on select event

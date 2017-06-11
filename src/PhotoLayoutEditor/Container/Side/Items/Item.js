@@ -6,6 +6,8 @@ import * as lib from '../../../lib';
 
 export default class Item extends React.Component {
 
+	static displayName = 'Item';
+
 	static defaultProps = {
 		image: null, // image
 		id: null, // id

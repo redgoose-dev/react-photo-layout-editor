@@ -10,6 +10,8 @@ import * as lib from '../../lib';
 
 class Cropper extends React.Component {
 
+	static displayName = 'Cropper';
+
 	constructor(props)
 	{
 		super(props);

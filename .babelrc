@@ -5,7 +5,7 @@
 		"transform-object-rest-spread",
 		"transform-react-jsx",
 		"transform-flow-strip-types",
-		"transform-es2015-block-scoping",
+		"transform-es2015-block-scoping"
 	],
 	"presets": [
 		"es2015"

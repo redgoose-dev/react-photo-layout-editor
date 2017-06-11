@@ -3,6 +3,8 @@ import React from 'react';
 
 export default class SideNavigation extends React.Component {
 
+	static displayName = 'Navigation';
+
 	static defaultProps = {
 		onRemove: () => {},
 		onToggleSelect: () => {},

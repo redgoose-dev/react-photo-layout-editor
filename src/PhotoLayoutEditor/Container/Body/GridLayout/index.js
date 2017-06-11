@@ -12,6 +12,8 @@ let timeStamp = [];
 
 class GridLayout extends React.Component {
 
+	static displayName = 'GridLayout';
+
 	static defaultProps = {
 		tree: null,
 		ple: null,
@@ -163,9 +165,9 @@ class GridLayout extends React.Component {
 					margin={[setting.innerMargin, setting.innerMargin]}
 					containerPadding={[setting.outerMargin, setting.outerMargin]}
 					verticalCompact={!setting.freeMode}
-					onDragStart={() => this._updateBlocks('start')}
+					onDragStart={() => this._updateBlocks('start', null)}
 					onDragStop={(layout) => this._updateBlocks('end', layout)}
-					onResizeStart={() => this._updateBlocks('start')}
+					onResizeStart={() => this._updateBlocks('start', null)}
 					onResizeStop={(layout) => this._updateBlocks('end', layout)}
 					style={{width: `${bodyWidth}px`}}
 					className="ple-grid">

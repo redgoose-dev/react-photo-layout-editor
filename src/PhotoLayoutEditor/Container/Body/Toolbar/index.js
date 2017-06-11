@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import $ from 'jquery/dist/jquery.slim';
 import ColorPicker from 'react-simple-colorpicker';
 
-import { rgbToHex } from '../../../lib/color';
 import { findObjectValueInArray } from '../../../lib/object';
 import * as actions from '../../../actions';
 import * as libs from '../../../lib';
@@ -14,6 +13,8 @@ import EditLayoutSetting from './EditLayoutSetting';
 
 
 class Toolbar extends React.Component {
+
+	static displayName = 'Toolbar';
 
 	static defaultProps = {
 		dispatch: null,
@@ -87,25 +88,6 @@ class Toolbar extends React.Component {
 	{
 		const { props } = this;
 		props.api.cropper.open(props.tree.body.activeBlock[0]);
-
-		// const n = findObjectValueInArray(props.tree.body.grid, 'index', props.tree.body.activeBlock[0]);
-		// const item = props.tree.body.grid[n];
-		//
-		// if (!item.image) return;
-		//
-		// let $dom = $(props.element).find('.react-grid-item').filter(`[data-index=${item.index}]`);
-		//
-		// props.dispatch(actions.cropper.open({
-		// 	index: props.tree.body.activeBlock[0],
-		// 	color: item.color,
-		// 	image: item.image,
-		// 	wrap: {
-		// 		top: $dom.offset().top,
-		// 		left: $dom.offset().left,
-		// 		width: $dom.width(),
-		// 		height: $dom.height(),
-		// 	},
-		// }));
 	}
 
 	render()
@@ -246,15 +228,16 @@ class Toolbar extends React.Component {
 								}
 							}}
 							title="Change color">
-							<ColorPicker
-								onChange={(color) => {
-									color = rgbToHex(color);
-									if (color)
-									{
-										props.dispatch(actions.body.changeColorBlock(props.tree.body.activeBlock, color));
-									}
-								}}
-								color={activeBlockColor}/>
+							<div className="colorPicker__wrap">
+								<ColorPicker
+									onChange={(color) => {
+										if (color)
+										{
+											props.dispatch(actions.body.changeColorBlock(props.tree.body.activeBlock, color));
+										}
+									}}
+									color={activeBlockColor}/>
+							</div>
 						</Button>
 					)}
 				</div>

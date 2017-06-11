@@ -11,7 +11,7 @@
 	}
 
 	.wrap {
-		position: fixed;
+		position: absolute;
 		height: $height;
 		z-index: 11;
 		width: 100%;
@@ -172,7 +172,11 @@
 		}
 	}
 
-	.colorpicker {
-		left: -20px;
+	.colorPicker__wrap {
+		position: relative;
+		left: -30px;
+		.colorpicker {
+			border: none;
+		}
 	}
 }

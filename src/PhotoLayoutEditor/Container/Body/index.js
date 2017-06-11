@@ -6,6 +6,8 @@ import Toolbar from './Toolbar';
 
 export default class Body extends React.Component {
 
+	static displayName = 'Body';
+
 	constructor(props) {
 		super(props);
 	}

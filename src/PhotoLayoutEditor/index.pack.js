@@ -7,6 +7,8 @@ import Container from './Container';
 import reducers from './reducers';
 import API from './API';
 
+import './style/app.scss';
+
 
 class PhotoLayoutEditor extends React.Component {
 

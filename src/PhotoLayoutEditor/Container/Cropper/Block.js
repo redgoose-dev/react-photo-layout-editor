@@ -15,6 +15,8 @@ const controlEvent = {
 
 export default class Block extends React.Component {
 
+	static displayName = 'Block';
+
 	static defaultProps = {
 		src: '',
 		position: '',

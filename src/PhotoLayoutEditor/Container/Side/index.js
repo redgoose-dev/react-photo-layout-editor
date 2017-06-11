@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import $ from 'jquery/dist/jquery.slim';
 
 import * as actions from '../../actions';
-import * as lib from '../../lib';
 
 import ToggleSideButton from './ToggleSideButton';
 import Navigation from './Navigation';
@@ -15,6 +14,8 @@ let firstSelectIdx = null;
 
 
 class Side extends React.Component {
+
+	static displayName = 'Side';
 
 	static defaultProps = {
 		tree: {}, // data tree in reduce
@@ -313,6 +314,7 @@ class Side extends React.Component {
 			</aside>
 		);
 	}
+
 }
 
 

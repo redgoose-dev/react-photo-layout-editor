@@ -3,6 +3,8 @@ import React from 'react';
 
 export default class Button extends React.Component {
 
+	static displayName = 'Button';
+
 	render() {
 		const { children, title, iconClass, className, onClick } = this.props;
 

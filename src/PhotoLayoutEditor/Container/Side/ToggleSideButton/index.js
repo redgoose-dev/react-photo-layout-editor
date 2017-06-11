@@ -4,6 +4,8 @@ import classNames from 'classnames';
 
 export default class ToggleSideButton extends Component {
 
+	static displayName = 'ToggleSideButton';
+
 	static defaultProps = {
 		show: false,
 		onClick: () => {}

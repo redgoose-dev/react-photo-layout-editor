@@ -11,6 +11,8 @@ import Cropper from './Cropper';
 
 class Container extends React.Component {
 
+	static displayName = 'Container';
+
 	static defaultProps = {
 		parent: {},
 		dispatch: null,
@@ -18,7 +20,8 @@ class Container extends React.Component {
 		setting: null,
 	};
 
-	constructor() {
+	constructor()
+	{
 		super();
 
 		this.el = null;
