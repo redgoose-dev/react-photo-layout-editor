@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import PhotoLayoutEditor from '../PhotoLayoutEditor';
+import * as util from './util';
 
 import '../PhotoLayoutEditor/style/app.scss';
 
@@ -14,18 +15,27 @@ class App extends React.Component {
 		this._photoLayoutEditor = null;
 	}
 
-	render() {
+	action(id, value)
+	{
+		switch(id)
+		{
+			case 'layout.toggleSide':
+				this._photoLayoutEditor.api.layout.toggleSide();
+				break;
+
+			case 'side.addFiles':
+				this._photoLayoutEditor.api.side.add(value);
+				break;
+		}
+	}
+
+	render()
+	{
 		return (
 			<div className="app">
 				<PhotoLayoutEditor
-					side={{
-						files: [
-							'http://goose.redgoose.me/data/upload/original/201705/rg-20170515-000130.jpg',
-							'http://goose.redgoose.me/data/upload/original/201705/rg-20170515-000134.jpg',
-							'http://goose.redgoose.me/data/upload/original/201501/a93e9f2c844c4e8d6a80c89c9e3840ec.jpg'
-						],
-					}}
-					uploadScript="http://localhost/lab/uploader/upload.php"
+					side={{ files: util.pickImages(5) }}
+					//uploadScript="http://localhost/lab/uploader/upload.php"
 					uploadParamsConvertFunc={(file) => { return file.url; }}
 					ref={(r) => { this._photoLayoutEditor = r }}/>
 
@@ -34,21 +44,22 @@ class App extends React.Component {
 				<article className="api-control">
 					<h1>Controller</h1>
 					<section>
-						<h1>basic</h1>
+						<h1>Side</h1>
 						<nav>
 							<button
 								type="button"
-								onClick={() => {
-									this._photoLayoutEditor.api.layout.toggleSide();
-								}}>
-								toggle side
+								onClick={() => this.action('side.addFiles', util.pickImages(2))}>
+								Add files
 							</button>
+						</nav>
+					</section>
+					<section>
+						<h1>Layout</h1>
+						<nav>
 							<button
 								type="button"
-								onClick={() => {
-									alert('test');
-								}}>
-								test button
+								onClick={() => this.action('layout.toggleSide')}>
+								Toggle side
 							</button>
 						</nav>
 					</section>

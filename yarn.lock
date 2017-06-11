@@ -2496,11 +2496,7 @@ miller-rabin@^4.0.0:
     bn.js "^4.0.0"
     brorand "^1.0.1"
 
-"mime-db@>= 1.27.0 < 2":
-  version "1.28.0"
-  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.28.0.tgz#fedd349be06d2865b7fc57d837c6de4f17d7ac3c"
-
-mime-db@~1.27.0:
+"mime-db@>= 1.27.0 < 2", mime-db@~1.27.0:
   version "1.27.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.27.0.tgz#820f572296bbd20ec25ed55e5b5de869e5436eb1"
 
@@ -3371,9 +3367,9 @@ react-resizable@^1.4.0:
     prop-types "^15.5.8"
     react-draggable "^2.2.6"
 
-"react-simple-colorpicker@https://github.com/RedgooseDev/react-simple-colorpicker":
-  version "1.5.0"
-  resolved "https://github.com/RedgooseDev/react-simple-colorpicker#8bb236021515d461f70882253c41c6c415959cd6"
+"react-simple-colorpicker@github:RedgooseDev/react-simple-colorpicker":
+  version "1.5.4"
+  resolved "https://codeload.github.com/RedgooseDev/react-simple-colorpicker/tar.gz/d7cc7870b531ce50c38264c1d1a19e217e116938"
   dependencies:
     classnames "^2.2.5"
     prop-types "^15.5.10"

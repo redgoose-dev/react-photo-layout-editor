@@ -28,22 +28,11 @@ class Side extends React.Component {
 	{
 		super(props);
 
-		this.dragType = null;
 		this.dragTarget = null;
 		this.dragPosition = [];
 		this.$gridItems = null;
 		this.$dragItem = null;
 		this.uploading = false;
-	}
-
-	componentDidMount()
-	{
-		const { props } = this;
-
-		// if (props.setting.side.items && props.setting.side.items.length)
-		// {
-		// 	props.api.side.add(props.setting.side.items);
-		// }
 	}
 
 	/**

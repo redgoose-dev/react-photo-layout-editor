@@ -13,7 +13,12 @@ function local(file)
 	const reader = new FileReader();
 
 	reader.addEventListener('load', function(e) {
-		defer.resolve(e.target.result);
+		defer.resolve({
+			name: file.name,
+			type: file.type,
+			size: file.size,
+			url: e.target.result,
+		});
 	});
 	reader.addEventListener('error', function(e) {
 		defer.reject(e.target);
@@ -120,8 +125,8 @@ export default function uploader(files, script)
 		else
 		{
 			local(files[count])
-				.done((src) => {
-					defer.notify('done', { count, src });
+				.done((data) => {
+					defer.notify('done', { count, data });
 					count++;
 					upload();
 				})

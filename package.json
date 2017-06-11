@@ -41,7 +41,7 @@
     "react-dom": "^15.5.4",
     "react-grid-layout": "^0.14.6",
     "react-redux": "^5.0.5",
-    "react-simple-colorpicker": "https://github.com/RedgooseDev/react-simple-colorpicker",
+    "react-simple-colorpicker": "github:RedgooseDev/react-simple-colorpicker",
     "redux": "^3.6.0"
   },
   "devDependencies": {
