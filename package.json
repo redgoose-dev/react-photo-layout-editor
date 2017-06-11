@@ -26,7 +26,7 @@
   "homepage": "https://github.com/RedgooseDev/react-photo-layout-editor#readme",
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev.config.js --host 0.0.0.0 --port 4040",
-    "build": "webpack --config webpack-build.config.js -p --progress",
+    "build": "webpack --config webpack.config.js -p --progress",
     "build-pack": "webpack --config webpack-build-pack.config.js -p --progress",
     "patch": "npm version patch"
   },
