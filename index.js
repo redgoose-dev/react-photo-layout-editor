@@ -1,1 +1,1 @@
-module.exports = require('./build/PhotoLayoutEditor').default;
+module.exports = require('./build/PhotoLayoutEditor');
