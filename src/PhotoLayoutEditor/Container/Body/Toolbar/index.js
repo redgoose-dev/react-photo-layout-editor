@@ -112,7 +112,7 @@ class Toolbar extends React.Component {
 				<div className="wrap">
 					{visible.setting && (
 						<Button
-							iconClass="ico-setting"
+							iconClass="ple-ico-setting"
 							className={classNames('edit-setting', {
 								'active': state.active.setting
 							})}
@@ -134,7 +134,7 @@ class Toolbar extends React.Component {
 					)}
 					{visible.shuffle && (
 						<Button
-							iconClass="ico-arrow-random"
+							iconClass="ple-ico-arrow-random"
 							onClick={() => props.dispatch(actions.body.shuffleBlocks({
 								x: props.tree.body.setting.column,
 								y: 2,
@@ -145,7 +145,7 @@ class Toolbar extends React.Component {
 					)}
 					{visible.add && (
 						<Button
-							iconClass="ico-plus"
+							iconClass="ple-ico-plus"
 							onClick={() => props.dispatch(actions.body.addBlock({
 								layout: {
 									//x: randomRange(0, tree.body.setting.column-1),
@@ -159,7 +159,7 @@ class Toolbar extends React.Component {
 					)}
 					{visible.select && (
 						<Button
-							iconClass="ico-select"
+							iconClass="ple-ico-select"
 							onClick={() => {
 								if (libs.object.isArray(props.tree.body.activeBlock))
 								{
@@ -176,21 +176,21 @@ class Toolbar extends React.Component {
 
 					{visible.edit && (
 						<Button
-							iconClass="ico-pencil"
+							iconClass="ple-ico-pencil"
 							className="key"
 							onClick={this._onClickEdit.bind(this)}
 							title="Edit block"/>
 					)}
 					{visible.removeImage && (
 						<Button
-							iconClass="ico-empty"
+							iconClass="ple-ico-empty"
 							className="key"
 							onClick={() => props.dispatch(actions.body.removeImages(props.tree.body.activeBlock))}
 							title="Remove image in block"/>
 					)}
 					{visible.duplicate && (
 						<Button
-							iconClass="ico-duplicate"
+							iconClass="ple-ico-duplicate"
 							className="key"
 							onClick={() => {
 								if (props.tree.body.activeBlock === null)
@@ -204,7 +204,7 @@ class Toolbar extends React.Component {
 					)}
 					{visible.removeBlock && (
 						<Button
-							iconClass="ico-trash"
+							iconClass="ple-ico-trash"
 							className="key"
 							onClick={() => {
 								if (props.tree.body.activeBlock === null)
@@ -218,7 +218,7 @@ class Toolbar extends React.Component {
 					)}
 					{visible.editColor && (
 						<Button
-							iconClass="ico-palette"
+							iconClass="ple-ico-palette"
 							className={`edit-color key ${state.active.editColor ? 'active' : ''}`}
 							onClick={(e) => {
 								e.persist();

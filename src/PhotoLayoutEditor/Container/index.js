@@ -45,7 +45,7 @@ class Container extends React.Component {
 		return (
 			<div
 				ref={(r) => { this.el = r; }}
-				className={classNames('ple-editor', { 'side-active': props.tree.side.visible })}>
+				className={classNames('ple-editor', { 'ple-side-active': props.tree.side.visible })}>
 				{props.setting && (
 					<div className="ple-wrap">
 						<Body/>

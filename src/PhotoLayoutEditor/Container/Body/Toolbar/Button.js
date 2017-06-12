@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 
 export default class Button extends React.Component {
@@ -6,14 +7,14 @@ export default class Button extends React.Component {
 	static displayName = 'Button';
 
 	render() {
-		const { children, title, iconClass, className, onClick } = this.props;
+		const { props } = this;
 
 		return (
-			<div className={`block ${className || ''}`}>
-				<button type="button" title={title} onClick={onClick}>
-					<i className={`sp-ico abs ${iconClass}`}>{title}</i>
+			<div className={classNames('block', props.className)}>
+				<button type="button" title={props.title} onClick={props.onClick}>
+					<i className={classNames('ple-sp-ico', 'ple-abs', props.iconClass)}>{props.title}</i>
 				</button>
-				{children && <div className="pop">{children}</div>}
+				{props.children && <div className="pop">{props.children}</div>}
 			</div>
 		);
 	}

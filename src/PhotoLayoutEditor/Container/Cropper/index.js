@@ -122,7 +122,7 @@ class Cropper extends React.Component {
 						bgColor={props.tree.cropper.item.color || props.setting.body.blockColor}/>
 					<nav className="ple-cropper__nav">
 						<button type="button" onClick={this._onClose.bind(this)}>
-							<i className="sp-ico ico-close abs">Close cropper</i>
+							<i className="ple-sp-ico ple-ico-close ple-abs">Close cropper</i>
 						</button>
 						<button
 							type="button"
@@ -130,7 +130,7 @@ class Cropper extends React.Component {
 							className={classNames({
 								'active': state.size !== 'cover'
 							})}>
-							<i className="sp-ico ico-resize abs">Toggle background size type</i>
+							<i className="ple-sp-ico ple-ico-resize ple-abs">Toggle background size type</i>
 						</button>
 					</nav>
 				</div>

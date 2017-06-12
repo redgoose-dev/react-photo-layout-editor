@@ -248,7 +248,7 @@ export default class Block extends React.Component {
 						onMouseDown={this._resizeStart.bind(this)}
 						onTouchStart={this._resizeStart.bind(this)}
 						className="ple-cropperBlock__resize ple-cropperBlock__resize-lt">
-						<i className="sp-ico abs ico-clamp"/>
+						<i className="ple-sp-ico ple-abs ple-ico-clamp"/>
 					</button>
 					<button
 						type="button"
@@ -256,7 +256,7 @@ export default class Block extends React.Component {
 						onMouseDown={this._resizeStart.bind(this)}
 						onTouchStart={this._resizeStart.bind(this)}
 						className="ple-cropperBlock__resize ple-cropperBlock__resize-rt">
-						<i className="sp-ico abs ico-clamp"/>
+						<i className="ple-sp-ico ple-abs ple-ico-clamp"/>
 					</button>
 					<button
 						type="button"
@@ -264,7 +264,7 @@ export default class Block extends React.Component {
 						onMouseDown={this._resizeStart.bind(this)}
 						onTouchStart={this._resizeStart.bind(this)}
 						className="ple-cropperBlock__resize ple-cropperBlock__resize-lb">
-						<i className="sp-ico abs ico-clamp"/>
+						<i className="ple-sp-ico ple-abs ple-ico-clamp"/>
 					</button>
 					<button
 						type="button"
@@ -272,7 +272,7 @@ export default class Block extends React.Component {
 						onMouseDown={this._resizeStart.bind(this)}
 						onTouchStart={this._resizeStart.bind(this)}
 						className="ple-cropperBlock__resize ple-cropperBlock__resize-rb">
-						<i className="sp-ico abs ico-clamp"/>
+						<i className="ple-sp-ico ple-abs ple-ico-clamp"/>
 					</button>
 				</div>
 			</figure>

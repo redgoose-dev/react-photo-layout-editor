@@ -6,7 +6,7 @@
 		background-size: 200px 100px;
 	}
 }
-.sp-ico {
+.ple-sp-ico {
 	display: inline-block; text-align: left; text-indent: -9999px; overflow: hidden;
 	@extend %sp-ico;
 }
@@ -14,82 +14,82 @@
 
 @mixin sp-size($width, $height) {
 	width: $width; height: $height;
-	&.abs {margin-left: -#{$width/2}; margin-top: -#{$height/2};}
+	&.ple-abs {margin-left: -#{$width/2}; margin-top: -#{$height/2};}
 }
 
 
 // set icon classes
-.ico-reply {
+.ple-ico-reply {
 	background-position: 0 0;
 	@include sp-size(16px, 13px);
 }
-.ico-select {
+.ple-ico-select {
 	background-position: -26px 0;
 	@include sp-size(16px, 16px);
 }
-.ico-upload {
+.ple-ico-upload {
 	background-position: -52px 0;
 	@include sp-size(12px, 15px);
 }
-.ico-trash {
+.ple-ico-trash {
 	background-position: -74px 0;
 	@include sp-size(12px, 16px);
 }
-.ico-arrow-left {
+.ple-ico-arrow-left {
 	background-position: -96px 0;
 	@include sp-size(7px, 12px);
 }
-.ico-arrow-right {
+.ple-ico-arrow-right {
 	background-position: -112px 0;
 	@include sp-size(7px, 12px);
 }
-.ico-empty {
+.ple-ico-empty {
 	background-position: -130px 0;
 	@include sp-size(16px, 16px);
 }
-.ico-palette {
+.ple-ico-palette {
 	background-position: -156px 0;
 	@include sp-size(18px, 18px);
 }
 
-.ico-setting {
+.ple-ico-setting {
 	background-position: 0 -36px;
 	@include sp-size(16px, 16px);
 }
-.ico-arrow-random {
+.ple-ico-arrow-random {
 	background-position: -26px -36px;
 	@include sp-size(16px, 16px);
 }
-.ico-plus {
+.ple-ico-plus {
 	background-position: -52px -36px;
 	@include sp-size(16px, 16px);
 }
-.ico-pencil {
+.ple-ico-pencil {
 	background-position: -78px -36px;
 	@include sp-size(16px, 16px);
 }
-.ico-duplicate {
+.ple-ico-duplicate {
 	background-position: -104px -36px;
 	@include sp-size(14px, 16px);
 }
-.ico-close {
+.ple-ico-close {
 	background-position: -128px -36px;
 	@include sp-size(14px, 14px);
 }
-.ico-resize {
+.ple-ico-resize {
 	background-position: -152px -36px;
 	@include sp-size(14px, 14px);
 }
-.ico-reduction {
+.ple-ico-reduction {
 	background-position: -176px -36px;
 	@include sp-size(16px, 16px);
 }
 
-.ico-clamp {
+.ple-ico-clamp {
 	background-position: 0 -72px;
 	@include sp-size(20px, 20px);
 }
-.ico-close2 {
+.ple-ico-close2 {
 	background-position: -30px -72px;
 	@include sp-size(24px, 24px);
 }

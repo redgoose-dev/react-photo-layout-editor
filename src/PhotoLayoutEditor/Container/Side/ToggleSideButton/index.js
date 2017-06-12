@@ -21,11 +21,11 @@ export default class ToggleSideButton extends Component {
 				className="toggle">
 				<span>
 					<i className={classNames(
-						'sp-ico',
-						'abs',
+						'ple-sp-ico',
+						'ple-abs',
 						{
-							'ico-arrow-right': props.show,
-							'ico-arrow-left': !props.show
+							'ple-ico-arrow-right': props.show,
+							'ple-ico-arrow-left': !props.show
 						}
 					)}>
 						Toggle sidebar

@@ -20,7 +20,7 @@ html.ple-popup-mode {overflow: hidden;}
 	}
 	.ple-body {}
 
-	&.side-active {
+	&.ple-side-active {
 		.ple-container {margin-right: $sidebar-width;}
 	}
 }
