@@ -276,12 +276,12 @@ class Side extends React.Component {
 		return (
 			<aside className="ple-side">
 				<div className={classNames(
-					'wrap',
-					{ 'show': props.tree.side.visible }
+					'ple-side__wrap',
+					{ 'ple-side__wrap-show': props.tree.side.visible }
 				)}>
 					<span
 						onClick={() => props.dispatch(actions.side.changeActiveFile(null, null, 'none'))}
-						className="background"/>
+						className="ple-side__background"/>
 					<ToggleSideButton
 						show={props.tree.side.visible}
 						onClick={() => props.api.layout.toggleSide(undefined)}/>

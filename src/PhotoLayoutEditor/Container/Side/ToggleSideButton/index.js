@@ -18,7 +18,7 @@ export default class ToggleSideButton extends Component {
 			<button
 				type="button"
 				onClick={props.onClick}
-				className="toggle">
+				className="ple-side__toggle">
 				<span>
 					<i className={classNames(
 						'ple-sp-ico',

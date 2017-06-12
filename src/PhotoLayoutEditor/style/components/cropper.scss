@@ -27,6 +27,7 @@
 		height: 100px;
 	}
 	&__nav {
+		$self: &;
 		position: absolute;
 		right: -50px;
 		top: 0;
@@ -41,14 +42,14 @@
 			text-indent: -9999px;
 			border: none;
 			cursor: pointer;
-			&.active {
-				background: $col-active;
-			}
 			i {
 				position: absolute;
 				display: block;
 				left: 50%;
 				top: 50%;
+			}
+			&#{$self}-active {
+				background: $col-active;
 			}
 		}
 	}

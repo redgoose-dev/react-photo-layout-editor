@@ -37,8 +37,8 @@ export default class SideNavigation extends React.Component {
 		const { props, state } = this;
 
 		return (
-			<nav className="navigation">
-				<div className="wrap">
+			<nav className="ple-sideNavigation ple-side__navigation">
+				<div className="ple-sideNavigation__wrap">
 					<button type="button" title="attach images" onClick={props.onAttach}>
 						<i className="ple-sp-ico ple-ico-reply ple-abs">Moving the image to grid block</i>
 					</button>

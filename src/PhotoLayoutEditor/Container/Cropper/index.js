@@ -128,7 +128,7 @@ class Cropper extends React.Component {
 							type="button"
 							onClick={this._toggleImageType.bind(this)}
 							className={classNames({
-								'active': state.size !== 'cover'
+								'ple-cropper__nav-active': state.size !== 'cover'
 							})}>
 							<i className="ple-sp-ico ple-ico-resize ple-abs">Toggle background size type</i>
 						</button>

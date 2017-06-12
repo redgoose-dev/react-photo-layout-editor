@@ -22,8 +22,8 @@ export default class Items extends React.Component {
 		const { props } = this;
 
 		return (
-			<div className="items">
-				<div className="wrap">
+			<div className="ple-sideItems">
+				<div className="ple-sideItems__wrap">
 					<ul>
 						{props.files.map((o, k) => {
 							return (
@@ -41,12 +41,12 @@ export default class Items extends React.Component {
 							);
 						})}
 						{props.progress !== null && (
-							<li className="loading">
-								<div className="progress">
+							<li className="ple-sideItems__loading">
+								<div className="ple-sideItems__progress">
 									<span
-										className="bar"
+										className="ple-sideItems__bar"
 										style={{ height: `${props.progress}%` }}/>
-									<span className="percent">{`${props.progress}%`}</span>
+									<span className="ple-sideItems__percent">{`${props.progress}%`}</span>
 								</div>
 							</li>
 						)}
