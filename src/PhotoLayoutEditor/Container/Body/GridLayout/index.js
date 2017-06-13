@@ -134,7 +134,7 @@ class GridLayout extends React.Component {
 					this._selectBlock(item.index, !!item.image);
 				}}
 				style={{ backgroundColor: item.color || props.setting.body.blockColor }}
-				className={classNames({ 'active': active })}>
+				className={classNames({ 'ple-grid__item-active': active })}>
 				{item.image && (
 					<figure
 						style={{

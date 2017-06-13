@@ -13,8 +13,9 @@ export const setting = {
 			outerMargin: 10,
 			innerMargin: 10,
 			freeMode: false,
+			bgColor: 'rgba(255,0,255,1)',
 		},
-		blockColor: '#ddd',
+		blockColor: 'rgba(211,211,211,1)',
 		grid: [
 			{ layout: { x: 0, y: 0, w: 2, h: 2 } },
 			{ layout: { x: 2, y: 0, w: 1, h: 2 } },

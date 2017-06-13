@@ -42,7 +42,7 @@ class Toolbar extends React.Component {
 		if (sw)
 		{
 			$(document).on('click.pleToolbar', (e) => {
-				if ($(e.target).closest('.pop').length) return;
+				if ($(e.target).closest('.ple-toolbar__pop').length) return;
 				if (!(e.target === cTarget) && !(e.target.parentNode === cTarget))
 				{
 					this.changeActive(keyName, false);
@@ -109,12 +109,12 @@ class Toolbar extends React.Component {
 
 		return (
 			<nav className="ple-toolbar">
-				<div className="wrap">
+				<div className="ple-toolbar__wrap">
 					{visible.setting && (
 						<Button
 							iconClass="ple-ico-setting"
-							className={classNames('edit-setting', {
-								'active': state.active.setting
+							className={classNames('ple-edit-setting', {
+								'ple-toolbar__block-active': state.active.setting
 							})}
 							onClick={(e) => {
 								e.persist();
@@ -177,21 +177,21 @@ class Toolbar extends React.Component {
 					{visible.edit && (
 						<Button
 							iconClass="ple-ico-pencil"
-							className="key"
+							className="ple-toolbar__block-key"
 							onClick={this._onClickEdit.bind(this)}
 							title="Edit block"/>
 					)}
 					{visible.removeImage && (
 						<Button
 							iconClass="ple-ico-empty"
-							className="key"
+							className="ple-toolbar__block-key"
 							onClick={() => props.dispatch(actions.body.removeImages(props.tree.body.activeBlock))}
 							title="Remove image in block"/>
 					)}
 					{visible.duplicate && (
 						<Button
 							iconClass="ple-ico-duplicate"
-							className="key"
+							className="ple-toolbar__block-key"
 							onClick={() => {
 								if (props.tree.body.activeBlock === null)
 								{
@@ -205,7 +205,7 @@ class Toolbar extends React.Component {
 					{visible.removeBlock && (
 						<Button
 							iconClass="ple-ico-trash"
-							className="key"
+							className="ple-toolbar__block-key"
 							onClick={() => {
 								if (props.tree.body.activeBlock === null)
 								{
@@ -219,7 +219,11 @@ class Toolbar extends React.Component {
 					{visible.editColor && (
 						<Button
 							iconClass="ple-ico-palette"
-							className={`edit-color key ${state.active.editColor ? 'active' : ''}`}
+							className={classNames(
+								'ple-edit-color',
+								'ple-toolbar__block-key',
+								{ 'ple-toolbar__block-active': state.active.editColor }
+							)}
 							onClick={(e) => {
 								e.persist();
 								if (!state.active.editColor)
@@ -228,13 +232,11 @@ class Toolbar extends React.Component {
 								}
 							}}
 							title="Change color">
-							<div className="colorPicker__wrap">
+							<div className="ple-colorPicker__wrap">
 								<ColorPicker
 									onChange={(color) => {
-										if (color)
-										{
-											props.dispatch(actions.body.changeColorBlock(props.tree.body.activeBlock, color));
-										}
+										if (!color) return;
+										props.dispatch(actions.body.changeColorBlock(props.tree.body.activeBlock, color));
 									}}
 									color={activeBlockColor}/>
 							</div>

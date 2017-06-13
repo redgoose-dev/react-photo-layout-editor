@@ -203,7 +203,7 @@
 			cursor: pointer;
 			text-indent: -9999px;
 			outline: none;
-			&.active {
+			&.ple-sideItems__item-active {
 				&:after {
 					content: '';
 					display: block;

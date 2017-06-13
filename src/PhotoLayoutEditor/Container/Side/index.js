@@ -192,14 +192,14 @@ class Side extends React.Component {
 		this.$gridItems = $(props.element).find('.ple-grid > div');
 		this.$gridItems.on('dragover', (e) => {
 			e.preventDefault();
-			if ($(e.currentTarget).hasClass('hover')) return;
-			$(e.currentTarget).addClass('hover');
+			if ($(e.currentTarget).hasClass('ple-grid__item-hover')) return;
+			$(e.currentTarget).addClass('ple-grid__item-hover');
 		}).on('dragleave', (e) => {
 			e.preventDefault();
-			$(e.currentTarget).removeClass('hover');
+			$(e.currentTarget).removeClass('ple-grid__item-hover');
 		}).on('drop', (e) => {
 			e.preventDefault();
-			$(e.currentTarget).removeClass('hover');
+			$(e.currentTarget).removeClass('ple-grid__item-hover');
 			this.dragTarget = $(e.currentTarget).data('index');
 		});
 	}

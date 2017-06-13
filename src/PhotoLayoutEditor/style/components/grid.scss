@@ -9,7 +9,7 @@
 	}
 	.react-grid-item {
 		cursor: pointer; overflow: hidden;
-		&.active {
+		&.ple-grid__item-active {
 			position: relative;
 			&:after {
 				content: ''; position: absolute;
@@ -18,7 +18,7 @@
 				pointer-events: none;
 			}
 		}
-		&.hover {
+		&.ple-grid__item-hover {
 			position: relative;
 			&:after {
 				content: ''; position: absolute;
@@ -26,6 +26,7 @@
 				background: $col-active;
 				opacity: .3;
 				pointer-events: none;
+				border: 5px solid red;
 			}
 		}
 		figure {

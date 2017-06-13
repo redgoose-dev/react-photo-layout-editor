@@ -43,7 +43,7 @@ export default class Item extends React.Component {
 					onClick={props.onClick}
 					{...attr}
 					style={{ backgroundImage: `url('${props.image}')` }}
-					className={classNames({ 'active': props.active })}/>
+					className={classNames({ 'ple-sideItems__item-active': props.active })}/>
 			</li>
 		);
 	}
