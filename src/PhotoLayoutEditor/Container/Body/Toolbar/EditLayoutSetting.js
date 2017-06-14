@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery/dist/jquery.slim';
 import ColorPicker from 'react-simple-colorpicker';
+import className from 'classnames';
 
 
 export default class EditLayoutSetting extends React.Component {
@@ -41,18 +42,21 @@ export default class EditLayoutSetting extends React.Component {
 		});
 	}
 
-	activeBgColorPopup(sw)
+	activeBgColorPopup(sw, e)
 	{
 		const { state } = this;
+		const cTarget = e ? e.currentTarget : null;
 
 		sw = sw || !state.popup_bgColor;
 
 		if (sw)
 		{
 			$(document).on('click.pleEditBgColor', (e) => {
-				console.log(e.target);
-				// TODO: 여기서부터 작업 필요함
-				this.activeBgColorPopup(false);
+				if ($(e.target).closest('.ple-edit-bgColor__popup').length) return;
+				if (!(e.target === cTarget) && !(e.target.parentNode === cTarget))
+				{
+					this.activeBgColorPopup(false);
+				}
 			});
 		}
 		else
@@ -66,7 +70,7 @@ export default class EditLayoutSetting extends React.Component {
 	_submit(e)
 	{
 		e.preventDefault();
-		this.props.submit(state);
+		this.props.submit(this.state);
 	}
 
 	_reset()
@@ -91,7 +95,8 @@ export default class EditLayoutSetting extends React.Component {
 	_openBgColorPicker(e)
 	{
 		e.persist();
-		this.activeBgColorPopup(true);
+		const { state } = this;
+		this.activeBgColorPopup(null, e);
 	}
 
 	render()
@@ -163,7 +168,9 @@ export default class EditLayoutSetting extends React.Component {
 							<span>px</span>
 						</dd>
 					</dl>
-					<dl className="ple-type-input">
+					<dl className={className('ple-type-input', {
+						'ple-type-input-active': state.popup_bgColor
+					})}>
 						<dt><label htmlFor="frm_bgColor">Bg color</label></dt>
 						<dd>
 							<div className="ple-edit-bgColor">
@@ -179,10 +186,7 @@ export default class EditLayoutSetting extends React.Component {
 									<div className="ple-edit-bgColor__popup">
 										<div className="ple-edit-bgColor__picker">
 											<ColorPicker
-												onChange={(color) => {
-													console.log(color)
-													this.setState({ bgColor: color });
-												}}
+												onChange={(color) => this.setState({ bgColor: color })}
 												color={state.bgColor}/>
 										</div>
 									</div>

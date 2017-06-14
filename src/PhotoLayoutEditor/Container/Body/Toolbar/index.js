@@ -238,7 +238,8 @@ class Toolbar extends React.Component {
 										if (!color) return;
 										props.dispatch(actions.body.changeColorBlock(props.tree.body.activeBlock, color));
 									}}
-									color={activeBlockColor}/>
+									color={activeBlockColor}
+									className="ple-colorPicker__body"/>
 							</div>
 						</Button>
 					)}

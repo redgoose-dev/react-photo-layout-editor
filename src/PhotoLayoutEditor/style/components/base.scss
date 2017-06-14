@@ -5,7 +5,7 @@ html.ple-popup-mode {overflow: hidden;}
 .ple-editor {
 	position: relative;
 	min-height: 480px;
-	overflow: hidden;
+	min-width: 640px;
 	*, *:before, *:after {
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
