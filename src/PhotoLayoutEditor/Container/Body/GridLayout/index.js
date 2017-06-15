@@ -16,7 +16,6 @@ class GridLayout extends React.Component {
 
 	static defaultProps = {
 		tree: null,
-		ple: null,
 		dispatch: null,
 	};
 
@@ -31,7 +30,7 @@ class GridLayout extends React.Component {
 	 * @param {Number} id
 	 * @param {boolean} isImage
 	 */
-	_selectBlock(id, isImage)
+	_selectBlock(id=null, isImage=false)
 	{
 		const { props } = this;
 
@@ -156,7 +155,7 @@ class GridLayout extends React.Component {
 			(setting.outerMargin * 2);
 
 		return (
-			<div className="ple-grid__wrap" onClick={() => this._selectBlock(null)}>
+			<div className="ple-grid__wrap" onClick={() => this._selectBlock()}>
 				<ReactGridLayout
 					autoSize={true}
 					cols={setting.column}
@@ -169,7 +168,10 @@ class GridLayout extends React.Component {
 					onDragStop={(layout) => this._updateBlocks('end', layout)}
 					onResizeStart={() => this._updateBlocks('start', null)}
 					onResizeStop={(layout) => this._updateBlocks('end', layout)}
-					style={{width: `${bodyWidth}px`}}
+					style={{
+						width: `${bodyWidth}px`,
+						backgroundColor: setting.bgColor
+					}}
 					className="ple-grid">
 					{props.tree.body.grid.map(this.renderItem.bind(this))}
 				</ReactGridLayout>

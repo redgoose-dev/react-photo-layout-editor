@@ -168,20 +168,26 @@ export default class EditLayoutSetting extends React.Component {
 							<span>px</span>
 						</dd>
 					</dl>
-					<dl className={className('ple-type-input', {
-						'ple-type-input-active': state.popup_bgColor
-					})}>
+					<dl>
 						<dt><label htmlFor="frm_bgColor">Bg color</label></dt>
 						<dd>
 							<div className="ple-edit-bgColor">
-								<input
-									type="text" name="bgColor" id="frm_bgColor"
-									value={state.bgColor}
-									onChange={this._change.bind(this)}
-									onClick={this._openBgColorPicker.bind(this)}
-									readOnly={true}
-									required={true}
-								   className="ple-edit-bgColor__input"/>
+								<span className={className('ple-edit-bgColor__inputBox', {
+									'ple-edit-bgColor__inputBox-active': state.popup_bgColor
+								})}>
+									<input
+										type="text"
+										name="bgColor"
+										id="frm_bgColor"
+										value={state.bgColor}
+										onChange={this._change.bind(this)}
+										onClick={this._openBgColorPicker.bind(this)}
+										readOnly={true}
+										required={true}
+										className="ple-edit-bgColor__input"
+									    style={{ backgroundColor: state.bgColor }}
+									/>
+								</span>
 								{state.popup_bgColor && (
 									<div className="ple-edit-bgColor__popup">
 										<div className="ple-edit-bgColor__picker">

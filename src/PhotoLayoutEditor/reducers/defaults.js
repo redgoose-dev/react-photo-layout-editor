@@ -13,7 +13,7 @@ export const setting = {
 			outerMargin: 10,
 			innerMargin: 10,
 			freeMode: false,
-			bgColor: 'rgba(255,0,255,1)',
+			bgColor: 'rgba(255,255,255,1)',
 		},
 		blockColor: 'rgba(211,211,211,1)',
 		grid: [

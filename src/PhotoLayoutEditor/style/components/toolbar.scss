@@ -86,7 +86,7 @@
 .ple-edit-setting {
 	form {
 		position: absolute;
-		left: -5px;
+		left: 0;
 		top: 0;
 		z-index: 99999;
 		min-width: 270px;
@@ -200,8 +200,24 @@
 
 .ple-edit-bgColor {
 	position: relative;
+
+	&__inputBox {
+		display: inline-block;
+		width: 38px;
+		height: 26px;
+		border: 1px solid #CACDCE;
+		padding: 4px;
+		background: #fff;
+		border-radius: 2px;
+	}
 	&__input {
 		width: 100%;
+		height: 100%;
+		border: none;
+		font-size: 0;
+		margin: 0;
+		padding: 0;
+		vertical-align: top;
 	}
 	&__popup {
 		position: relative;
