@@ -4,20 +4,24 @@ import * as actions from '../actions';
 import * as lib from '../lib';
 
 
-export default function Side(store) {
+export default class Side {
 
-	this.uploading = false;
+	constructor(store)
+	{
+		this.store = store;
+		this.uploading = false;
+	}
 
 	/**
 	 * Add files
 	 *
 	 * @param {Array} files
 	 */
-	this.add = function(files)
+	add(files)
 	{
 		if (!(files instanceof Array)) return;
 
-		store.dispatch(actions.side.addFiles(files));
+		this.store.dispatch(actions.side.addFiles(files));
 	};
 
 	/**
@@ -26,7 +30,7 @@ export default function Side(store) {
 	 * @param {FileList} files
 	 * @param {Object} callbacks
 	 */
-	this.upload = function(files, callbacks={})
+	upload(files, callbacks={})
 	{
 		/**
 		 * @param {Function} callbacks.start
@@ -37,7 +41,7 @@ export default function Side(store) {
 		if (this.uploading) return;
 
 		const defer = $.Deferred();
-		const state = store.getState();
+		const state = this.store.getState();
 		this.uploading = true;
 
 		if (callbacks.start) callbacks.start();
@@ -47,24 +51,24 @@ export default function Side(store) {
 				switch(type)
 				{
 					case 'start':
-						store.dispatch(actions.side.updateProgress(0));
+						this.store.dispatch(actions.side.updateProgress(0));
 						break;
 					case 'progress':
 						const percent = parseInt((res.loaded / res.total * 100));
-						store.dispatch(actions.side.updateProgress(percent));
+						this.store.dispatch(actions.side.updateProgress(percent));
 						break;
 					case 'done':
-						store.dispatch(actions.side.updateProgress(null));
+						this.store.dispatch(actions.side.updateProgress(null));
 						if (!res.data) return;
 						if (state.setting.base.uploadParamsConvertFunc)
 						{
 							let result = state.setting.base.uploadParamsConvertFunc(res.data);
-							store.dispatch(actions.side.addFiles([result]));
+							this.store.dispatch(actions.side.addFiles([result]));
 							return;
 						}
 						else
 						{
-							store.dispatch(actions.side.addFiles([res.data.url]));
+							this.store.dispatch(actions.side.addFiles([res.data.url]));
 						}
 						if (callbacks.complete) callbacks.complete(res.data);
 						break;

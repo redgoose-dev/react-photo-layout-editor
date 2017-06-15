@@ -2,11 +2,16 @@ import * as actions from '../actions';
 import * as libs from '../lib';
 
 
-export default function Cropper(store) {
+export default class Cropper {
 
-	this.open = function(index)
+	constructor(store)
 	{
-		const state = store.getState();
+		this.store = store;
+	}
+
+	open(index)
+	{
+		const state = this.store.getState();
 		let item = null;
 
 		try {
@@ -19,14 +24,14 @@ export default function Cropper(store) {
 			return;
 		}
 
-		store.dispatch(actions.cropper.open(item));
+		this.store.dispatch(actions.cropper.open(item));
 	};
 
-	this.close = function()
+	close()
 	{
 		console.log('close cropper');
 
-		store.dispatch(actions.cropper.close());
+		this.store.dispatch(actions.cropper.close());
 	}
 
 }

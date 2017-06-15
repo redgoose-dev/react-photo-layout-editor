@@ -1,6 +1,13 @@
 import * as actions from '../actions';
 
 
-export default function Grid(store) {
+export default class Grid {
+
+	constructor(store)
+	{
+		this.store = store;
+	}
+
 
 }
+

@@ -23,8 +23,11 @@ class App extends React.Component {
 				this._photoLayoutEditor.api.layout.toggleSide();
 				break;
 
-			case 'side.addFiles':
+			case 'side.add':
 				this._photoLayoutEditor.api.side.add(value);
+				break;
+			case 'side.remove':
+				this._photoLayoutEditor.api.side.remove([1, 2]);
 				break;
 		}
 	}
@@ -48,7 +51,7 @@ class App extends React.Component {
 						<nav>
 							<button
 								type="button"
-								onClick={() => this.action('side.addFiles', util.pickImages(2))}>
+								onClick={() => this.action('side.add', util.pickImages(3))}>
 								Add files
 							</button>
 						</nav>
