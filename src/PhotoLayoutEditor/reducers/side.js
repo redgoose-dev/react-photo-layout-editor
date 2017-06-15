@@ -58,7 +58,7 @@ function changeActive(item, start, end, type, activeCount)
 			return item;
 	}
 
-	// not fount key
+	// not found type
 	if (activeCount >= 2 && item.id === end)
 	{
 		return Object.assign({}, item, { active: true });
@@ -165,6 +165,12 @@ export default function base(state=defaults.side, action)
 					);
 				})
 			};
+
+		case types.SIDE_UPDATE_SELECTED:
+			// TODO
+			// [ { index: 0, active: true }, { index: 1, active: false } ]
+			return state;
+			break;
 
 		case types.SIDE_UPDATE_PROGRESS:
 			return {

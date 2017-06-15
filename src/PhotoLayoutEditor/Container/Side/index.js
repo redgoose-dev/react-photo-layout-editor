@@ -109,25 +109,24 @@ class Side extends React.Component {
 	_removeItems()
 	{
 		const { props } = this;
-		let activeItems = [];
+		let ids = props.api.side.getId('selected');
 
-		if (!props.tree.side.files.length) return;
-
-		props.tree.side.files.forEach(o => {
-			if (o.active) activeItems.push(o.id);
-		});
-
-		if (!activeItems.length)
+		if (!ids.length)
 		{
 			if (confirm('Delete all?'))
 			{
-				props.tree.side.files.forEach(o => {
-					activeItems.push(o.id);
-				});
+				ids = props.api.side.getId('all');
+			}
+			else
+			{
+				return;
 			}
 		}
 
-		props.dispatch(actions.side.removeFiles(activeItems));
+		if (confirm('Do you really want to delete it?'))
+		{
+			props.api.side.remove(ids);
+		}
 	}
 
 	/**

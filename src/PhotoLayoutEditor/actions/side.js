@@ -44,6 +44,13 @@ export function changeActiveFile(start, end, selectType)
 	};
 }
 
+export function updateSelected()
+{
+	return {
+		type: types.SIDE_UPDATE_SELECTED,
+	};
+}
+
 export function updateProgress(percent)
 {
 	return {

@@ -26,8 +26,16 @@ class App extends React.Component {
 			case 'side.add':
 				this._photoLayoutEditor.api.side.add(value);
 				break;
-			case 'side.remove':
-				this._photoLayoutEditor.api.side.remove([1, 2]);
+			case 'side.select':
+				//this._photoLayoutEditor.api.side.select(value, 'index');
+				this._photoLayoutEditor.api.side.select(value, 'id');
+				break;
+			case 'side.selectedRemove':
+				let index = this._photoLayoutEditor.api.side.getId('selected');
+				this._photoLayoutEditor.api.side.remove(index);
+				break;
+			case 'side.clear':
+				this._photoLayoutEditor.api.side.clear();
 				break;
 		}
 	}
@@ -53,6 +61,21 @@ class App extends React.Component {
 								type="button"
 								onClick={() => this.action('side.add', util.pickImages(3))}>
 								Add files
+							</button>
+							<button
+								type="button"
+								onClick={() => this.action('side.selectedRemove', null)}>
+								Remove items
+							</button>
+							<button
+								type="button"
+								onClick={() => this.action('side.clear', null)}>
+								Clear
+							</button>
+							<button
+								type="button"
+								onClick={() => this.action('side.select', [0, 2, 4, 6, 8])}>
+								Select odd items
 							</button>
 						</nav>
 					</section>
