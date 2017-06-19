@@ -6,94 +6,15 @@ let nextFileId = 0;
 
 
 /**
- * Change active
- *
- * @param {Object} item
- * @param {Number} start
- * @param {Number} end
- * @param {String} type press key name and select type
- * @param {Number} activeCount
- */
-function changeActive(item, start, end, type, activeCount)
-{
-	switch(type)
-	{
-		case 'all':
-			return Object.assign({}, item, { active: true });
-		case 'none':
-			return Object.assign({}, item, { active: false });
-		case 'add':
-			if (item.id === end)
-			{
-				return Object.assign({}, item, { active: !item.active });
-			}
-			else
-			{
-				return item;
-			}
-		case 'range':
-			start = start || 0;
-			if (start < end)
-			{
-				if (item.id >= start && item.id <= end)
-				{
-					return Object.assign({}, item, { active: true });
-				}
-				else
-				{
-					return Object.assign({}, item, { active: false });
-				}
-			}
-			else
-			{
-				if (item.id <= start && item.id >= end)
-				{
-					return Object.assign({}, item, { active: true });
-				}
-				else
-				{
-					return Object.assign({}, item, { active: false });
-				}
-			}
-			return item;
-	}
-
-	// not found type
-	if (activeCount >= 2 && item.id === end)
-	{
-		return Object.assign({}, item, { active: true });
-	}
-	else if (item.id === end)
-	{
-		return Object.assign({}, item, { active: !item.active });
-	}
-	else
-	{
-		return Object.assign({}, item, { active: false });
-	}
-}
-
-/**
- * Get active items
- *
- * @param {Array} items
- * @return {Array}
- */
-function getActiveItems(items)
-{
-	return items.map(o => {
-		if (o.active) return o;
-	});
-}
-
-
-/**
  * Reducers
  */
 
 // base
 export default function base(state=defaults.side, action)
 {
+	let newState = null;
+	let n = null;
+
 	switch (action.type) {
 		case types.INIT_PLE:
 			try {
@@ -152,24 +73,16 @@ export default function base(state=defaults.side, action)
 				files: selectItems
 			};
 
-		case types.SIDE_CHANGE_ACTIVE_FILE:
-			return {
-				...state,
-				files: state.files.map(item => {
-					return changeActive(
-						item,
-						action.start,
-						action.end,
-						action.selectType,
-						getActiveItems(state.files).length,
-					);
-				})
-			};
-
 		case types.SIDE_UPDATE_SELECTED:
-			// TODO
-			// [ { index: 0, active: true }, { index: 1, active: false } ]
-			return state;
+			if (!(action.value && action.value.length)) return state;
+			newState = Object.assign([], state);
+
+			action.value.forEach((o) => {
+				if (!newState.files[o.index]) return;
+				newState.files[o.index].active = o.active;
+			});
+
+			return newState;
 			break;
 
 		case types.SIDE_UPDATE_PROGRESS:

@@ -34,20 +34,11 @@ export function removeFiles(ids)
 	};
 }
 
-export function changeActiveFile(start, end, selectType)
-{
-	return {
-		type: types.SIDE_CHANGE_ACTIVE_FILE,
-		start,
-		end,
-		selectType
-	};
-}
-
-export function updateSelected()
+export function updateSelected(value)
 {
 	return {
 		type: types.SIDE_UPDATE_SELECTED,
+		value
 	};
 }
 

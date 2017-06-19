@@ -9,8 +9,7 @@ import ToggleSideButton from './ToggleSideButton';
 import Navigation from './Navigation';
 import Items from './Items';
 
-
-let firstSelectIdx = null;
+import selectItems from './selectItems';
 
 
 class Side extends React.Component {
@@ -64,43 +63,15 @@ class Side extends React.Component {
 	}
 
 	/**
-	 * On select item
+	 * On select items
 	 *
 	 * @param {Object} id
 	 */
 	_selectItem(id)
 	{
 		const { props } = this;
-		const { keyName } = props.keyboard;
-		let type = null;
-
-		if (keyName !== 'SHIFT')
-		{
-			let currentItem = null;
-			props.tree.side.files.forEach((o, k) => {
-				if (o.id === id)
-				{
-					currentItem = o;
-					return false;
-				}
-			});
-			firstSelectIdx = (currentItem.active === true) ? null : id;
-			if (!firstSelectIdx && currentItem.active === true)
-			{
-				firstSelectIdx = currentItem.id;
-			}
-		}
-
-		switch (keyName) {
-			case 'CTRL':
-			case 'CMD':
-				type = 'add';
-				break;
-			case 'SHIFT':
-				type = 'range';
-		}
-
-		props.dispatch(actions.side.changeActiveFile(firstSelectIdx, id, type));
+		let selected = selectItems(props, id);
+		props.api.side.select(selected);
 	}
 
 	/**
@@ -113,36 +84,14 @@ class Side extends React.Component {
 
 		if (!ids.length)
 		{
-			if (confirm('Delete all?'))
-			{
-				ids = props.api.side.getId('all');
-			}
-			else
-			{
-				return;
-			}
+			if (!confirm('Delete all?')) return;
+			ids = props.api.side.getId('all');
 		}
 
 		if (confirm('Do you really want to delete it?'))
 		{
 			props.api.side.remove(ids);
 		}
-	}
-
-	/**
-	 * toggle select all items
-	 */
-	_toggleSelect()
-	{
-		const { props } = this;
-		let type = 'all';
-
-		props.tree.side.files.some((o) => {
-			if (o.active) type = 'none';
-			return o.active;
-		});
-
-		props.dispatch(actions.side.changeActiveFile(null, null, type));
 	}
 
 	/**
@@ -161,27 +110,16 @@ class Side extends React.Component {
 	 */
 	_attach()
 	{
-		const { props } = this;
-		let selectedImages = [];
-
-		props.tree.side.files.forEach((o, k) => {
-			if (o.active)
-			{
-				selectedImages.push(o.image);
-			}
-		});
-
-		if (!selectedImages.length)
+		try
 		{
-			alert('not select image');
-			return;
+			let ids = this.props.api.side.getId('selected');
+			let result = this.props.api.side.attachToGrid(ids);
+			if (result) throw result;
 		}
-
-		props.dispatch(actions.body.attachImages(
-			selectedImages,
-			props.tree.body.setting.column,
-			props.tree.body.activeBlock
-		));
+		catch(e)
+		{
+			alert(e.message);
+		}
 	}
 
 	_dragStartItem(e)
@@ -279,14 +217,14 @@ class Side extends React.Component {
 					{ 'ple-side__wrap-show': props.tree.side.visible }
 				)}>
 					<span
-						onClick={() => props.dispatch(actions.side.changeActiveFile(null, null, 'none'))}
+						onClick={() => props.api.side.toggleSelectAll(false)}
 						className="ple-side__background"/>
 					<ToggleSideButton
 						show={props.tree.side.visible}
 						onClick={() => props.api.layout.toggleSide(undefined)}/>
 					<Navigation
 						onAttach={this._attach.bind(this)}
-						onToggleSelect={this._toggleSelect.bind(this)}
+						onToggleSelect={() => props.api.side.toggleSelectAll()}
 						onUpload={this._upload.bind(this)}
 						onRemove={this._removeItems.bind(this)}/>
 					<Items

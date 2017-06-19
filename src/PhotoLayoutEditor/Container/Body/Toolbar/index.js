@@ -135,26 +135,13 @@ class Toolbar extends React.Component {
 					{visible.shuffle && (
 						<Button
 							iconClass="ple-ico-arrow-random"
-							onClick={() => props.dispatch(actions.body.shuffleBlocks({
-								x: props.tree.body.setting.column,
-								y: 2,
-								w: 2,
-								h: 2
-							}))}
+							onClick={() => props.api.grid.shuffle()}
 							title="Shuffle block"/>
 					)}
 					{visible.add && (
 						<Button
 							iconClass="ple-ico-plus"
-							onClick={() => props.dispatch(actions.body.addBlock({
-								layout: {
-									//x: randomRange(0, tree.body.setting.column-1),
-									x: props.tree.body.grid.length % props.tree.body.setting.column,
-									y: Infinity,
-									w: 1,
-									h: 1
-								},
-							}))}
+							onClick={() => props.api.grid.add()}
 							title="Add block"/>
 					)}
 					{visible.select && (
