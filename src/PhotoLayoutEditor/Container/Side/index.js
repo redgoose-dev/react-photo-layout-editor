@@ -65,7 +65,7 @@ class Side extends React.Component {
 	/**
 	 * On select items
 	 *
-	 * @param {Object} id
+	 * @param {Number} id
 	 */
 	_selectItem(id)
 	{
@@ -202,15 +202,13 @@ class Side extends React.Component {
 		}
 		else
 		{
-			this._selectItem($(e.currentTarget).data('id'));
+			//this._selectItem($(e.currentTarget).data('id'));
 		}
 	}
 
 	render()
 	{
 		const { props } = this;
-
-		//console.log(props.tree.side.files);
 
 		return (
 			<aside className="ple-side">

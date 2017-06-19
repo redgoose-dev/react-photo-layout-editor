@@ -29,14 +29,14 @@ export default class Items extends React.Component {
 							return (
 								<Item
 									key={o}
-									id={`sideItem_${o}`}
+									id={o}
 									image={props.files[o].image}
 									onDragStart={props.onDragStart}
 									onDragEnd={props.onDragEnd}
 									onTouchStart={props.onTouchStart}
 									onTouchMove={props.onTouchMove}
 									onTouchEnd={props.onTouchEnd}
-									onClick={() => props.onSelect(`sideItem_${o}`)}
+									onClick={() => props.onSelect(parseInt(o))}
 									active={props.files[o].active}/>
 							);
 						})}

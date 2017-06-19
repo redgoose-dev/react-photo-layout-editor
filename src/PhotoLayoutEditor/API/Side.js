@@ -145,9 +145,11 @@ export default class Side {
 	select(value=[])
 	{
 		let ids = value.map((o) => o.id);
-		let selected = this.getIndex('value', ids);
-		selected = selected.map((o, k) => ({ index: o, active: value[k].active }));
-		this.store.dispatch(actions.side.updateSelected(selected));
+		// TODO 여기서부터..
+		console.log('TODO 여기서부터..')
+		// let selected = this.getIndex('value', ids);
+		// selected = selected.map((o, k) => ({ index: o, active: value[k].active }));
+		// this.store.dispatch(actions.side.updateSelected(selected));
 	}
 
 	/**

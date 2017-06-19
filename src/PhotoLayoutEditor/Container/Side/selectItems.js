@@ -4,48 +4,49 @@ let firstSelectIdx = null;
 /**
  * Change active
  *
+ * @param {Number} key
  * @param {Object} item
  * @param {Number} start
  * @param {Number} end
  * @param {String} type press key name and select type
  * @return {Object}
  */
-function changeActive(item, start, end, type)
+function changeActive(key, item, start, end, type)
 {
 	switch(type)
 	{
 		case 'add':
 			return {
-				id: item.id,
-				active: (item.id === end) ? !item.active : item.active
+				key: key,
+				active: (key === end) ? !item.active : item.active
 			};
 		case 'range':
 			start = start || 0;
 			if (start < end)
 			{
 				return {
-					id: item.id,
-					active: item.id >= start && item.id <= end
+					key: key,
+					active: key >= start && key <= end
 				};
 			}
 			else
 			{
 				return {
-					id: item.id,
-					active: item.id <= start && item.id >= end
+					key: key,
+					active: key <= start && key >= end
 				};
 			}
 			return item;
 	}
 
 	// not found type
-	if (item.id === end)
+	if (key === end)
 	{
-		return { id: item.id, active: !item.active };
+		return { key: key, active: !item.active };
 	}
 	else
 	{
-		return { id: item.id, active: false };
+		return { key: key, active: false };
 	}
 }
 
@@ -67,10 +68,11 @@ export default function selectItems(props, id)
 	if (keyName !== 'SHIFT')
 	{
 		let currentItem = null;
-		props.tree.side.files.forEach((o) => {
-			if (o.id === id)
+		Object.keys(props.tree.side.files).forEach((o) => {
+			let obj = props.tree.side.files[o];
+			if (parseInt(o) === id)
 			{
-				currentItem = o;
+				currentItem = obj;
 				return false;
 			}
 		});
@@ -90,8 +92,8 @@ export default function selectItems(props, id)
 			type = 'range';
 	}
 
-	let items = files.map(item => {
-		let obj = changeActive(item, firstSelectIdx, id, type);
+	let items = Object.keys(files).map(k => {
+		let obj = changeActive(parseInt(k), files[k], firstSelectIdx, id, type);
 		if (obj.active)
 		{
 			selected = true;
