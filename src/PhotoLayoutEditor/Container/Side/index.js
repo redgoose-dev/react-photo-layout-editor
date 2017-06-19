@@ -210,6 +210,8 @@ class Side extends React.Component {
 	{
 		const { props } = this;
 
+		//console.log(props.tree.side.files);
+
 		return (
 			<aside className="ple-side">
 				<div className={classNames(

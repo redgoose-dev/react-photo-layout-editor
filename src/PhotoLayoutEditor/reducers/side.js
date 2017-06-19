@@ -21,15 +21,11 @@ export default function base(state=defaults.side, action)
 				return {
 					...state,
 					...action.preference.side,
-					files: [
-						...action.preference.side.files.map((o) => {
-							return {
-								id: nextFileId++,
-								image: o,
-								active: false,
-							}
-						})
-					]
+					files: Object.assign({},
+						...Object.keys(action.preference.side.files).map(o => (
+							{ [nextFileId++]: { image: action.preference.side.files[o], active: false } }
+						))
+					),
 				};
 			} catch(e) {
 				return state;

@@ -19,14 +19,12 @@ export function pickImages(count=3)
 		'http://goose.redgoose.me/data/upload/original/201212/scripter2156.jpg',
 	];
 	let images = Object.assign([], sampleImages);
-	let result = [];
+	let result = {};
 
-	(function get()
-	{
-		if (count <= 0) return;
-		result.push(images.splice(Math.floor(Math.random() * images.length), 1)[0]);
+	(function get() {
 		count--;
-		get();
+		result[count] = images.splice(Math.floor(Math.random() * images.length), 1)[0];
+		if (count >= 1) get();
 	})();
 
 	return result;

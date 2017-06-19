@@ -33,7 +33,7 @@ export const setting = {
 
 
 export const side = {
-	files: [],
+	files: {},
 	visible: true,
 	progressPercent: null,
 };

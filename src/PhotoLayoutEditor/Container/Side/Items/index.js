@@ -25,19 +25,19 @@ export default class Items extends React.Component {
 			<div className="ple-sideItems">
 				<div className="ple-sideItems__wrap">
 					<ul>
-						{props.files.map((o, k) => {
+						{Object.keys(props.files).map((o) => {
 							return (
 								<Item
-									key={k}
-									id={o.id}
-									image={o.image}
+									key={o}
+									id={`sideItem_${o}`}
+									image={props.files[o].image}
 									onDragStart={props.onDragStart}
 									onDragEnd={props.onDragEnd}
 									onTouchStart={props.onTouchStart}
 									onTouchMove={props.onTouchMove}
 									onTouchEnd={props.onTouchEnd}
-									onClick={() => props.onSelect(o.id)}
-									active={o.active}/>
+									onClick={() => props.onSelect(`sideItem_${o}`)}
+									active={props.files[o].active}/>
 							);
 						})}
 						{props.progress !== null && (
