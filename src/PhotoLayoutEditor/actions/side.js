@@ -18,19 +18,19 @@ export function toggle()
 	};
 }
 
-export function addFiles(files)
+export function addFiles(files=[])
 {
 	return {
 		type: types.SIDE_ADD_FILES,
-		files: files,
+		files,
 	};
 }
 
-export function removeFiles(ids)
+export function removeFiles(keys=[])
 {
 	return {
 		type: types.SIDE_REMOVE_FILES,
-		ids: ids,
+		keys,
 	};
 }
 

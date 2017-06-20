@@ -111,26 +111,27 @@ class GridLayout extends React.Component {
 	/**
 	 * Render item
 	 *
-	 * @param {Object} item
-	 * @param {Number} n
+	 * @param {String} o
 	 * @return {Component}
 	 */
-	renderItem(item, n)
+	renderItem(k)
 	{
 		const { props } = this;
-		const { activeBlock } = props.tree.body;
+		const { activeBlock, grid } = props.tree.body;
+		const item = grid[k];
 
-		let key = `${item.indexPrefix}__${item.index}`;
-		let active = !!(activeBlock && activeBlock.length && activeBlock.indexOf(item.index) > -1);
+		let key = `${item.indexPrefix}__${k}`;
+		let active = !!(activeBlock && activeBlock.length && activeBlock.indexOf(k) > -1);
 
+		// TODO : 셔플부터 작업하기
 		return (
 			<div
-				key={key}
+				key={k}
 				data-grid={item.layout}
-				data-index={item.index}
+				data-index={k}
 				onClick={(event) => {
 					event.stopPropagation();
-					this._selectBlock(item.index, !!item.image);
+					this._selectBlock(k, !!item.image);
 				}}
 				style={{ backgroundColor: item.color || props.setting.body.blockColor }}
 				className={classNames({ 'ple-grid__item-active': active })}>
@@ -173,7 +174,7 @@ class GridLayout extends React.Component {
 						backgroundColor: setting.bgColor
 					}}
 					className="ple-grid">
-					{props.tree.body.grid.map(this.renderItem.bind(this))}
+					{Object.keys(props.tree.body.grid).map(this.renderItem.bind(this))}
 				</ReactGridLayout>
 			</div>
 		);

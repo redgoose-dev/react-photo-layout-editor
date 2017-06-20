@@ -14,12 +14,11 @@ export default function base(state=defaults.side, action)
 {
 	let newState = null;
 	let files = {};
-	let n = null;
 
 	switch (action.type) {
 		case types.INIT_PLE:
 			try {
-				action.preference.side.files.forEach((o) => {
+				action.preference.side.files.forEach(o => {
 					files[nextFileId++] = { image: o, active: false }
 				});
 				return {
@@ -59,22 +58,19 @@ export default function base(state=defaults.side, action)
 			};
 
 		case types.SIDE_REMOVE_FILES:
-			if (!action.ids.length) return state;
-			let selectItems = [];
-			state.files.forEach(o => {
-				if (action.ids.indexOf(o.id) < 0) selectItems.push(o);
+			if (!action.keys.length) return state;
+			newState = Object.assign({}, state);
+			action.keys.forEach(o => {
+				delete newState.files[o];
 			});
-			return {
-				...state,
-				files: selectItems
-			};
+			return newState;
 
 		case types.SIDE_UPDATE_SELECTED:
-			if (!(action.value && action.value.length)) return state;
-			newState = Object.assign([], state);
-			action.value.forEach((o) => {
-				if (!newState.files[o.key]) return;
-				newState.files[o.key].active = o.active;
+			if (!(action.value && Object.keys(action.value).length)) return state;
+			newState = Object.assign({}, state);
+			Object.keys(action.value).forEach(o => {
+				if (!newState.files[o]) return;
+				newState.files[o].active = action.value[o].active;
 			});
 			return newState;
 

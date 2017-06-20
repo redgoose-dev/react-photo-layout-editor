@@ -34,58 +34,15 @@ export default class Side {
 				break;
 			case 'value':
 				keys.forEach((o) => {
-					if (files[o] && files[o].id)
+					if (files[o])
 					{
-						result.push(files[o].id);
+						result.push(parseInt(o));
 					}
 				});
 				break;
 			case 'all':
 			default:
-				Object.keys(files).forEach((o) => {
-					console.log(o);
-					//result.push(o.id);
-				});
-				break;
-		}
-
-		return result;
-	}
-
-	/**
-	 * get index in item
-	 * TODO 안쓸예정
-	 *
-	 * @param {String} mode
-	 * @param {Array} ids
-	 */
-	getIndex(mode=null, ids=[])
-	{
-		const state = this.store.getState();
-		const { files } = state.tree.side;
-		let result = [];
-
-		switch(mode)
-		{
-			case 'selected':
-				files.forEach((o, k) => {
-					if (o.active)
-					{
-						result.push(k);
-					}
-				});
-				break;
-			case 'value':
-				files.forEach((o, k) => {
-					if (ids.indexOf(o.id) !== -1)
-					{
-						result.push(k);
-					}
-				});
-				break;
-			case 'all':
-			default:
-				result = files.map((o, k) => k);
+				result = Object.keys(files).map((o) => parseInt(o));
 				break;
 		}
 
@@ -117,20 +74,20 @@ export default class Side {
 	/**
 	 * selection items
 	 *
-	 * @param {Array} ids
+	 * @param {Array} keys
 	 * @param {Boolean} active
 	 * @return {Error}
 	 */
-	selection(ids=[], active=true)
+	selection(keys=[], active=true)
 	{
 		try
 		{
-			let selected = this.getIndex('value', ids);
+			let selected = this.getKeys('value', keys);
 			if (selected.length <= 0)
 			{
 				throw new Error('not found select item');
 			}
-			selected = selected.map((o) => ({ index: o, active: active }));
+			selected = selected.map((o) => ({ key: o, active }));
 			this.store.dispatch(actions.side.updateSelected(selected));
 		}
 		catch(e)
@@ -164,8 +121,8 @@ export default class Side {
 		else
 		{
 			let activeCount = this.getKeys('selected').length;
-			let ids = this.getKeys('all');
-			this.selection(ids, !(activeCount > 0));
+			let keys = this.getKeys('all');
+			this.selection(keys, !(activeCount > 0));
 		}
 	}
 
@@ -263,17 +220,16 @@ export default class Side {
 	/**
 	 * attach items to grid
 	 *
-	 * @param {Array} ids
+	 * @param {Array} keys
 	 * @return {Error}
 	 */
-	attachToGrid(ids=[])
+	attachToGrid(keys=[])
 	{
 		const state = this.store.getState();
 		const { body } = state.tree;
-
 		try
 		{
-			let selectedImages = this.getImages(ids);
+			let selectedImages = this.getImages(keys);
 			if (!selectedImages.length)
 			{
 				throw new Error('not found item.');
@@ -293,20 +249,19 @@ export default class Side {
 	/**
 	 * get items
 	 *
-	 * @param {Array} ids
-	 * @return {Array}
+	 * @param {Array} keys
+	 * @return {Object}
 	 */
-	getItems(ids=[])
+	getItems(keys=[])
 	{
 		const state = this.store.getState();
 		const { side } = state.tree;
-		const index = this.getIndex('value', ids);
-		let result = [];
-
-		index.forEach((o) => {
+		keys = this.getKeys('value', keys);
+		let result = {};
+		keys.forEach((o) => {
 			if (side.files[o])
 			{
-				result.push(side.files[o]);
+				result[o] = side.files[o];
 			}
 		});
 
@@ -316,14 +271,14 @@ export default class Side {
 	/**
 	 * get images
 	 *
-	 * @param {Array} ids
+	 * @param {Array} keys
 	 * @return {Array}
 	 */
-	getImages(ids=[])
+	getImages(keys=[])
 	{
-		let items = this.getItems(ids);
-		return items.map((o) => {
-			return o.image;
+		let items = this.getItems(keys);
+		return Object.keys(items).map((o) => {
+			return items[o].image;
 		});
 	}
 

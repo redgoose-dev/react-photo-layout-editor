@@ -17,13 +17,14 @@ class App extends React.Component {
 	action(id, value)
 	{
 		let result = null;
-		let ids = [];
+		let keys = [];
 		switch(id)
 		{
 			case 'layout.toggleSide':
 				this._photoLayoutEditor.api.layout.toggleSide();
 				break;
 
+			// side
 			case 'side.add':
 				this._photoLayoutEditor.api.side.add(util.pickImages(3));
 				break;
@@ -31,26 +32,26 @@ class App extends React.Component {
 				result = this._photoLayoutEditor.api.side.selection([0,2,4,6,8,10]);
 				break;
 			case 'side.select':
-				this._photoLayoutEditor.api.side.select([
-					{ id: 0, active: false },
-					{ id: 1, active: true },
-					{ id: 2, active: false },
-					{ id: 3, active: true }
-				]);
+				this._photoLayoutEditor.api.side.select({
+					0: { active: false },
+					1: { active: true },
+					2: { active: false },
+					3: { active: true }
+				});
 				break;
 			case 'side.toggleSelectAll':
 				this._photoLayoutEditor.api.side.toggleSelectAll();
 				break;
 			case 'side.selectedRemoveItems':
-				ids = this._photoLayoutEditor.api.side.getKeys('selected');
-				this._photoLayoutEditor.api.side.remove(ids);
+				keys = this._photoLayoutEditor.api.side.getKeys('selected');
+				this._photoLayoutEditor.api.side.remove(keys);
 				break;
 			case 'side.clear':
 				this._photoLayoutEditor.api.side.clear();
 				break;
 			case 'side.attachToGrid':
-				ids = this._photoLayoutEditor.api.side.getKeys('selected');
-				this._photoLayoutEditor.api.side.attachToGrid(ids);
+				keys = this._photoLayoutEditor.api.side.getKeys('selected');
+				this._photoLayoutEditor.api.side.attachToGrid(keys);
 				break;
 			case 'side.upload':
 				let upload = this._photoLayoutEditor.api.side.upload(value.target.files, {
@@ -72,16 +73,17 @@ class App extends React.Component {
 				});
 				break;
 			case 'side.getItems':
-				ids = this._photoLayoutEditor.api.side.getKeys('selected');
-				result = this._photoLayoutEditor.api.side.getItems(ids);
+				keys = this._photoLayoutEditor.api.side.getKeys('selected');
+				result = this._photoLayoutEditor.api.side.getItems(keys);
 				console.log('side.getItems', result);
 				break;
 			case 'side.getImages':
-				ids = this._photoLayoutEditor.api.side.getKeys('selected');
-				result = this._photoLayoutEditor.api.side.getImages(ids);
+				keys = this._photoLayoutEditor.api.side.getKeys('selected');
+				result = this._photoLayoutEditor.api.side.getImages(keys);
 				console.log('side.getImages', result);
 				break;
 
+			// grid
 			case 'grid.getIndex':
 				result = this._photoLayoutEditor.api.grid.getIndex('value', [0,2,4,6,8]);
 				console.log('get index:', result);
@@ -100,12 +102,12 @@ class App extends React.Component {
 				this._photoLayoutEditor.api.grid.assignImage(0, util.pickImages(1)[0]);
 				break;
 			case 'grid.update':
-				ids = this._photoLayoutEditor.api.grid.getBlocks('selected');
-				ids = ids.map((o) => {
+				keys = this._photoLayoutEditor.api.grid.getBlocks('selected');
+				keys = keys.map((o) => {
 					o.color = 'rgba(126,211,33,1)';
 					return o;
 				});
-				this._photoLayoutEditor.api.grid.update(ids);
+				this._photoLayoutEditor.api.grid.update(keys);
 				break;
 			case 'grid.add':
 				this._photoLayoutEditor.api.grid.add({
@@ -125,6 +127,14 @@ class App extends React.Component {
 			<div className="app">
 				<PhotoLayoutEditor
 					side={{ files: util.pickImages(5) }}
+				   body={{
+				   	grid: [
+						   { layout: { x: 0, y: 0, w: 2, h: 2 } },
+						   { layout: { x: 2, y: 0, w: 1, h: 2 } },
+						   { layout: { x: 3, y: 0, w: 2, h: 1 } },
+						   { layout: { x: 3, y: 1, w: 1, h: 1 } },
+					   ]
+				   }}
 					//uploadScript="http://localhost/lab/uploader/upload.php"
 					uploadParamsConvertFunc={(file) => { return file.url; }}
 					ref={(r) => { this._photoLayoutEditor = r }}/>

@@ -3,7 +3,7 @@ import * as libs from '../lib';
 import * as defaults from './defaults';
 
 
-let lastGridId = null;
+let lastGridId = 0;
 let shuffleIndex = 0;
 
 
@@ -99,34 +99,32 @@ export function visibleToolbarButtons(state=defaults.body.visibleToolbarButtons,
 /**
  * grid
  *
- * @param {Array} state
+ * @param {Object} state
  * @param {*} action
  * @return {Array}
  */
-export function grid(state=defaults.setting.body.grid, action)
+export function grid(state={}, action)
 {
-	let newState = null;
+	let newState = Object.assign({}, state);
 	let n = null;
 
 	switch (action.type)
 	{
 		case types.INIT_PLE:
-			let grid = [];
+			let grid = defaults.setting.body.grid;
 			try {
-				grid = action.preference.body.grid || state;
-			} catch(e) {
-				grid = state;
+				grid = action.preference.body.grid;
 			}
+			catch(e) {}
 
-			return grid.map((o, k) => {
-				lastGridId = lastGridId === null ? 0 : lastGridId + 1;
-				return {
+			grid.forEach((o) => {
+				newState[lastGridId++] = {
 					color: null,
 					...o,
-					index: lastGridId,
 					indexPrefix: shuffleIndex,
 				};
 			});
+			return newState;
 
 		case types.GRID_ADD_BLOCK:
 			lastGridId = lastGridId === null ? 0 : lastGridId + 1;
