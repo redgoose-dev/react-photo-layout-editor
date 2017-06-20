@@ -14,9 +14,9 @@ export default class Side {
 	 * get id in item
 	 *
 	 * @param {String} mode
-	 * @param {Array} index
+	 * @param {Array} keys
 	 */
-	getId(mode=null, index=[])
+	getKeys(mode=null, keys=[])
 	{
 		const state = this.store.getState();
 		const { files } = state.tree.side;
@@ -25,15 +25,15 @@ export default class Side {
 		switch(mode)
 		{
 			case 'selected':
-				files.forEach((o) => {
-					if (o.active)
+				Object.keys(files).forEach((o) => {
+					if (files[o].active)
 					{
-						result.push(o.id);
+						result.push(parseInt(o));
 					}
 				});
 				break;
 			case 'value':
-				index.forEach((o) => {
+				keys.forEach((o) => {
 					if (files[o] && files[o].id)
 					{
 						result.push(files[o].id);
@@ -42,8 +42,9 @@ export default class Side {
 				break;
 			case 'all':
 			default:
-				files.forEach((o) => {
-					result.push(o.id);
+				Object.keys(files).forEach((o) => {
+					console.log(o);
+					//result.push(o.id);
 				});
 				break;
 		}
@@ -53,6 +54,7 @@ export default class Side {
 
 	/**
 	 * get index in item
+	 * TODO 안쓸예정
 	 *
 	 * @param {String} mode
 	 * @param {Array} ids
@@ -144,12 +146,7 @@ export default class Side {
 	 */
 	select(value=[])
 	{
-		let ids = value.map((o) => o.id);
-		// TODO 여기서부터..
-		console.log('TODO 여기서부터..')
-		// let selected = this.getIndex('value', ids);
-		// selected = selected.map((o, k) => ({ index: o, active: value[k].active }));
-		// this.store.dispatch(actions.side.updateSelected(selected));
+		this.store.dispatch(actions.side.updateSelected(value));
 	}
 
 	/**
@@ -161,13 +158,13 @@ export default class Side {
 	{
 		if (typeof active === 'boolean')
 		{
-			let selected = this.getId('all');
+			let selected = this.getKeys('all');
 			this.selection(selected, active);
 		}
 		else
 		{
-			let activeCount = this.getId('selected').length;
-			let ids = this.getId('all');
+			let activeCount = this.getKeys('selected').length;
+			let ids = this.getKeys('all');
 			this.selection(ids, !(activeCount > 0));
 		}
 	}
@@ -199,7 +196,7 @@ export default class Side {
 	 */
 	clear()
 	{
-		let index = this.getId('all');
+		let index = this.getKeys('all');
 		this.store.dispatch(actions.side.removeFiles(index))
 	}
 

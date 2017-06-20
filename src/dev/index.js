@@ -42,14 +42,14 @@ class App extends React.Component {
 				this._photoLayoutEditor.api.side.toggleSelectAll();
 				break;
 			case 'side.selectedRemoveItems':
-				ids = this._photoLayoutEditor.api.side.getId('selected');
+				ids = this._photoLayoutEditor.api.side.getKeys('selected');
 				this._photoLayoutEditor.api.side.remove(ids);
 				break;
 			case 'side.clear':
 				this._photoLayoutEditor.api.side.clear();
 				break;
 			case 'side.attachToGrid':
-				ids = this._photoLayoutEditor.api.side.getId('selected');
+				ids = this._photoLayoutEditor.api.side.getKeys('selected');
 				this._photoLayoutEditor.api.side.attachToGrid(ids);
 				break;
 			case 'side.upload':
@@ -72,12 +72,12 @@ class App extends React.Component {
 				});
 				break;
 			case 'side.getItems':
-				ids = this._photoLayoutEditor.api.side.getId('selected');
+				ids = this._photoLayoutEditor.api.side.getKeys('selected');
 				result = this._photoLayoutEditor.api.side.getItems(ids);
 				console.log('side.getItems', result);
 				break;
 			case 'side.getImages':
-				ids = this._photoLayoutEditor.api.side.getId('selected');
+				ids = this._photoLayoutEditor.api.side.getKeys('selected');
 				result = this._photoLayoutEditor.api.side.getImages(ids);
 				console.log('side.getImages', result);
 				break;

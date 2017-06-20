@@ -72,15 +72,11 @@ export default function base(state=defaults.side, action)
 		case types.SIDE_UPDATE_SELECTED:
 			if (!(action.value && action.value.length)) return state;
 			newState = Object.assign([], state);
-
 			action.value.forEach((o) => {
-				console.log(o);
-				if (!newState.files[o.index]) return;
-				newState.files[o.index].active = o.active;
+				if (!newState.files[o.key]) return;
+				newState.files[o.key].active = o.active;
 			});
-
 			return newState;
-			break;
 
 		case types.SIDE_UPDATE_PROGRESS:
 			return {

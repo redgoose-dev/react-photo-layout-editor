@@ -80,12 +80,12 @@ class Side extends React.Component {
 	_removeItems()
 	{
 		const { props } = this;
-		let ids = props.api.side.getId('selected');
+		let ids = props.api.side.getKeys('selected');
 
 		if (!ids.length)
 		{
 			if (!confirm('Delete all?')) return;
-			ids = props.api.side.getId('all');
+			ids = props.api.side.getKeys('all');
 		}
 
 		if (confirm('Do you really want to delete it?'))
@@ -112,7 +112,7 @@ class Side extends React.Component {
 	{
 		try
 		{
-			let ids = this.props.api.side.getId('selected');
+			let ids = this.props.api.side.getKeys('selected');
 			let result = this.props.api.side.attachToGrid(ids);
 			if (result) throw result;
 		}
