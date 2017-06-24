@@ -10,13 +10,13 @@ export default class Grid {
 	}
 
 	/**
-	 * get index block
+	 * get keys in block
 	 *
 	 * @param {String} mode
-	 * @param {Array} index
+	 * @param {Array} keys
 	 * @return {Array}
 	 */
-	getIndex(mode=null, index=[])
+	getKeys(mode=null, keys=[])
 	{
 		const state = this.store.getState();
 		const { body } = state.tree;
@@ -25,52 +25,55 @@ export default class Grid {
 		switch(mode)
 		{
 			case 'selected':
-				result = [];
-				body.activeBlock.forEach((o) => {
-					let n = lib.object.findObjectValueInArray(body.grid, 'index', o);
-					if (n !== undefined) result.push(n);
-				});
-				return result;
+				return body.activeBlock;
 			case 'value':
 				result = [];
-				index.forEach((o) => {
-					let n = lib.object.findObjectValueInArray(body.grid, 'index', o);
-					if (n !== undefined) result.push(n);
+				keys.forEach((k) => {
+					if (body.grid[k])
+					{
+						result.push(k);
+					}
 				});
 				return result;
 			case 'all':
 			default:
-				return body.grid.map((o, k) => k);
+				return Object.keys(body.grid).map(k => k);
 		}
 	}
 
 	/**
-	 * get index block
+	 * get blocks
 	 *
 	 * @param {String} mode
-	 * @param {Array} index
-	 * @return {Array}
+	 * @param {Array} keys
+	 * @return {Object}
 	 */
-	getBlocks(mode=null, index=[])
+	getBlocks(mode=null, keys=[])
 	{
 		const state = this.store.getState();
 		const { body } = state.tree;
 		let selected = [];
+		let result = {};
 
 		switch(mode)
 		{
 			case 'selected':
-				selected = this.getIndex('selected');
+				selected = this.getKeys('selected');
 				break;
 			case 'value':
-				selected = this.getIndex('selected', index);
+				selected = this.getKeys('value', keys);
 				break;
 			case 'all':
 			default:
 				return body.grid;
 		}
 
-		return selected.map((o) => body.grid[o]);
+		selected.forEach(k => {
+			if (!body.grid[k]) return;
+			result[k] = body.grid[k];
+		});
+
+		return result;
 	}
 
 	/**
@@ -129,7 +132,12 @@ export default class Grid {
 		const state = this.store.getState();
 		const { body } = state.tree;
 		const defaultOptions = {
-			layout: { x: body.grid.length % body.setting.column, y: Infinity, w: 1, h: 1 },
+			layout: {
+				x: Object.keys(body.grid).length % body.setting.column,
+				y: Infinity,
+				w: 1,
+				h: 1
+			},
 			color: null,
 			image: null
 		};
@@ -149,28 +157,16 @@ export default class Grid {
 	/**
 	 * update blocks
 	 *
-	 * @param {Array} blocks
+	 * @param {Object} blocks
 	 */
-	update(blocks=[])
+	update(blocks={})
 	{
-		const state = this.store.getState();
-		const { body } = state.tree;
-		let result = [];
-		let index = blocks.map((o) => {
-			return {
-				index: lib.object.findObjectValueInArray(body.grid, 'index', o.index),
-				block: o
-			};
-		});
-		index.forEach((o) => {
-			result[o.index] = o.block;
-		});
-		this.store.dispatch(actions.body.updateBlocks(result));
+		this.store.dispatch(actions.body.updateBlocks(blocks));
 	}
 
-	remove(ids=[])
+	remove(keys=[])
 	{
-		this.store.dispatch(actions.body.removeBlock(ids));
+		this.store.dispatch(actions.body.removeBlock(keys));
 	}
 
 	duplicate()

@@ -1,18 +1,21 @@
 import * as types from './types';
 
 
-export function open(item)
+export function open(key, item)
 {
 	return {
 		type: types.CROPPER_OPEN,
-		value: item,
+		item,
+		key
 	};
 }
 
-export function close(options)
+export function close(key, position, size)
 {
 	return {
 		type: types.CROPPER_CLOSE,
-		value: options,
+		key,
+		position,
+		size
 	};
 }

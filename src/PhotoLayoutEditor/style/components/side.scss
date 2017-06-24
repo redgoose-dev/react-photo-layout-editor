@@ -203,6 +203,7 @@
 			cursor: pointer;
 			text-indent: -9999px;
 			outline: none;
+			touch-action: pan-x;
 			&.ple-sideItems__item-active {
 				&:after {
 					content: '';

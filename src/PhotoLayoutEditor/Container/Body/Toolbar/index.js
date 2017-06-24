@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import $ from 'jquery/dist/jquery.slim';
 import ColorPicker from 'react-simple-colorpicker';
 
-import { findObjectValueInArray } from '../../../lib/object';
 import * as actions from '../../../actions';
 import * as libs from '../../../lib';
 
@@ -29,7 +28,54 @@ class Toolbar extends React.Component {
 			active: {
 				setting: false,
 				editBlockColor: false,
+			},
+			visible: {
+				setting: true,
+				shuffle: true,
+				add: true,
+				select: true,
+				edit: false,
+				removeImage: false,
+				duplicate: false,
+				removeBlock: false,
+				editColor: false
 			}
+		}
+	}
+
+	componentWillReceiveProps(nextProps)
+	{
+		const { state, props } = this;
+
+		let newState = Object.assign({}, state);
+		let updated = false;
+
+		// select block
+		if (props.tree.body.activeBlock.length !== nextProps.tree.body.activeBlock.length)
+		{
+			let active = !!(nextProps.tree.body.activeBlock.length);
+			newState.visible = Object.assign({}, newState.visible, {
+				removeImage: active,
+				duplicate: active,
+				removeBlock: active,
+				editColor: active
+			});
+			updated = true;
+		}
+
+		// select image block
+		if (nextProps.tree.body.activeBlock[0])
+		{
+			let block = nextProps.tree.body.grid[nextProps.tree.body.activeBlock[0]];
+			newState.visible = Object.assign({}, newState.visible, {
+				edit: !!(block && block.image)
+			});
+			updated = true;
+		}
+
+		if (updated)
+		{
+			this.setState(newState);
 		}
 	}
 
@@ -93,24 +139,20 @@ class Toolbar extends React.Component {
 	render()
 	{
 		const { state, props } = this;
-		const visible = props.tree.body.visibleToolbarButtons;
 		let activeBlockColor = '#fff';
 
-		if (libs.object.isArray(props.tree.body.grid))
+		if (typeof props.tree.body.grid === 'object' && libs.object.isArray(props.tree.body.activeBlock))
 		{
-			if (libs.object.isArray(props.tree.body.activeBlock))
-			{
-				const n = findObjectValueInArray(props.tree.body.grid, 'index', props.tree.body.activeBlock[0]);
-				activeBlockColor = (props.tree.body.grid[n] && props.tree.body.grid[n].color) ?
-					props.tree.body.grid[n].color :
-					props.setting.body.blockColor;
-			}
+			const n = props.tree.body.activeBlock[0];
+			activeBlockColor = (props.tree.body.grid[n] && props.tree.body.grid[n].color) ?
+				props.tree.body.grid[n].color :
+				props.setting.body.blockColor;
 		}
 
 		return (
 			<nav className="ple-toolbar">
 				<div className="ple-toolbar__wrap">
-					{visible.setting && (
+					{state.visible.setting && (
 						<Button
 							iconClass="ple-ico-setting"
 							className={classNames('ple-edit-setting', {
@@ -132,19 +174,19 @@ class Toolbar extends React.Component {
 								defaultSetting={props.setting.body.setting}/>
 						</Button>
 					)}
-					{visible.shuffle && (
+					{state.visible.shuffle && (
 						<Button
 							iconClass="ple-ico-arrow-random"
 							onClick={() => props.api.grid.shuffle()}
 							title="Shuffle block"/>
 					)}
-					{visible.add && (
+					{state.visible.add && (
 						<Button
 							iconClass="ple-ico-plus"
 							onClick={() => props.api.grid.add()}
 							title="Add block"/>
 					)}
-					{visible.select && (
+					{state.visible.select && (
 						<Button
 							iconClass="ple-ico-select"
 							onClick={() => {
@@ -155,27 +197,30 @@ class Toolbar extends React.Component {
 								}
 								let newActiveBlock = [];
 								let isImage = !!(props.tree.body.grid[0] && props.tree.body.grid[0].image);
-								props.tree.body.grid.forEach((o) => newActiveBlock.push(o.index));
+								Object.keys(props.tree.body.grid).forEach((k) => newActiveBlock.push(k));
 								props.dispatch(actions.body.activeBlock(newActiveBlock, isImage));
 							}}
 							title="Toggle select block"/>
 					)}
 
-					{visible.edit && (
+					{state.visible.edit && (
 						<Button
 							iconClass="ple-ico-pencil"
 							className="ple-toolbar__block-key"
 							onClick={this._onClickEdit.bind(this)}
 							title="Edit block"/>
 					)}
-					{visible.removeImage && (
+					{state.visible.removeImage && (
 						<Button
 							iconClass="ple-ico-empty"
 							className="ple-toolbar__block-key"
-							onClick={() => props.dispatch(actions.body.removeImages(props.tree.body.activeBlock))}
+							onClick={() => {
+								console.log('act remove image');
+								//props.dispatch(actions.body.removeImages(props.tree.body.activeBlock));
+							}}
 							title="Remove image in block"/>
 					)}
-					{visible.duplicate && (
+					{state.visible.duplicate && (
 						<Button
 							iconClass="ple-ico-duplicate"
 							className="ple-toolbar__block-key"
@@ -189,7 +234,7 @@ class Toolbar extends React.Component {
 							}}
 							title="Duplicate block"/>
 					)}
-					{visible.removeBlock && (
+					{state.visible.removeBlock && (
 						<Button
 							iconClass="ple-ico-trash"
 							className="ple-toolbar__block-key"
@@ -199,11 +244,11 @@ class Toolbar extends React.Component {
 									alert('Not found select block');
 									return;
 								}
-								props.dispatch(actions.body.removeBlock(props.tree.body.activeBlock));
+								props.api.grid.remove(props.tree.body.activeBlock);
 							}}
 							title="Remove block"/>
 					)}
-					{visible.editColor && (
+					{state.visible.editColor && (
 						<Button
 							iconClass="ple-ico-palette"
 							className={classNames(

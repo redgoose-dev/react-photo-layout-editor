@@ -95,7 +95,6 @@ export default class EditLayoutSetting extends React.Component {
 	_openBgColorPicker(e)
 	{
 		e.persist();
-		const { state } = this;
 		this.activeBgColorPopup(null, e);
 	}
 

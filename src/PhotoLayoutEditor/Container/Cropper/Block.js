@@ -34,6 +34,7 @@ export default class Block extends React.Component {
 			isCover: props.size === 'cover',
 		};
 
+		this._self = null;
 		this.$self = null;
 		this.$img = null;
 		this.moveStartInfo = {};
@@ -43,7 +44,7 @@ export default class Block extends React.Component {
 	componentDidMount()
 	{
 		// set dom
-		this.$self = $(ReactDom.findDOMNode(this.refs.self));
+		this.$self = $(ReactDom.findDOMNode(this._self));
 	}
 
 	componentWillReceiveProps(nextProps)
@@ -204,7 +205,7 @@ export default class Block extends React.Component {
 
 		return (
 			<figure
-				ref="self"
+				ref={r => { this._self = r; }}
 				style={{ backgroundColor: props.bgColor }}
 				className="ple-cropperBlock ple-cropper__block">
 				{state.isCover ? (

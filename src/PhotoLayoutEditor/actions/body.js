@@ -9,10 +9,10 @@ export function addBlock(value)
 	};
 }
 
-export function removeBlock(index) {
+export function removeBlock(keys) {
 	return {
 		type: types.GRID_REMOVE_BLOCK,
-		index,
+		keys,
 	};
 }
 
@@ -24,11 +24,11 @@ export function shuffleBlocks(options)
 	}
 }
 
-export function duplicateBlock(index)
+export function duplicateBlock(keys)
 {
 	return {
 		type: types.GRID_DUPLICATE_BLOCK,
-		index,
+		keys
 	};
 }
 
@@ -40,20 +40,20 @@ export function updateBlocks(blocks)
 	}
 }
 
-export function activeBlock(index, isImage=false)
+export function activeBlock(key, isImage=false)
 {
 	return {
 		type: types.GRID_ACTIVE_BLOCK,
-		value: index,
-		isImage: isImage,
+		value: key,
+		isImage: isImage
 	};
 }
 
-export function changeColorBlock(item, color)
+export function changeColorBlock(keys, color)
 {
 	return {
 		type: types.GRID_CHANGE_COLOR,
-		item,
+		keys,
 		color,
 	}
 }
@@ -69,18 +69,18 @@ export function updateSetting(value)
 export function attachImages(images, cols, activeBlocks)
 {
 	return {
-		type: types.ATTACH_IMAGES,
+		type: types.GRID_ATTACH_IMAGES,
 		value: images,
 		columns: cols,
 		activeBlocks: activeBlocks,
 	}
 }
 
-export function attachImage(index, image)
+export function attachImage(keys, image)
 {
 	return {
-		type: types.ATTACH_IMAGE,
-		index,
+		type: types.GRID_ATTACH_IMAGE,
+		keys,
 		image,
 	};
 }

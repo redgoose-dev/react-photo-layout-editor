@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import ReactGridLayout from 'react-grid-layout';
 import classNames from 'classnames';
 
+import Cropper from '../../Cropper';
+
 import * as actions from '../../../actions';
 import * as libs from '../../../lib';
 
@@ -27,7 +29,7 @@ class GridLayout extends React.Component {
 	/**
 	 * On select block
 	 *
-	 * @param {Number} id
+	 * @param {String} id
 	 * @param {boolean} isImage
 	 */
 	_selectBlock(id=null, isImage=false)
@@ -75,10 +77,26 @@ class GridLayout extends React.Component {
 	 *
 	 * @param {String} type
 	 * @param {Array} layout
+	 * @param {HTMLElement} element
 	 */
-	_updateBlocks(type, layout)
+	_updateBlocks(type, layout=null, element=null)
 	{
 		const { props } = this;
+
+		/**
+		 * convert layout
+		 *
+		 * @return {Object}
+		 */
+		function convertLayout()
+		{
+			let result = {};
+			for (let i=0; i<layout.length; i++)
+			{
+				result[layout[i].i.split('__')[1]] = layout[i];
+			}
+			return result;
+		}
 
 		switch(type)
 		{
@@ -90,15 +108,17 @@ class GridLayout extends React.Component {
 				timeStamp[1] = new Date().getTime();
 				if (timeStamp[1] - timeStamp[0] > 400)
 				{
-					let newGrid = props.tree.body.grid.map((o, k) => {
-						return {
-							...o,
+					let newLayout = convertLayout();
+					let newGrid = {};
+					Object.keys(props.tree.body.grid).forEach(k => {
+						newGrid[k] = {
+							...props.tree.body.grid[k],
 							layout: {
-								x: layout[k].x,
-								y: layout[k].y,
-								w: layout[k].w,
-								h: layout[k].h,
-							},
+								x: newLayout[k].x,
+								y: newLayout[k].y,
+								w: newLayout[k].w,
+								h: newLayout[k].h,
+							}
 						};
 					});
 					props.dispatch(actions.body.updateBlocks(newGrid));
@@ -111,7 +131,7 @@ class GridLayout extends React.Component {
 	/**
 	 * Render item
 	 *
-	 * @param {String} o
+	 * @param {String} k
 	 * @return {Component}
 	 */
 	renderItem(k)
@@ -123,12 +143,11 @@ class GridLayout extends React.Component {
 		let key = `${item.indexPrefix}__${k}`;
 		let active = !!(activeBlock && activeBlock.length && activeBlock.indexOf(k) > -1);
 
-		// TODO : 셔플부터 작업하기
 		return (
 			<div
-				key={k}
+				key={key}
 				data-grid={item.layout}
-				data-index={k}
+				data-key={k}
 				onClick={(event) => {
 					event.stopPropagation();
 					this._selectBlock(k, !!item.image);
@@ -157,25 +176,28 @@ class GridLayout extends React.Component {
 
 		return (
 			<div className="ple-grid__wrap" onClick={() => this._selectBlock()}>
-				<ReactGridLayout
-					autoSize={true}
-					cols={setting.column}
-					rowHeight={setting.height}
-					width={bodyWidth}
-					margin={[setting.innerMargin, setting.innerMargin]}
-					containerPadding={[setting.outerMargin, setting.outerMargin]}
-					verticalCompact={!setting.freeMode}
-					onDragStart={() => this._updateBlocks('start', null)}
-					onDragStop={(layout) => this._updateBlocks('end', layout)}
-					onResizeStart={() => this._updateBlocks('start', null)}
-					onResizeStop={(layout) => this._updateBlocks('end', layout)}
-					style={{
-						width: `${bodyWidth}px`,
-						backgroundColor: setting.bgColor
-					}}
-					className="ple-grid">
-					{Object.keys(props.tree.body.grid).map(this.renderItem.bind(this))}
-				</ReactGridLayout>
+				<div className="ple-grid__body" style={{ width: `${bodyWidth}px` }}>
+					<ReactGridLayout
+						autoSize={true}
+						cols={setting.column}
+						rowHeight={setting.height}
+						width={bodyWidth}
+						margin={[setting.innerMargin, setting.innerMargin]}
+						containerPadding={[setting.outerMargin, setting.outerMargin]}
+						verticalCompact={!setting.freeMode}
+						onDragStart={() => this._updateBlocks('start')}
+						onDragStop={(layout, oldItem, newItem, placeholder, e, element) => this._updateBlocks('end', layout, element)}
+						onResizeStart={() => this._updateBlocks('start')}
+						onResizeStop={(layout, oldItem, newItem, placeholder, e, element) => this._updateBlocks('end', layout, element)}
+						style={{
+							width: `100%`,
+							backgroundColor: setting.bgColor
+						}}
+						className="ple-grid">
+						{Object.keys(props.tree.body.grid).map(this.renderItem.bind(this))}
+					</ReactGridLayout>
+					{props.tree.cropper.visible ? ( <Cropper/> ) : null}
+				</div>
 			</div>
 		);
 	}

@@ -1,6 +1,4 @@
-
 export const setting = {
-
 	base: {
 		uploadScript: null,
 		uploadParamsConvertFunc: null,
@@ -19,11 +17,10 @@ export const setting = {
 		grid: {},
 	},
 	side: {
-		files: [],
+		files: {},
 		visible: true,
 		progressPercent: null,
 	},
-
 };
 
 
@@ -31,19 +28,4 @@ export const side = {
 	files: {},
 	visible: true,
 	progressPercent: null,
-};
-
-
-export const body = {
-	visibleToolbarButtons: {
-		setting: true,
-		shuffle: true,
-		add: true,
-		select: true,
-		edit: false,
-		removeImage: false,
-		duplicate: false,
-		removeBlock: false,
-		editColor: false,
-	}
 };

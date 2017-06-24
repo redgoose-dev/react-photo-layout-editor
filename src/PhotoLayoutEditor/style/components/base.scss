@@ -21,6 +21,8 @@ html.ple-popup-mode {overflow: hidden;}
 	.ple-body {}
 
 	&.ple-side-active {
-		.ple-container {margin-right: $sidebar-width;}
+		.ple-container {
+			margin-right: $sidebar-width;
+		}
 	}
 }

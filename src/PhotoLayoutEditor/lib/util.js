@@ -61,7 +61,7 @@ export function getImageSize(src)
 
 
 /**
- * Get css prefix
+ * get css prefix
  *
  * @variation {Object}
  */
@@ -82,3 +82,19 @@ export const cssPrefix = (function()
 		js: pre[0].toUpperCase() + pre.substr(1)
 	};
 })();
+
+
+/**
+ * check support css
+ *
+ * @param {String} key
+ * @param {String} value
+ * @return {Boolean}
+ */
+export function checkSupportCss(key, value)
+{
+	if (CSS && CSS.supports)
+	{
+		return CSS.supports(key, value);
+	}
+}

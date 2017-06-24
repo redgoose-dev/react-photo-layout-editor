@@ -153,8 +153,8 @@ export default class Side {
 	 */
 	clear()
 	{
-		let index = this.getKeys('all');
-		this.store.dispatch(actions.side.removeFiles(index))
+		let keys = this.getKeys('all');
+		this.store.dispatch(actions.side.removeFiles(keys))
 	}
 
 	/**

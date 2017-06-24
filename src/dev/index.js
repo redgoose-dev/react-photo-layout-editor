@@ -5,6 +5,7 @@ import PhotoLayoutEditor from '../PhotoLayoutEditor';
 import * as util from './util';
 
 import '../PhotoLayoutEditor/style/app.scss';
+import './layout.scss';
 
 
 class App extends React.Component {
@@ -20,11 +21,12 @@ class App extends React.Component {
 		let keys = [];
 		switch(id)
 		{
+			// LAYOUT
 			case 'layout.toggleSide':
 				this._photoLayoutEditor.api.layout.toggleSide();
 				break;
 
-			// side
+			// SIDE
 			case 'side.add':
 				this._photoLayoutEditor.api.side.add(util.pickImages(3));
 				break;
@@ -83,13 +85,17 @@ class App extends React.Component {
 				console.log('side.getImages', result);
 				break;
 
-			// grid
-			case 'grid.getIndex':
-				result = this._photoLayoutEditor.api.grid.getIndex('value', [0,2,4,6,8]);
-				console.log('get index:', result);
+			// GRID
+			case 'grid.getKeys':
+				//result = this._photoLayoutEditor.api.grid.getKeys('all');
+				result = this._photoLayoutEditor.api.grid.getKeys('selected');
+				//result = this._photoLayoutEditor.api.grid.getKeys('value', [0,2,4,6,8]);
+				console.log('get keys:', result);
 				break;
 			case 'grid.getBlocks':
-				result = this._photoLayoutEditor.api.grid.getBlocks('all');
+				//result = this._photoLayoutEditor.api.grid.getBlocks('all');
+				result = this._photoLayoutEditor.api.grid.getBlocks('selected');
+				//result = this._photoLayoutEditor.api.grid.getBlocks('value', [0,2,4,6,8]);
 				console.log('get blocks:', result);
 				break;
 			case 'grid.shuffle':
@@ -102,12 +108,13 @@ class App extends React.Component {
 				this._photoLayoutEditor.api.grid.assignImage(0, util.pickImages(1)[0]);
 				break;
 			case 'grid.update':
-				keys = this._photoLayoutEditor.api.grid.getBlocks('selected');
-				keys = keys.map((o) => {
-					o.color = 'rgba(126,211,33,1)';
-					return o;
+				let result = {};
+				let blocks = this._photoLayoutEditor.api.grid.getBlocks('selected');
+				if (!Object.keys(blocks).length) return;
+				Object.keys(blocks).forEach((k) => {
+					blocks[k].color = 'rgba(126,211,33,1)';
 				});
-				this._photoLayoutEditor.api.grid.update(keys);
+				this._photoLayoutEditor.api.grid.update(blocks);
 				break;
 			case 'grid.add':
 				this._photoLayoutEditor.api.grid.add({
@@ -116,7 +123,9 @@ class App extends React.Component {
 				});
 				break;
 			case 'grid.remove':
-				this._photoLayoutEditor.api.grid.remove([0,2]);
+				let keys = this._photoLayoutEditor.api.grid.getKeys('selected');
+				//this._photoLayoutEditor.api.grid.remove(keys);
+				this._photoLayoutEditor.api.grid.remove([0,1]);
 				break;
 		}
 	}
@@ -138,16 +147,18 @@ class App extends React.Component {
 					//uploadScript="http://localhost/lab/uploader/upload.php"
 					uploadParamsConvertFunc={(file) => { return file.url; }}
 					ref={(r) => { this._photoLayoutEditor = r }}/>
-				<hr/>
+
 				<article className="api-control">
 					<section>
 						<h1>Layout</h1>
 						<nav>
-							<button
-								type="button"
-								onClick={() => this.action('layout.toggleSide')}>
-								Toggle side
-							</button>
+							<p>
+								<button
+									type="button"
+									onClick={() => this.action('layout.toggleSide')}>
+									Toggle side
+								</button>
+							</p>
 						</nav>
 					</section>
 					<section>
@@ -219,16 +230,16 @@ class App extends React.Component {
 						<h1>Grid</h1>
 						<nav>
 							<p>
-								<button type="button" onClick={() => this.action('grid.getIndex')}>get index</button>
+								<button type="button" onClick={() => this.action('grid.getKeys')}>get keys</button>
 								<button type="button" onClick={() => this.action('grid.getBlocks')}>get blocks</button>
-								<button type="button" onClick={() => this.action('grid.shuffle')}>shuffle</button>
-								<button type="button" onClick={() => this.action('grid.assignImages')}>assign images</button>
-								<button type="button" onClick={() => this.action('grid.assignImage')}>assign image</button>
 							</p>
 							<p>
 								<button type="button" onClick={() => this.action('grid.update')}>update</button>
 								<button type="button" onClick={() => this.action('grid.add')}>add</button>
 								<button type="button" onClick={() => this.action('grid.remove')}>remove</button>
+								<button type="button" onClick={() => this.action('grid.shuffle')}>shuffle</button>
+								<button type="button" onClick={() => this.action('grid.assignImages')}>assign images</button>
+								<button type="button" onClick={() => this.action('grid.assignImage')}>assign image</button>
 							</p>
 						</nav>
 					</section>

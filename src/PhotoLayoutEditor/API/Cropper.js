@@ -9,29 +9,25 @@ export default class Cropper {
 		this.store = store;
 	}
 
-	open(index)
+	open(key)
 	{
 		const state = this.store.getState();
 		let item = null;
 
 		try {
-			const n = libs.object.findObjectValueInArray(state.tree.body.grid, 'index', index);
-			if (typeof n !== 'number') throw 'Not found item';
-			item = state.tree.body.grid[n];
+			item = state.tree.body.grid[key];
 			if (!item.image) throw 'Not found image in item';
 		} catch(e) {
 			alert(e);
 			return;
 		}
 
-		this.store.dispatch(actions.cropper.open(item));
+		this.store.dispatch(actions.cropper.open(key, item));
 	};
 
-	close()
+	close(key, position, size)
 	{
-		console.log('close cropper');
-
-		this.store.dispatch(actions.cropper.close());
+		this.store.dispatch(actions.cropper.close(key, position, size));
 	}
 
 }

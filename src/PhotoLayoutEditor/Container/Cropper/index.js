@@ -21,7 +21,7 @@ class Cropper extends React.Component {
 		this._block = null;
 		this.$item = $(props.element)
 			.find('.react-grid-item')
-			.filter(`[data-index=${props.tree.cropper.item.index}]`);
+			.filter(`[data-key=${cropper.key}]`);
 
 		this.state = {
 			pending: true,
@@ -29,8 +29,8 @@ class Cropper extends React.Component {
 			size: cropper.item.image.size || 'cover',
 			width: this.$item.width(),
 			height: this.$item.height(),
-			top: this.$item.offset().top,
-			left: this.$item.offset().left
+			top: this.$item.position().top,
+			left: this.$item.position().left
 		};
 	}
 
@@ -46,18 +46,17 @@ class Cropper extends React.Component {
 	}
 
 	/**
-	 * on close cropper
-	 * cropper를 닫고, 변경된 이미지를 grid로 보낸다.
-	 *
+	 * close cropper
+	 * `cropper`를 닫고, 변경된 이미지를 `grid`로 보낸다.
 	 */
 	_onClose()
 	{
 		const { props } = this;
-		props.dispatch(actions.cropper.close({
-			index: props.tree.cropper.item.index,
-			position: this._block.state.position,
-			size: this._block.state.size
-		}));
+		props.api.cropper.close(
+			props.tree.cropper.key,
+			this._block.state.position,
+			this._block.state.size
+		);
 	}
 
 	/**

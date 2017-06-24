@@ -25,14 +25,14 @@ export default combineReducers({
 		side,
 		body: combineReducers({
 			setting: body.setting,
-			visibleToolbarButtons: body.visibleToolbarButtons,
 			grid: body.grid,
-			activeBlock: body.activeBlock,
+			activeBlock: body.activeBlock
 		}),
 		cropper: combineReducers({
 			visible: cropper.visible,
 			item: cropper.item,
+			key: cropper.key
 		})
-	}),
+	})
 
 });

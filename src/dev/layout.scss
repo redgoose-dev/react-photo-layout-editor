@@ -1,0 +1,39 @@
+body {
+	margin: 15px;
+}
+
+// control
+.api-control {
+	margin: 30px 0 0;
+	border-top: 1px solid #999;
+	> section {
+		margin: 20px 0;
+		> h1 {
+			font-size: 20px;
+			color: #222;
+			margin: 0 0 5px;
+			padding: 0 0 0 10px;
+		}
+	}
+
+	nav {
+		font-size: 14px;
+		padding: 6px 10px;
+		background: #f1f1f1;
+		p {
+			margin: 5px 0;
+		}
+		button {
+			padding: 6px 12px;
+			margin: 0 5px 1px 0;
+			font-size: 12px;
+			background: #999;
+			font-family: 'Helvetica', Arial, sans-serif;
+			color: #fff;
+			font-weight: 400;
+			border: none;
+			text-transform: uppercase;
+			cursor: pointer;
+		}
+	}
+}

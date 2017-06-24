@@ -21,7 +21,25 @@ export function item(state=null, action)
 	switch(action.type)
 	{
 		case types.CROPPER_OPEN:
-			return action.value;
+			return action.item;
+
+		case types.CROPPER_CLOSE:
+			return null;
+
+		default:
+			return state;
+	}
+}
+
+export function key(state=null, action)
+{
+	switch(action.type)
+	{
+		case types.CROPPER_OPEN:
+			return action.key;
+
+		case types.CROPPER_CLOSE:
+			return null;
 
 		default:
 			return state;

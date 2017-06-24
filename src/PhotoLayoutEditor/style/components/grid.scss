@@ -3,9 +3,14 @@
 	background: #fff;
 	margin: 0 auto;
 	box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	min-height: 40px;
 	&__wrap {
 		padding: 30px 30px;
 		@extend %transparent-background;
+	}
+	&__body {
+		position: relative;
+		margin: 0 auto;
 	}
 	.react-grid-item {
 		cursor: pointer; overflow: hidden;

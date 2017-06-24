@@ -38,186 +38,114 @@ export function setting(state=defaults.setting.body.setting, action)
 }
 
 /**
- * visible toolbar buttons
+ * grid
  *
  * @param {Object} state
  * @param {*} action
  * @return {Object}
  */
-export function visibleToolbarButtons(state=defaults.body.visibleToolbarButtons, action)
-{
-	switch(action.type) {
-		case types.GRID_ACTIVE_BLOCK:
-			if (action.value && action.value.length)
-			{
-				return Object.assign({},
-					state,
-					{
-						removeImage: true,
-						duplicate: true,
-						removeBlock: true,
-						editColor: true,
-					},
-					action.isImage && action.value.length === 1 ? {
-						edit: true,
-					} : {
-						edit: false,
-					}
-				);
-			}
-			else
-			{
-				return {
-					...state,
-					edit: false,
-					removeImage: false,
-					duplicate: false,
-					removeBlock: false,
-					editColor: false,
-				};
-			}
-
-		case types.GRID_REMOVE_BLOCK:
-			return {
-				...state,
-				edit: false,
-				removeImage: false,
-				duplicate: false,
-				removeBlock: false,
-				editColor: false,
-			};
-
-		case types.GRID_REMOVE_IMAGES:
-			return {
-				...state,
-				edit: false,
-			};
-	}
-	return state;
-}
-
-/**
- * grid
- *
- * @param {Object} state
- * @param {*} action
- * @return {Array}
- */
 export function grid(state={}, action)
 {
 	let newState = Object.assign({}, state);
-	let n = null;
 
 	switch (action.type)
 	{
 		case types.INIT_PLE:
-			let grid = defaults.setting.body.grid;
+			let grid = {};
 			try {
+				if (!(action.preference.body.grid instanceof Array)) throw 'error';
+				action.preference.body.grid.forEach((o, k) => {
+					grid[k] = o;
+				});
+			} catch(e) {
 				grid = action.preference.body.grid;
 			}
-			catch(e) {}
-
-			grid.forEach((o) => {
+			Object.keys(grid).forEach((o) => {
 				newState[lastGridId++] = {
 					color: null,
-					...o,
+					...grid[o],
 					indexPrefix: shuffleIndex,
 				};
 			});
 			return newState;
 
 		case types.GRID_ADD_BLOCK:
-			lastGridId = lastGridId === null ? 0 : lastGridId + 1;
-			return state.concat({
+			newState[lastGridId++] = {
 				color: null,
 				layout: { x: Infinity, y: Infinity, w: 1, h: 1 },
 				...action.value,
-				index: lastGridId,
 				indexPrefix: shuffleIndex,
-			});
+			};
+			return newState;
 
 		case types.GRID_REMOVE_BLOCK:
-			if (!action.index || !action.index.length) return state;
-			newState = Object.assign([], state);
-			for (let i=0; i<action.index.length; i++)
-			{
-				const n = libs.object.findObjectValueInArray(newState, 'index', action.index[i]);
-				newState.splice(n, 1);
-			}
+			if (!action.keys || !action.keys.length) return state;
+			action.keys.forEach(o => {
+				delete newState[o];
+			});
 			return newState;
 
 		case types.GRID_SHUFFLE_BLOCKS:
-			shuffleIndex++;
-			newState = Object.assign([], state);
-			return newState.map((o, k) => {
+			return Object.keys(newState).map((k) => {
 				return {
-					...o,
+					...newState[k],
 					layout: {
 						x: libs.number.randomRange(0, action.value.x - 1),
 						y: libs.number.randomRange(0, action.value.y - 1),
 						w: libs.number.randomRange(1, action.value.w),
 						h: libs.number.randomRange(1, action.value.h),
 					},
-					indexPrefix: shuffleIndex,
+					indexPrefix: shuffleIndex++,
 				};
 			});
 
 		case types.GRID_DUPLICATE_BLOCK:
-			newState = Object.assign([], state);
-			action.index.forEach((o, k) => {
-				n = libs.object.findObjectValueInArray(state, 'index', o);
-				if (!newState[n]) return;
-				lastGridId = lastGridId === null ? 0 : lastGridId + 1;
-				newState = newState.concat({
-					...newState[n],
-					index: lastGridId,
-				});
+			action.keys.forEach(k => {
+				if (!newState[k]) return;
+				newState[lastGridId++] = Object.assign({}, newState[k]);
 			});
 			return newState;
 
 		case types.GRID_CHANGE_COLOR:
-			newState = Object.assign([], state);
-			action.item.forEach((o, k) => {
-				n = libs.object.findObjectValueInArray(newState, 'index', o);
-				if (newState[n]) newState[n].color = action.color;
+			action.keys.forEach(k => {
+				if (!newState[k]) return;
+				newState[k].color = action.color;
 			});
 			return newState;
 
-		case types.ATTACH_IMAGES:
+		case types.GRID_ATTACH_IMAGES:
 			if (!libs.object.isArray(action.value)) return state;
-			newState = Object.assign([], state);
 
 			if (action.activeBlocks && action.activeBlocks.length)
 			{
-				newState.forEach((o, k) => {
+				Object.keys(newState).forEach((k) => {
 					if (!action.value.length) return;
-					if (action.activeBlocks.indexOf(o.index) < 0) return;
-					o.image = {
+					if (action.activeBlocks.indexOf(k) === -1) return;
+					newState[k].image = {
 						src: action.value.splice(0,1)[0],
 						position: '50% 50%',
-						size: 'cover',
+						size: 'cover'
 					};
 				});
 			}
 			else
 			{
-				newState.forEach((o) => {
-					if (o.image) return;
+				Object.keys(newState).forEach((k) => {
+					if (newState[k].image) return;
 					if (!action.value || !action.value.length) return;
-					o.image = {
+					newState[k].image = {
 						src: action.value.splice(0,1)[0],
 						position: '50% 50%',
-						size: 'cover',
+						size: 'cover'
 					};
 				});
 				if (action.value.length)
 				{
 					action.value.forEach((o, k) => {
-						lastGridId = lastGridId === null ? 0 : lastGridId + 1;
-						newState = newState.concat({
+						newState[lastGridId++] = {
 							color: null,
 							layout: {
-								x: (state.length + k) % action.columns,
+								x: (Object.keys(state).length + k) % action.columns,
 								y: Infinity,
 								w: 1,
 								h: 1
@@ -227,49 +155,45 @@ export function grid(state={}, action)
 								position: '50% 50%',
 								size: 'cover',
 							},
-							index: lastGridId,
-						});
+							indexPrefix: shuffleIndex
+						};
 					});
 				}
 			}
 
 			return newState;
 
-		case types.ATTACH_IMAGE:
+		case types.GRID_ATTACH_IMAGE:
 			if (!(action.image && typeof action.image === 'string')) return state;
-			if (!(action.index !== null && typeof action.index === 'number')) return state;
+			if (!newState[action.keys]) return state;
 
-			newState = Object.assign([], state);
-			n = libs.object.findObjectValueInArray(newState, 'index', action.index);
-			newState[n].image = {
+			newState[action.keys].image = {
 				src: action.image,
 				position: '50% 50%',
 				size: 'cover',
 			};
-
 			return newState;
 
 		case types.GRID_REMOVE_IMAGES:
-			newState = Object.assign([], state);
-			action.value.forEach((o) => {
-				n = libs.object.findObjectValueInArray(newState, 'index', o);
-				if (newState[n] && newState[n].image)
-				{
-					delete newState[n].image;
-				}
+			action.value.forEach(k => {
+				if (!newState[k]) return;
+				newState[k].image = null;
 			});
 			return newState;
 
 		case types.GRID_UPDATE_BLOCKS:
-			return Object.assign([], state, action.value);
+			return Object.assign({}, state, action.value);
 
 		case types.CROPPER_CLOSE:
-			newState = Object.assign([], state);
-			n = libs.object.findObjectValueInArray(state, 'index', action.value.index);
-
-			newState[n].image.position = action.value.position;
-			newState[n].image.size = action.value.size;
-
+			if (!newState[action.key]) return state;
+			if (action.position)
+			{
+				newState[action.key].image.position = action.position;
+			}
+			if (action.size)
+			{
+				newState[action.key].image.size = action.size;
+			}
 			return newState;
 	}
 
@@ -285,7 +209,7 @@ export function grid(state={}, action)
  */
 export function activeBlock(state=[], action)
 {
-	let newState = null;
+	let newState = Object.assign([], state);
 
 	switch (action.type)
 	{
@@ -293,10 +217,9 @@ export function activeBlock(state=[], action)
 			return action.value;
 
 		case types.GRID_REMOVE_BLOCK:
-			if (action.index && action.index.length)
+			if (action.keys && action.keys.length)
 			{
-				newState = Object.assign([], state);
-				action.index.forEach((o, k) => {
+				action.keys.forEach(o => {
 					if (newState.indexOf(o) < 0) return;
 					newState.splice(newState.indexOf(o), 1);
 				});

@@ -55,10 +55,10 @@ function changeActive(key, item, start, end, type)
  * select items
  *
  * @param {Object} props
- * @param {Number} id
+ * @param {Number} key
  * @return {Array}
  */
-export default function selectItems(props, id)
+export default function selectItems(props, key)
 {
 	const { keyName } = props.keyboard;
 	const { files } = props.tree.side;
@@ -68,18 +68,18 @@ export default function selectItems(props, id)
 	if (keyName !== 'SHIFT')
 	{
 		let currentItem = null;
-		Object.keys(props.tree.side.files).forEach((o) => {
-			let obj = props.tree.side.files[o];
-			if (parseInt(o) === id)
+		Object.keys(props.tree.side.files).forEach(k => {
+			let obj = props.tree.side.files[k];
+			if (parseInt(k) === key)
 			{
 				currentItem = obj;
 				return false;
 			}
 		});
-		firstSelectIdx = (currentItem.active === true) ? null : id;
+		firstSelectIdx = (currentItem.active === true) ? null : key;
 		if (!firstSelectIdx && currentItem.active === true)
 		{
-			firstSelectIdx = currentItem.id;
+			firstSelectIdx = currentItem.key;
 		}
 	}
 
@@ -93,7 +93,7 @@ export default function selectItems(props, id)
 	}
 
 	let items = Object.keys(files).map(k => {
-		let obj = changeActive(parseInt(k), files[k], firstSelectIdx, id, type);
+		let obj = changeActive(parseInt(k), files[k], firstSelectIdx, key, type);
 		if (obj.active)
 		{
 			selected = true;

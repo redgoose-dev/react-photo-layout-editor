@@ -12,7 +12,7 @@ let nextFileId = 0;
 // base
 export default function base(state=defaults.side, action)
 {
-	let newState = null;
+	let newState = Object.assign({}, state);
 	let files = {};
 
 	switch (action.type) {
@@ -59,7 +59,6 @@ export default function base(state=defaults.side, action)
 
 		case types.SIDE_REMOVE_FILES:
 			if (!action.keys.length) return state;
-			newState = Object.assign({}, state);
 			action.keys.forEach(o => {
 				delete newState.files[o];
 			});
@@ -67,10 +66,10 @@ export default function base(state=defaults.side, action)
 
 		case types.SIDE_UPDATE_SELECTED:
 			if (!(action.value && Object.keys(action.value).length)) return state;
-			newState = Object.assign({}, state);
-			Object.keys(action.value).forEach(o => {
-				if (!newState.files[o]) return;
-				newState.files[o].active = action.value[o].active;
+			Object.keys(action.value).forEach(k => {
+				let key = action.value[k].key;
+				if (!newState.files[key]) return;
+				newState.files[key].active = action.value[k].active;
 			});
 			return newState;
 

@@ -9,7 +9,7 @@ export default class Items extends React.Component {
 
 	static defaultProps = {
 		files: [], // files
-		onSelect: (id) => {}, // on select event
+		onSelect: (key) => {}, // on select event
 		onDragStart: null, // on drag start
 		onDragEnd: null, // on drag end
 		onTouchStart: null, // on touch start

@@ -9,6 +9,7 @@ import ToggleSideButton from './ToggleSideButton';
 import Navigation from './Navigation';
 import Items from './Items';
 
+import * as lib from '../../lib';
 import selectItems from './selectItems';
 
 
@@ -54,7 +55,7 @@ class Side extends React.Component {
 				pos.top < this.dragPosition[1] &&
 				(pos.top + $this.height()) > this.dragPosition[1])
 			{
-				target = $this.data('index');
+				target = $this.data('key');
 				return false;
 			}
 		});
@@ -65,12 +66,12 @@ class Side extends React.Component {
 	/**
 	 * On select items
 	 *
-	 * @param {Number} id
+	 * @param {Number} key
 	 */
-	_selectItem(id)
+	_selectItem(key)
 	{
 		const { props } = this;
-		let selected = selectItems(props, id);
+		let selected = selectItems(props, key);
 		props.api.side.select(selected);
 	}
 
@@ -140,7 +141,7 @@ class Side extends React.Component {
 		}).on('drop', (e) => {
 			e.preventDefault();
 			$(e.currentTarget).removeClass('ple-grid__item-hover');
-			this.dragTarget = $(e.currentTarget).data('index');
+			this.dragTarget = $(e.currentTarget).data('key');
 		});
 	}
 	_dragEndItem(e)
@@ -175,6 +176,11 @@ class Side extends React.Component {
 	}
 	_touchMoveItem(e)
 	{
+		if (!lib.util.checkSupportCss('touch-action', 'pan-y'))
+		{
+			e.preventDefault();
+		}
+
 		let touch = e.nativeEvent.touches[0];
 		this.dragPosition = [touch.pageX, touch.pageY];
 		this.$dragItem.css({
@@ -205,6 +211,7 @@ class Side extends React.Component {
 		}
 		else
 		{
+			// TODO : 확인해보고 처리하기
 			//this._selectItem($(e.currentTarget).data('id'));
 		}
 	}
@@ -247,4 +254,4 @@ class Side extends React.Component {
 }
 
 
-export default connect((state) => Object.assign({}, state, {}))(Side);
+export default connect((state) => Object.assign({}, state))(Side);
