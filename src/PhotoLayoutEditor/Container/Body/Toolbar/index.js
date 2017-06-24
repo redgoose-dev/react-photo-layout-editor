@@ -55,6 +55,7 @@ class Toolbar extends React.Component {
 		{
 			let active = !!(nextProps.tree.body.activeBlock.length);
 			newState.visible = Object.assign({}, newState.visible, {
+				edit: false,
 				removeImage: active,
 				duplicate: active,
 				removeBlock: active,
@@ -130,12 +131,6 @@ class Toolbar extends React.Component {
 		return false;
 	}
 
-	_onClickEdit()
-	{
-		const { props } = this;
-		props.api.cropper.open(props.tree.body.activeBlock[0]);
-	}
-
 	render()
 	{
 		const { state, props } = this;
@@ -207,7 +202,7 @@ class Toolbar extends React.Component {
 						<Button
 							iconClass="ple-ico-pencil"
 							className="ple-toolbar__block-key"
-							onClick={this._onClickEdit.bind(this)}
+							onClick={() => props.api.cropper.open(props.tree.body.activeBlock[0])}
 							title="Edit block"/>
 					)}
 					{state.visible.removeImage && (

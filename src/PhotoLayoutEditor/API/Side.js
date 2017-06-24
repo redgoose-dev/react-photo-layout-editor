@@ -129,18 +129,18 @@ export default class Side {
 	/**
 	 * remove items
 	 *
-	 * @param {Array} index
+	 * @param {Array} keys
 	 * @return {Error}
 	 */
-	remove(index=[])
+	remove(keys=[])
 	{
 		try
 		{
-			if (!index.length)
+			if (!keys.length)
 			{
 				throw new Error('Not found items.')
 			}
-			this.store.dispatch(actions.side.removeFiles(index));
+			this.store.dispatch(actions.side.removeFiles(keys));
 		}
 		catch(e)
 		{
