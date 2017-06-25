@@ -128,6 +128,9 @@ export default class Util {
 	 */
 	makeImage()
 	{
+		const state = this.store.getState();
+		const { setting, grid } = state.tree.body;
+		console.log(setting, grid);
 		console.log('play make image');
 		// TODO : parameter (format, sampling, quality, callback)
 	}

@@ -7,9 +7,12 @@ module.exports = {
 
 	context: resolve(__dirname, 'src'),
 
-	entry: {
-		photoLayoutEditor: './dev/index.js'
-	},
+	entry: [
+		'react-hot-loader/patch',
+		`webpack-dev-server/client?http://localhost:4040`,
+		'webpack/hot/only-dev-server',
+		'./dev/index.js'
+	],
 
 	devServer: {
 		hot: true,
@@ -24,8 +27,8 @@ module.exports = {
 		publicPath: './',
 		filename: '[name].js',
 		chunkFilename: '[name].js',
-		library: 'PhotoLayoutEditor',
-		libraryTarget: 'var',
+		//library: 'PhotoLayoutEditor',
+		//libraryTarget: 'var',
 	},
 
 	devtool: 'cheap-eval-source-map',
@@ -34,7 +37,15 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
-				use: [ 'babel-loader' ],
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: true,
+							plugins: [ 'react-hot-loader/babel' ]
+						}
+					}
+				],
 				exclude: /node_modules/
 			},
 			{
