@@ -1,4 +1,5 @@
 import * as actions from '../actions';
+import * as lib from '../lib';
 
 
 export default class Util {
@@ -126,13 +127,19 @@ export default class Util {
 	 * make image
 	 *
 	 */
-	makeImage()
+	makeImage(format='jpg', quality=.75, sampling=2, callback=null)
 	{
 		const state = this.store.getState();
 		const { setting, grid } = state.tree.body;
-		console.log(setting, grid);
-		console.log('play make image');
-		// TODO : parameter (format, sampling, quality, callback)
+
+		console.log();
+
+		lib.makeImage(
+			state.element.querySelector('.ple-grid'),
+			{ setting, grid },
+			{ format, quality, sampling },
+			callback
+		);
 	}
 
 }

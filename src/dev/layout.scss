@@ -37,3 +37,11 @@ body {
 		}
 	}
 }
+
+
+#makeImageArea {
+	margin: 0;
+	canvas {
+		border: 1px dashed #20B292;
+	}
+}

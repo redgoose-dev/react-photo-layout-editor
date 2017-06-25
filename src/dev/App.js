@@ -205,7 +205,9 @@ export default class App extends React.Component {
 				});
 				break;
 			case 'util.makeImage':
-				this._photoLayoutEditor.api.util.makeImage();
+				this._photoLayoutEditor.api.util.makeImage('jpg', .75, 2, (res) => {
+					console.log('make image callback', res);
+				});
 				break;
 		}
 	}
