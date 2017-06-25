@@ -53,10 +53,11 @@ class Toolbar extends React.Component {
 		// select block
 		if (props.tree.body.activeBlock.length !== nextProps.tree.body.activeBlock.length)
 		{
+			//console.log(isImage);
 			let active = !!(nextProps.tree.body.activeBlock.length);
 			newState.visible = Object.assign({}, newState.visible, {
 				edit: false,
-				removeImage: active,
+				removeImage: false,
 				duplicate: active,
 				removeBlock: active,
 				editColor: active
@@ -64,11 +65,22 @@ class Toolbar extends React.Component {
 			updated = true;
 		}
 
-		// select image block
 		if (nextProps.tree.body.activeBlock[0])
 		{
+			// check image block
+			let isImage = false;
+			nextProps.tree.body.activeBlock.some(k => {
+				if (nextProps.tree.body.grid[k].image)
+				{
+					isImage = true;
+					return true;
+				}
+			});
+
+			// select image block
 			let block = nextProps.tree.body.grid[nextProps.tree.body.activeBlock[0]];
 			newState.visible = Object.assign({}, newState.visible, {
+				removeImage: isImage,
 				edit: !!(block && block.image)
 			});
 			updated = true;
@@ -184,17 +196,7 @@ class Toolbar extends React.Component {
 					{state.visible.select && (
 						<Button
 							iconClass="ple-ico-select"
-							onClick={() => {
-								if (libs.object.isArray(props.tree.body.activeBlock))
-								{
-									props.dispatch(actions.body.activeBlock(null));
-									return;
-								}
-								let newActiveBlock = [];
-								let isImage = !!(props.tree.body.grid[0] && props.tree.body.grid[0].image);
-								Object.keys(props.tree.body.grid).forEach((k) => newActiveBlock.push(k));
-								props.dispatch(actions.body.activeBlock(newActiveBlock, isImage));
-							}}
+							onClick={() => props.api.grid.toggleSelectAll()}
 							title="Toggle select block"/>
 					)}
 
@@ -209,10 +211,7 @@ class Toolbar extends React.Component {
 						<Button
 							iconClass="ple-ico-empty"
 							className="ple-toolbar__block-key"
-							onClick={() => {
-								console.log('act remove image');
-								//props.dispatch(actions.body.removeImages(props.tree.body.activeBlock));
-							}}
+							onClick={() => props.api.grid.removeImages(props.tree.body.activeBlock)}
 							title="Remove image in block"/>
 					)}
 					{state.visible.duplicate && (

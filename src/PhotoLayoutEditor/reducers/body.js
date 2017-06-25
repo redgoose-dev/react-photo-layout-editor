@@ -174,13 +174,6 @@ export function grid(state={}, action)
 			};
 			return newState;
 
-		case types.GRID_REMOVE_IMAGES:
-			action.value.forEach(k => {
-				if (!newState[k]) return;
-				newState[k].image = null;
-			});
-			return newState;
-
 		case types.GRID_UPDATE_BLOCKS:
 			return Object.assign({}, state, action.value);
 

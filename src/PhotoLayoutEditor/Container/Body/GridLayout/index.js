@@ -27,18 +27,17 @@ class GridLayout extends React.Component {
 	}
 
 	/**
-	 * On select block
+	 * on select block
 	 *
-	 * @param {String} id
-	 * @param {boolean} isImage
+	 * @param {String} key
 	 */
-	_selectBlock(id=null, isImage=false)
+	_selectBlock(key=null)
 	{
 		const { props } = this;
 
-		if (id === null)
+		if (key === null)
 		{
-			props.dispatch(actions.body.activeBlock([], false));
+			props.api.grid.select([]);
 			return;
 		}
 
@@ -50,26 +49,21 @@ class GridLayout extends React.Component {
 				if (libs.object.isArray(props.tree.body.activeBlock))
 				{
 					let newActiveBlock = Object.assign([], props.tree.body.activeBlock);
-					if (newActiveBlock.indexOf(id) > -1)
+					if (newActiveBlock.indexOf(key) > -1)
 					{
-						newActiveBlock.splice(newActiveBlock.indexOf(id), 1);
+						newActiveBlock.splice(newActiveBlock.indexOf(key), 1);
 					}
 					else
 					{
-						newActiveBlock.push(id);
+						newActiveBlock.push(key);
 					}
-					props.dispatch(actions.body.activeBlock(newActiveBlock, isImage));
+					props.api.grid.select(newActiveBlock);
+					return;
 				}
-				else
-				{
-					props.dispatch(actions.body.activeBlock([id], isImage));
-				}
-				break;
-
-			default:
-				props.dispatch(actions.body.activeBlock([id], isImage));
 				break;
 		}
+
+		props.api.grid.select([key]);
 	}
 
 	/**

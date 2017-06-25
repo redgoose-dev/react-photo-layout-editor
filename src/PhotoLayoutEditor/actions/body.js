@@ -40,12 +40,11 @@ export function updateBlocks(blocks)
 	}
 }
 
-export function activeBlock(key, isImage=false)
+export function activeBlock(keys)
 {
 	return {
 		type: types.GRID_ACTIVE_BLOCK,
-		value: key,
-		isImage: isImage
+		value: keys
 	};
 }
 
@@ -83,12 +82,4 @@ export function attachImage(keys, image)
 		keys,
 		image,
 	};
-}
-
-export function removeImages(ids)
-{
-	return {
-		type: types.GRID_REMOVE_IMAGES,
-		value: ids,
-	}
 }

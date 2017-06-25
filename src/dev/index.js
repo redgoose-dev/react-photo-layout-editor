@@ -124,8 +124,32 @@ class App extends React.Component {
 				break;
 			case 'grid.remove':
 				let keys = this._photoLayoutEditor.api.grid.getKeys('selected');
-				//this._photoLayoutEditor.api.grid.remove(keys);
-				this._photoLayoutEditor.api.grid.remove([0,1]);
+				this._photoLayoutEditor.api.grid.remove(keys);
+				//this._photoLayoutEditor.api.grid.remove([0,1]);
+				break;
+			case 'grid.select':
+				this._photoLayoutEditor.api.grid.select([0,2,3]);
+				break;
+			case 'grid.unselect':
+				this._photoLayoutEditor.api.grid.unselect([2,3]);
+				break;
+			case 'grid.toggleSelectAll':
+				this._photoLayoutEditor.api.grid.toggleSelectAll();
+				break;
+			case 'grid.duplicate':
+				keys = this._photoLayoutEditor.api.grid.getKeys('selected');
+				this._photoLayoutEditor.api.grid.duplicate(keys);
+				break;
+			case 'grid.getPreference':
+				result = this._photoLayoutEditor.api.grid.getPreference();
+				console.log('side.getPreference', result);
+				break;
+			case 'grid.setPreference':
+				this._photoLayoutEditor.api.grid.setPreference({
+					width: 80,
+					column: 6,
+					innerMargin: 5,
+				});
 				break;
 		}
 	}
@@ -150,18 +174,6 @@ class App extends React.Component {
 
 				<article className="api-control">
 					<section>
-						<h1>Layout</h1>
-						<nav>
-							<p>
-								<button
-									type="button"
-									onClick={() => this.action('layout.toggleSide')}>
-									Toggle side
-								</button>
-							</p>
-						</nav>
-					</section>
-					<section>
 						<h1>Side</h1>
 						<nav>
 							<p>
@@ -185,8 +197,6 @@ class App extends React.Component {
 									onClick={() => this.action('side.attachToGrid')}>
 									attach to grid
 								</button>
-							</p>
-							<p>
 								<button
 									type="button"
 									onClick={() => this.action('side.selection')}>
@@ -202,8 +212,6 @@ class App extends React.Component {
 									onClick={() => this.action('side.toggleSelectAll')}>
 									toggle select all
 								</button>
-							</p>
-							<p>
 								<button
 									type="button"
 									onClick={() => this.action('side.getItems')}>
@@ -232,14 +240,30 @@ class App extends React.Component {
 							<p>
 								<button type="button" onClick={() => this.action('grid.getKeys')}>get keys</button>
 								<button type="button" onClick={() => this.action('grid.getBlocks')}>get blocks</button>
-							</p>
-							<p>
+								<button type="button" onClick={() => this.action('grid.getPreference')}>get preference</button>
+								<button type="button" onClick={() => this.action('grid.setPreference')}>set preference</button>
 								<button type="button" onClick={() => this.action('grid.update')}>update</button>
 								<button type="button" onClick={() => this.action('grid.add')}>add</button>
 								<button type="button" onClick={() => this.action('grid.remove')}>remove</button>
 								<button type="button" onClick={() => this.action('grid.shuffle')}>shuffle</button>
 								<button type="button" onClick={() => this.action('grid.assignImages')}>assign images</button>
 								<button type="button" onClick={() => this.action('grid.assignImage')}>assign image</button>
+								<button type="button" onClick={() => this.action('grid.duplicate')}>duplicate</button>
+								<button type="button" onClick={() => this.action('grid.select')}>select</button>
+								<button type="button" onClick={() => this.action('grid.unselect')}>unselect</button>
+								<button type="button" onClick={() => this.action('grid.toggleSelectAll')}>toggle select all</button>
+							</p>
+						</nav>
+					</section>
+					<section>
+						<h1>ETC</h1>
+						<nav>
+							<p>
+								<button
+									type="button"
+									onClick={() => this.action('layout.toggleSide')}>
+									Toggle side
+								</button>
 							</p>
 						</nav>
 					</section>

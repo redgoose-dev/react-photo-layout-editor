@@ -113,13 +113,28 @@ export default class Grid {
 	/**
 	 * assign image
 	 *
-	 * @param {Number} id
+	 * @param {Number} key
 	 * @param {String} image
 	 */
-	assignImage(id=null, image=null)
+	assignImage(key=null, image=null)
 	{
-		if (!(id !== null && image !== null)) return;
-		this.store.dispatch(actions.body.attachImage(id, image));
+		if (!(key !== null && image !== null)) return;
+		this.store.dispatch(actions.body.attachImage(key, image));
+	}
+
+	/**
+	 * remove images
+	 *
+	 * @param {Array} keys
+	 */
+	removeImages(keys=[])
+	{
+		const state = this.store.getState();
+		let newGrid = Object.assign({}, state.tree.body.grid);
+		keys.forEach(k => {
+			newGrid[k].image = null;
+		});
+		this.update(newGrid);
 	}
 
 	/**
@@ -164,44 +179,105 @@ export default class Grid {
 		this.store.dispatch(actions.body.updateBlocks(blocks));
 	}
 
+	/**
+	 * remove blocks
+	 *
+	 * @param {Array} keys
+	 */
 	remove(keys=[])
 	{
 		this.store.dispatch(actions.body.removeBlock(keys));
 	}
 
-	duplicate()
+	/**
+	 * select blocks
+	 *
+	 * @param {Array} keys
+	 */
+	select(keys=[])
 	{
-
+		keys = keys.map(k => k.toString());
+		this.store.dispatch(actions.body.activeBlock(keys));
 	}
 
-	select()
+	/**
+	 * un select blocks
+	 *
+	 * @param {Array} keys
+	 */
+	unselect(keys=[])
 	{
+		const state = this.store.getState();
+		let newActiveBlock = Object.assign([], state.tree.body.activeBlock);
 
+		keys.forEach(k => {
+			k = k.toString();
+			if (newActiveBlock.indexOf(k) !== -1)
+			{
+				newActiveBlock.splice(newActiveBlock.indexOf(k), 1);
+			}
+		});
+		this.store.dispatch(actions.body.activeBlock(newActiveBlock));
 	}
 
-	unselect()
+	/**
+	 * toggle select all blocks
+	 *
+	 * @param {Boolean} isSelect
+	 */
+	toggleSelectAll(isSelect=null)
 	{
+		const state = this.store.getState();
 
+		if (typeof isSelect !== 'boolean')
+		{
+			isSelect = !state.tree.body.activeBlock.length;
+		}
+		if (isSelect)
+		{
+			this.select(this.getKeys('all'));
+		}
+		else
+		{
+			this.select([]);
+		}
 	}
 
-	toggleSelect()
+	/**
+	 * duplicate blocks
+	 *
+	 * @param {Array} keys
+	 */
+	duplicate(keys=[])
 	{
-
+		this.store.dispatch(actions.body.duplicateBlock(keys));
 	}
 
+	/**
+	 * get preference
+	 *
+	 * @return {Object}
+	 */
 	getPreference()
 	{
-
+		const state = this.store.getState();
+		return state.tree.body.setting;
 	}
 
-	setPreference()
+	/**
+	 * set preference
+	 *
+	 * @param {Object} value
+	 */
+	setPreference(value={})
 	{
-
+		let newPreference = Object.assign({}, this.getPreference(), value);
+		this.store.dispatch(actions.body.updateSetting(newPreference));
 	}
 
 	export()
 	{
-
+		// TODO
 	}
 }
 
