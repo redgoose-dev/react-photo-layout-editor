@@ -140,11 +140,12 @@ export default class Grid {
 	/**
 	 * add blocks
 	 *
-	 * @param {Object} options
+	 * @param {Array} blocks
 	 */
-	add(options={})
+	add(blocks=null)
 	{
-		const state = this.store.getState();
+		const { getState, dispatch } = this.store;
+		const state = getState();
 		const { body } = state.tree;
 		const defaultOptions = {
 			layout: {
@@ -157,16 +158,30 @@ export default class Grid {
 			image: null
 		};
 
-		// assign option
-		options = Object.assign({}, defaultOptions, options);
-		options.layout = Object.assign({}, defaultOptions.layout, options.layout);
-		options.image = options.image ? {
-			src: options.image,
-			position: '50% 50%',
-			size: 'cover',
-		} : null;
+		/**
+		 * add block
+		 *
+		 * @param {Object} options
+		 */
+		function block(options={})
+		{
+			// assign option
+			options = Object.assign({}, defaultOptions, options);
+			options.layout = Object.assign({}, defaultOptions.layout, options.layout);
+			options.image = options.image ? {
+				src: options.image,
+				position: '50% 50%',
+				size: 'cover',
+			} : null;
 
-		this.store.dispatch(actions.body.addBlock(options));
+			dispatch(actions.body.addBlock(options));
+		}
+
+		// checking blocks
+		blocks = (blocks && blocks.length) ? blocks : [null];
+
+		// play add blocks
+		blocks.forEach(o => block(o));
 	}
 
 	/**
@@ -275,9 +290,5 @@ export default class Grid {
 		this.store.dispatch(actions.body.updateSetting(newPreference));
 	}
 
-	export()
-	{
-		// TODO
-	}
 }
 

@@ -231,7 +231,7 @@ class Side extends React.Component {
 						className="ple-side__background"/>
 					<ToggleSideButton
 						show={props.tree.side.visible}
-						onClick={() => props.api.layout.toggleSide(undefined)}/>
+						onClick={() => props.api.util.toggleSide(undefined)}/>
 					<Navigation
 						onAttach={this._attach.bind(this)}
 						onToggleSelect={() => props.api.side.toggleSelectAll()}

@@ -19,13 +19,10 @@ class App extends React.Component {
 	{
 		let result = null;
 		let keys = [];
+		let preference = null;
+
 		switch(id)
 		{
-			// LAYOUT
-			case 'layout.toggleSide':
-				this._photoLayoutEditor.api.layout.toggleSide();
-				break;
-
 			// SIDE
 			case 'side.add':
 				this._photoLayoutEditor.api.side.add(util.pickImages(3));
@@ -117,10 +114,10 @@ class App extends React.Component {
 				this._photoLayoutEditor.api.grid.update(blocks);
 				break;
 			case 'grid.add':
-				this._photoLayoutEditor.api.grid.add({
+				this._photoLayoutEditor.api.grid.add([{
 					layout: { w: 1, h: 1 },
 					color: 'rgba(126,211,33,1)',
-				});
+				}]);
 				break;
 			case 'grid.remove':
 				let keys = this._photoLayoutEditor.api.grid.getKeys('selected');
@@ -150,6 +147,66 @@ class App extends React.Component {
 					column: 6,
 					innerMargin: 5,
 				});
+				break;
+
+			// Util
+			case 'util.toggleSide':
+				this._photoLayoutEditor.api.util.toggleSide();
+				break;
+			case 'util.export.side':
+				result = this._photoLayoutEditor.api.util.export('side');
+				console.log('export(side)', result);
+				break;
+			case 'util.export.grid':
+				result = this._photoLayoutEditor.api.util.export('grid');
+				console.log('export(grid)', result);
+				break;
+			case 'util.export.preference':
+				result = this._photoLayoutEditor.api.util.export('preference');
+				console.log('export(preference)', result);
+				break;
+			case 'util.export.all':
+				result = this._photoLayoutEditor.api.util.export('all');
+				console.log('export(all)', result);
+				break;
+			case 'util.import.side':
+				result = this._photoLayoutEditor.api.util.import('side', util.pickImages(3), true);
+				break;
+			case 'util.import.grid':
+				this._photoLayoutEditor.api.util.import('grid', [
+					{ color: '#ee4149', layout: { w: 1, h: 1, x: 0 } },
+					{ color: '#36b40d', layout: { w: 2, h: 2, x: Infinity } },
+					{ color: '#b188ff', layout: { w: 3, h: 1, y: 2, x: 0 } },
+				], true);
+				break;
+			case 'util.import.preference':
+				preference = this._photoLayoutEditor.api.util.export('preference');
+				preference = Object.assign({}, preference, {
+					width: 120,
+					height: 80,
+					innerMargin: 2,
+					bgColor: '#ffefc2'
+				});
+				this._photoLayoutEditor.api.util.import('preference', preference);
+				break;
+			case 'util.import.all':
+				preference = this._photoLayoutEditor.api.util.export('preference');
+				this._photoLayoutEditor.api.util.import('all', {
+					side: util.pickImages(3),
+					grid: [
+						{ color: '#ee4149', layout: { w: 1, h: 1, x: 0 } },
+						{ color: '#36b40d', layout: { w: 2, h: 2, x: Infinity } },
+					],
+					preference: Object.assign({}, preference, {
+						width: 120,
+						height: 80,
+						innerMargin: 2,
+						bgColor: '#ffefc2'
+					})
+				});
+				break;
+			case 'util.makeImage':
+				this._photoLayoutEditor.api.util.makeImage();
 				break;
 		}
 	}
@@ -256,18 +313,28 @@ class App extends React.Component {
 						</nav>
 					</section>
 					<section>
-						<h1>ETC</h1>
+						<h1>Util</h1>
 						<nav>
 							<p>
-								<button
-									type="button"
-									onClick={() => this.action('layout.toggleSide')}>
-									Toggle side
-								</button>
+								<button type="button" onClick={() => this.action('util.toggleSide')}>Toggle side</button>
+							</p>
+							<p>
+								<button type="button" onClick={() => this.action('util.export.side')}>Export(side)</button>
+								<button type="button" onClick={() => this.action('util.export.grid')}>Export(grid)</button>
+								<button type="button" onClick={() => this.action('util.export.preference')}>Export(preference)</button>
+								<button type="button" onClick={() => this.action('util.export.all')}>Export(all)</button>
+								<button type="button" onClick={() => this.action('util.makeImage')}>Make image</button>
+							</p>
+							<p>
+								<button type="button" onClick={() => this.action('util.import.side')}>Import(side)</button>
+								<button type="button" onClick={() => this.action('util.import.grid')}>Import(grid)</button>
+								<button type="button" onClick={() => this.action('util.import.preference')}>Import(preference)</button>
+								<button type="button" onClick={() => this.action('util.import.all')}>Import(all)</button>
 							</p>
 						</nav>
 					</section>
 				</article>
+				<figure id="makeImageArea"/>
 			</div>
 		);
 	}

@@ -1,5 +1,4 @@
 import * as actions from '../actions';
-import * as libs from '../lib';
 
 
 export default class Cropper {
