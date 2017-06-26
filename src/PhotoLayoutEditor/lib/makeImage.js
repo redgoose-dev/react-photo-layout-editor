@@ -1,3 +1,5 @@
+import $ from 'jquery/dist/jquery.slim';
+
 
 /**
  * Canvas
@@ -18,28 +20,47 @@ function Canvas(width=150, height=100, bgColor='#ffffff')
 	this.ctx.fillRect(0, 0, width, height);
 }
 
-function makeQueue(grid=null, setting=null)
+function exportGrid(el, grid)
 {
-	if (!(grid && setting)) return null;
+	const $items = $(el).children();
+	let result = [];
 
-	let queue = [];
-
-	function getItemSize(width, col, margin)
-	{
-		return (width * col) + ((col > 1) ? margin * (col - 1) : 0);
-	}
-
-	Object.keys(grid).forEach(k => {
-		let block = grid[k];
-
-		queue.push({
-			image: block.image || {},
-
+	$items.each((key, item) => {
+		let $item = $(item);
+		result.push({
+			key: $item.data('key'),
+			x: $item.position().left,
+			y: $item.position().top,
+			width: $item.width(),
+			height: $item.height(),
+			image: grid[$item.data('key')].image
 		});
-
-		console.log(block);
 	});
+
+	return result;
 }
+
+// function makeQueue(grid=null, setting=null)
+// {
+// 	if (!(grid && setting)) return null;
+//
+// 	let queue = [];
+//
+// 	function getItemSize(width, col, margin)
+// 	{
+// 		return (width * col) + ((col > 1) ? margin * (col - 1) : 0);
+// 	}
+//
+// 	Object.keys(grid).forEach(k => {
+// 		let block = grid[k];
+//
+// 		queue.push({
+// 			image: block.image || {},
+// 		});
+// 		console.log(block);
+// 	});
+// }
+
 
 /**
  * make image
@@ -53,11 +74,13 @@ export default function makeImage(el, data={}, option={}, callback=null)
 {
 	// TODO: exportGrid 해야함.
 	// TODO: 이유는 엘리먼트에서 값을(size, position) 추출해내는게 편한거 같음
+	const grid = exportGrid(el, data.grid);
+	console.log(grid);
+
 	// set queue
 	//let queue = makeQueue(data.grid, data.setting);
 	// set canvas
 	let canvas = new Canvas(el.offsetWidth, el.offsetHeight, data.setting.bgColor);
-
 
 	// TODO: test
 	let _output = document.getElementById('makeImageArea');
