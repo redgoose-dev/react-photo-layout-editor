@@ -132,8 +132,6 @@ export default class Util {
 		const state = this.store.getState();
 		const { setting, grid } = state.tree.body;
 
-		console.log();
-
 		lib.makeImage(
 			state.element.querySelector('.ple-grid'),
 			{ setting, grid },

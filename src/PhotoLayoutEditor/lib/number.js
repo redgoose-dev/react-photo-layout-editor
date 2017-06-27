@@ -43,3 +43,18 @@ export function getTimeStamp()
 {
 	return Math.round(+new Date()/1000);
 }
+
+
+/**
+ * get ratio
+ *
+ * @param {Number} w
+ * @param {Number} h
+ * @return {Number}
+ */
+export function getRatio(w, h)
+{
+	let result = parseInt(w) / parseInt(h);
+	result = Math.round(result * 1000) / 1000;
+	return result;
+}

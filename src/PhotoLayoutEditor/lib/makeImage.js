@@ -1,5 +1,7 @@
 import $ from 'jquery/dist/jquery.slim';
 
+import * as lib from './index';
+
 
 /**
  * Canvas
@@ -20,46 +22,47 @@ function Canvas(width=150, height=100, bgColor='#ffffff')
 	this.ctx.fillRect(0, 0, width, height);
 }
 
-function exportGrid(el, grid)
+/**
+ * export grid
+ *
+ * @param {HTMLElement} el
+ * @param {Array} grids
+ * @return {Array}
+ */
+function makeQueue(el, grids)
 {
+	if (!(el && grids)) return null;
+
 	const $items = $(el).children();
 	let result = [];
 
 	$items.each((key, item) => {
-		let $item = $(item);
+		const $item = $(item);
+		const grid = grids[$item.data('key')];
+		let image = grid.image;
+
+		if (image)
+		{
+			image = {
+				src: image.src,
+				position: image.position.split(' '),
+				size: image.size === 'cover' ? null : image.size.split(' ')
+			};
+		}
+
 		result.push({
 			key: $item.data('key'),
 			x: $item.position().left,
 			y: $item.position().top,
 			width: $item.width(),
 			height: $item.height(),
-			image: grid[$item.data('key')].image
+			image: image || null,
+			color: grid.color,
 		});
 	});
 
 	return result;
 }
-
-// function makeQueue(grid=null, setting=null)
-// {
-// 	if (!(grid && setting)) return null;
-//
-// 	let queue = [];
-//
-// 	function getItemSize(width, col, margin)
-// 	{
-// 		return (width * col) + ((col > 1) ? margin * (col - 1) : 0);
-// 	}
-//
-// 	Object.keys(grid).forEach(k => {
-// 		let block = grid[k];
-//
-// 		queue.push({
-// 			image: block.image || {},
-// 		});
-// 		console.log(block);
-// 	});
-// }
 
 
 /**
@@ -67,20 +70,21 @@ function exportGrid(el, grid)
  *
  * @param {HTMLElement} el `.ple-grid` element
  * @param {Object} data
- * @param {Object} option
+ * @param {Object} options
  * @param {Function} callback
  */
-export default function makeImage(el, data={}, option={}, callback=null)
+export default function makeImage(el, data={}, options={}, callback=null)
 {
-	// TODO: exportGrid 해야함.
-	// TODO: 이유는 엘리먼트에서 값을(size, position) 추출해내는게 편한거 같음
-	const grid = exportGrid(el, data.grid);
-	console.log(grid);
-
 	// set queue
-	//let queue = makeQueue(data.grid, data.setting);
-	// set canvas
+	const queue = makeQueue(el, data.grid);
+
+	// make canvas
 	let canvas = new Canvas(el.offsetWidth, el.offsetHeight, data.setting.bgColor);
+
+	// TODO: play queue
+	// TODO: draw blocks to canvas
+	// TODO: export image
+
 
 	// TODO: test
 	let _output = document.getElementById('makeImageArea');
