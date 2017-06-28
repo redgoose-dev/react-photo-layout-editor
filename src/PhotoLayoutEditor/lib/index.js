@@ -3,7 +3,7 @@ import * as number from './number';
 import * as object from './object';
 import * as color from './color';
 import uploader from './uploader';
-import makeImage from './makeImage';
+import makingImage from './makingImage';
 
 
 export {
@@ -12,5 +12,5 @@ export {
 	color,
 	object,
 	uploader,
-	makeImage
+	makingImage
 }

@@ -64,30 +64,89 @@ function makeQueue(el, grids)
 	return result;
 }
 
-
 /**
  * make image
+ *
+ * @return {Promise}
+ */
+function makeImage()
+{
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve();
+		}, 300)
+	});
+}
+
+function drawBlock()
+{
+	return new Promise((resolve, reject) => {
+		// TODO: 캔버스에 그리기
+		setTimeout(() => {
+			resolve();
+		}, 300)
+	});
+}
+
+/**
+ * making image
  *
  * @param {HTMLElement} el `.ple-grid` element
  * @param {Object} data
  * @param {Object} options
- * @param {Function} callback
+ * @return {Promise}
  */
-export default function makeImage(el, data={}, options={}, callback=null)
+export default function makingImage(el, data={}, options={})
 {
-	// set queue
-	const queue = makeQueue(el, data.grid);
-
+	const defer = $.Deferred(); // resolve, notify, reject
+	let queues = makeQueue(el, data.grid);
 	// make canvas
 	let canvas = new Canvas(el.offsetWidth, el.offsetHeight, data.setting.bgColor);
+
+	function play(queue)
+	{
+		// TODO: 구조 정리하기
+		return new Promise((resolve, reject) => {
+			makeImage().then(() => {
+				drawBlock().then(() => {
+					console.log(queues);
+					// 큐 하나빼기
+					queues.splice(0, 1);
+					// 중간 경과를 알려주기
+					defer.notify();
+					resolve();
+				});
+			}, (error) => reject)
+		});
+	}
+
+	function draw()
+	{
+		if (queues.length)
+		{
+			// 다음 큐 실행
+			play(queues[0]).then(draw);
+		}
+		else
+		{
+			// 더이상 남아있는 큐가 없으므로 종료
+			defer.resolve();
+		}
+	}
+
+	// check queue
+	if (!queues.length)
+	{
+		defer.reject('not found queue');
+		return defer.promise();
+	}
+
+	// play queue
+	play(queues[0]).then(draw);
 
 	// TODO: play queue
 	// TODO: draw blocks to canvas
 	// TODO: export image
 
-
-	// TODO: test
-	let _output = document.getElementById('makeImageArea');
-	_output.innerHTML = '';
-	_output.appendChild(canvas.el);
+	return defer.promise();
 }

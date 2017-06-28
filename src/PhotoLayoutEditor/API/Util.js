@@ -127,17 +127,26 @@ export default class Util {
 	 * make image
 	 *
 	 */
-	makeImage(format='jpg', quality=.75, sampling=2, callback=null)
+	makeImage(format='jpg', quality=.75, sampling=2)
 	{
 		const state = this.store.getState();
 		const { setting, grid } = state.tree.body;
 
-		lib.makeImage(
+		lib.makingImage(
 			state.element.querySelector('.ple-grid'),
 			{ setting, grid },
-			{ format, quality, sampling },
-			callback
-		);
+			{ format, quality, sampling }
+		).done(() => {
+			console.log('DONE', 'doneeeeee');
+
+			// let _output = document.getElementById('makeImageArea');
+			// _output.innerHTML = '';
+			// _output.appendChild(background.el);
+		}).progress(() => {
+			console.log('PROGRESS');
+		}).fail(() => {
+			console.log('FAIL');
+		});
 	}
 
 }
