@@ -73,16 +73,24 @@ function makeImage()
 {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
+			console.log('>> make image');
 			resolve();
 		}, 300)
 	});
 }
 
-function drawBlock()
+/**
+ * draw block
+ * 캔버스에다가 블럭을 그려준다.
+ *
+ * @param {Canvas} canvas
+ */
+function drawBlock(canvas)
 {
 	return new Promise((resolve, reject) => {
 		// TODO: 캔버스에 그리기
 		setTimeout(() => {
+			console.log('>> draw block');
 			resolve();
 		}, 300)
 	});
@@ -98,55 +106,89 @@ function drawBlock()
  */
 export default function makingImage(el, data={}, options={})
 {
+	/**
+	 * TODO: 동작과정
+	 * - make queue
+	 * - make canvas
+	 * - queue play
+	 * - make block image
+	 * - draw block
+	 * - end (make image from canvas)
+	 */
+
 	const defer = $.Deferred(); // resolve, notify, reject
 	let queues = makeQueue(el, data.grid);
 	// make canvas
 	let canvas = new Canvas(el.offsetWidth, el.offsetHeight, data.setting.bgColor);
 
+	/**
+	 * play
+	 * 큐 플레이. 이미지를 만들고 캔버스에 그리고나서 결과는 `confirm`에서 받는다.
+	 *
+	 * @param {Object} queue
+	 * @return {Promise}
+	 */
 	function play(queue)
 	{
 		// TODO: 구조 정리하기
 		return new Promise((resolve, reject) => {
-			makeImage().then(() => {
-				drawBlock().then(() => {
-					console.log(queues);
-					// 큐 하나빼기
-					queues.splice(0, 1);
-					// 중간 경과를 알려주기
-					defer.notify();
-					resolve();
-				});
-			}, (error) => reject)
+			makeImage().then(drawBlock(canvas).then(resolve, reject), reject);
 		});
 	}
 
-	function draw()
+	/**
+	 * confirm
+	 * 큐를 하나 삭제하고 계속 `play`함수를 실행할지 종료할지 결정한다.
+	 */
+	function confirm()
 	{
+		// 큐 하나빼기
+		queues.splice(0, 1);
+
+		// 중간 경과를 알려주기
+		defer.notify();
+
 		if (queues.length)
 		{
-			// 다음 큐 실행
-			play(queues[0]).then(draw);
+			play(queues[0]).then(confirm, error);
 		}
 		else
 		{
-			// 더이상 남아있는 큐가 없으므로 종료
-			defer.resolve();
+			end();
 		}
 	}
 
-	// check queue
-	if (!queues.length)
+	/**
+	 * error
+	 *
+	 * @param {String} err
+	 */
+	function error(err)
 	{
-		defer.reject('not found queue');
-		return defer.promise();
+		defer.reject(err);
 	}
 
-	// play queue
-	play(queues[0]).then(draw);
+	/**
+	 * end
+	 * `play`가 모두 끝났을때 호출. `done`으로 내보낸다.
+	 */
+	function end()
+	{
+		// 더이상 남아있는 큐가 없으므로 종료
+		defer.resolve();
+	}
 
-	// TODO: play queue
-	// TODO: draw blocks to canvas
-	// TODO: export image
+	// check queue
+	if (queues.length)
+	{
+		// play queue
+		play(queues[0]).then(confirm, error);
+	}
+	else
+	{
+		// not found queues
+		error('not found queue');
+	}
 
 	return defer.promise();
 }
