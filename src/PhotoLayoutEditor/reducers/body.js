@@ -62,7 +62,7 @@ export function grid(state={}, action)
 			}
 			Object.keys(grid).forEach((o) => {
 				newState[lastGridId++] = {
-					color: null,
+					color: defaults.setting.body.blockColor,
 					...grid[o],
 					indexPrefix: shuffleIndex,
 				};
@@ -71,7 +71,7 @@ export function grid(state={}, action)
 
 		case types.GRID_ADD_BLOCK:
 			newState[lastGridId++] = {
-				color: null,
+				color: defaults.setting.body.blockColor,
 				layout: { x: Infinity, y: Infinity, w: 1, h: 1 },
 				...action.value,
 				indexPrefix: shuffleIndex,
@@ -143,7 +143,7 @@ export function grid(state={}, action)
 				{
 					action.value.forEach((o, k) => {
 						newState[lastGridId++] = {
-							color: null,
+							color: defaults.setting.body.blockColor,
 							layout: {
 								x: (Object.keys(state).length + k) % action.columns,
 								y: Infinity,

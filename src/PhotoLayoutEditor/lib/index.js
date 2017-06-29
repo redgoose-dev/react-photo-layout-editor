@@ -4,6 +4,8 @@ import * as object from './object';
 import * as color from './color';
 import uploader from './uploader';
 import makingImage from './makingImage';
+import Canvas from './Canvas';
+import resamplingImage from './resamplingImage';
 
 
 export {
@@ -12,5 +14,7 @@ export {
 	color,
 	object,
 	uploader,
-	makingImage
+	makingImage,
+	Canvas,
+	resamplingImage
 }

@@ -98,3 +98,34 @@ export function checkSupportCss(key, value)
 		return CSS.supports(key, value);
 	}
 }
+
+/**
+ * load image
+ *
+ * @param {String} src
+ * @return {Promise}
+ */
+export function loadImage(src)
+{
+	return new Promise((resolve) => {
+		if (src)
+		{
+			let image = new Image();
+
+			image.onload = function(e)
+			{
+				resolve(image);
+			};
+			image.onError = function(e)
+			{
+				resolve(null);
+			};
+
+			image.src = src;
+		}
+		else
+		{
+			resolve(null);
+		}
+	});
+}

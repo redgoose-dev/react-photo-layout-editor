@@ -1,25 +1,67 @@
 import $ from 'jquery/dist/jquery.slim';
 
-import * as lib from './index';
+import * as lib from './';
 
 
 /**
- * Canvas
+ * Get image size
  *
- * @param {Number} width
- * @param {Number} height
- * @param {String} bgColor
+ * @param {String} type
+ * @param {int} cw container width
+ * @param {int} ch container height
+ * @param {int} iw image width
+ * @param {int} ih image height
+ * @return {Object}
  */
-function Canvas(width=150, height=100, bgColor='#ffffff')
+function getImageSize(type, cw, ch, iw, ih)
 {
-	this.el = document.createElement('canvas');
-	this.ctx = this.el.getContext('2d');
+	let size  = { width : 0, height : 0 };
 
-	this.el.width = width;
-	this.el.height = height;
+	switch(type)
+	{
+		case 'cover':
+			if (cw > ch)
+			{
+				size.width = cw;
+				size.height = ih * (cw / iw);
+				if (ch > size.height)
+				{
+					size.width = iw * (ch / ih);
+					size.height = ch;
+				}
+			}
+			else
+			{
+				size.width = iw * (ch / ih);
+				size.height = ch;
+				if (cw > size.width)
+				{
+					size.width = cw;
+					size.height = ih * (cw / iw);
+				}
+			}
+			break;
 
-	this.ctx.fillStyle = bgColor;
-	this.ctx.fillRect(0, 0, width, height);
+		case 'width':
+			size.width = cw;
+			size.height = ih * (cw / iw);
+			break;
+
+		case 'height':
+			size.width = iw * (ch / ih);
+			size.height = ch;
+			break;
+
+		default:
+			size.width = cw;
+			size.height = ch;
+			break;
+	}
+
+	return {
+		width : Math.round(size.width),
+		height : Math.round(size.height)
+	};
 }
 
 /**
@@ -51,13 +93,13 @@ function makeQueue(el, grids)
 		}
 
 		result.push({
-			key: $item.data('key'),
+			//key: $item.data('key'),
 			x: $item.position().left,
 			y: $item.position().top,
 			width: $item.width(),
 			height: $item.height(),
 			image: image || null,
-			color: grid.color,
+			color: grid.color || 'rgba(255,255,255,1)',
 		});
 	});
 
@@ -65,17 +107,72 @@ function makeQueue(el, grids)
 }
 
 /**
- * make image
+ * make block
  *
+ * @param {Object} queue
+ * @param {Object} options
  * @return {Promise}
  */
-function makeImage()
+function makeBlock(queue={}, options={})
 {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			console.log('>> make image');
-			resolve();
-		}, 300)
+	return new Promise((resolve) => {
+		lib.util.loadImage(queue.image ? queue.image.src : null).then((image) => {
+			if (image)
+			{
+				const realSize = { width: image.naturalWidth, height: image.naturalHeight };
+				let size = {};
+				let position = {};
+
+				// get size and position image
+				if (queue.image.size)
+				{
+					size = getImageSize('width', parseInt(queue.image.size[0]), 0, realSize.width, realSize.height);
+					position.x = parseInt(queue.image.position[0]);
+					position.y = parseInt(queue.image.position[1]);
+				}
+				else
+				{
+					size = getImageSize('cover', queue.width, queue.height, realSize.width, realSize.height);
+					position.x = (queue.width * 0.5) - (realSize.width * 0.5);
+					position.y = (queue.height * 0.5) - (realSize.height * 0.5);
+				}
+
+				// resize image
+				lib.resamplingImage({
+					image,
+					reSampleCount: options.sampling,
+					width: queue.width,
+					height: queue.height,
+					cx: 0,
+					cy: 0,
+					cw: realSize.width,
+					ch: realSize.height,
+					dx: position.x,
+					dy: position.y,
+					dw: size.width,
+					dh: size.height,
+					bgColor: queue.color
+				}).then((res) => {
+					resolve({
+						width: queue.width,
+						height: queue.height,
+						x: queue.x,
+						y: queue.y,
+						image: res
+					});
+				});
+			}
+			else
+			{
+				resolve({
+					width: queue.width,
+					height: queue.height,
+					x: queue.x,
+					y: queue.y,
+					color: queue.color
+				});
+			}
+		});
 	});
 }
 
@@ -85,16 +182,19 @@ function makeImage()
  *
  * @param {Canvas} canvas
  */
-function drawBlock(canvas)
+function drawBlock(canvas, block)
 {
 	return new Promise((resolve, reject) => {
 		// TODO: 캔버스에 그리기
 		setTimeout(() => {
-			console.log('>> draw block');
-			resolve();
+			// console.log('>> draw block');
+			// let _output = document.getElementById('makeImageArea');
+			// _output.appendChild(block.el);
+			resolve(canvas);
 		}, 300)
 	});
 }
+
 
 /**
  * making image
@@ -119,7 +219,7 @@ export default function makingImage(el, data={}, options={})
 	const defer = $.Deferred(); // resolve, notify, reject
 	let queues = makeQueue(el, data.grid);
 	// make canvas
-	let canvas = new Canvas(el.offsetWidth, el.offsetHeight, data.setting.bgColor);
+	let canvas = new lib.Canvas(el.offsetWidth, el.offsetHeight, data.setting.bgColor);
 
 	/**
 	 * play
@@ -130,9 +230,12 @@ export default function makingImage(el, data={}, options={})
 	 */
 	function play(queue)
 	{
-		// TODO: 구조 정리하기
 		return new Promise((resolve, reject) => {
-			makeImage().then(drawBlock(canvas).then(resolve, reject), reject);
+			// queue, options.sampling
+			makeBlock(queue, options).then((block) => {
+				console.log('block', block);
+				drawBlock(canvas, block).then(resolve, reject);
+			}, reject);
 		});
 	}
 
@@ -140,7 +243,7 @@ export default function makingImage(el, data={}, options={})
 	 * confirm
 	 * 큐를 하나 삭제하고 계속 `play`함수를 실행할지 종료할지 결정한다.
 	 */
-	function confirm()
+	function confirm(canvas)
 	{
 		// 큐 하나빼기
 		queues.splice(0, 1);
