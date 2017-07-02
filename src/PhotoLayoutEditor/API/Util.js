@@ -1,3 +1,5 @@
+import $ from 'jquery/dist/jquery.slim';
+
 import * as actions from '../actions';
 import * as lib from '../lib';
 
@@ -126,9 +128,14 @@ export default class Util {
 	/**
 	 * make image
 	 *
+	 * @param {String} format (jpg|png)
+	 * @param {Number} quality
+	 * @param {Number} sampling
+	 * @return {Promise}
 	 */
 	makeImage(format='jpg', quality=.75, sampling=2)
 	{
+		const defer = $.Deferred();
 		const state = this.store.getState();
 		const { setting, grid } = state.tree.body;
 
@@ -136,17 +143,15 @@ export default class Util {
 			state.element.querySelector('.ple-grid'),
 			{ setting, grid },
 			{ format, quality, sampling }
-		).done(() => {
-			console.log('DONE', 'doneeeeee');
-
-			// let _output = document.getElementById('makeImageArea');
-			// _output.innerHTML = '';
-			// _output.appendChild(background.el);
-		}).progress(() => {
-			console.log('PROGRESS');
+		).done((image) => {
+			defer.resolve(image);
+		}).progress((total, current, image) => {
+			defer.notify(total, current, image);
 		}).fail(() => {
-			console.log('FAIL');
+			defer.reject();
 		});
+
+		return defer.promise();
 	}
 
 }

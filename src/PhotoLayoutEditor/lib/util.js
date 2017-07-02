@@ -121,6 +121,7 @@ export function loadImage(src)
 				resolve(null);
 			};
 
+			image.setAttribute('crossOrigin', 'anonymous');
 			image.src = src;
 		}
 		else

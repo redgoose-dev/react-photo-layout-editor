@@ -12,7 +12,7 @@ body {
 			font-size: 20px;
 			color: #222;
 			margin: 0 0 5px;
-			padding: 0 0 0 10px;
+			padding: 0 0 0 5px;
 		}
 	}
 
@@ -41,7 +41,12 @@ body {
 
 #makeImageArea {
 	margin: 0;
-	canvas {
-		border: 1px dashed #20B292;
+	padding: 15px;
+	min-height: 100px;
+	border: 1px dashed #20B292;
+	canvas, img {
+		display: block;
+		margin: 0 auto;
+		border: 1px solid rgba(0,0,0,.05);
 	}
 }

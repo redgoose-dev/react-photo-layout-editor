@@ -205,8 +205,17 @@ export default class App extends React.Component {
 				});
 				break;
 			case 'util.makeImage':
-				this._photoLayoutEditor.api.util.makeImage('jpg', .75, 2, (res) => {
-					console.log('make image callback', res);
+				let makeImage = this._photoLayoutEditor.api.util.makeImage('jpg', .75, 1);
+				makeImage.progress(function(total, current, image) {
+					console.log('PROGRESS', total, current);
+				});
+				makeImage.done(function(src) {
+					console.log('DONE');
+					let output = document.getElementById('makeImageArea');
+					output.innerHTML = `<img src="${src}" alt="output image"/>`;
+				});
+				makeImage.fail(function() {
+					console.warn('ERROR');
 				});
 				break;
 		}
@@ -334,8 +343,12 @@ export default class App extends React.Component {
 							</p>
 						</nav>
 					</section>
+					<section>
+						<h1>Make image area</h1>
+						<figure id="makeImageArea"/>
+					</section>
 				</article>
-				<figure id="makeImageArea"/>
+
 			</div>
 		);
 	}

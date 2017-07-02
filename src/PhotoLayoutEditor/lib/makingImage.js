@@ -133,8 +133,8 @@ function makeBlock(queue={}, options={})
 				else
 				{
 					size = getImageSize('cover', queue.width, queue.height, realSize.width, realSize.height);
-					position.x = (queue.width * 0.5) - (realSize.width * 0.5);
-					position.y = (queue.height * 0.5) - (realSize.height * 0.5);
+					position.x = (queue.width * 0.5) - (size.width * 0.5);
+					position.y = (queue.height * 0.5) - (size.height * 0.5);
 				}
 
 				// resize image
@@ -169,7 +169,8 @@ function makeBlock(queue={}, options={})
 					height: queue.height,
 					x: queue.x,
 					y: queue.y,
-					color: queue.color
+					color: queue.color,
+					image: new lib.Canvas(queue.width, queue.height, queue.color)
 				});
 			}
 		});
@@ -181,18 +182,44 @@ function makeBlock(queue={}, options={})
  * 캔버스에다가 블럭을 그려준다.
  *
  * @param {Canvas} canvas
+ * @param {Object} block
  */
 function drawBlock(canvas, block)
 {
-	return new Promise((resolve, reject) => {
-		// TODO: 캔버스에 그리기
-		setTimeout(() => {
-			// console.log('>> draw block');
-			// let _output = document.getElementById('makeImageArea');
-			// _output.appendChild(block.el);
-			resolve(canvas);
-		}, 300)
+	return new Promise(resolve => {
+		canvas.ctx.drawImage(
+			block.image.el,
+			block.x,
+			block.y,
+			block.width,
+			block.height
+		);
+		resolve(block.image.el);
 	});
+}
+
+/**
+ * Get image size
+ *
+ * @param {Object} el
+ * @param {String} format
+ * @param {int} quality
+ * @return {Object}
+ */
+function canvasToBase64(el=null, format=null, quality=0.75)
+{
+	switch(format)
+	{
+		case 'png':
+			format = 'image/png';
+			break;
+		case 'jpg':
+		default:
+			format = 'image/jpeg';
+			break;
+	}
+
+	return el.toDataURL(format, (format === 'image/jpeg') ? quality : undefined);
 }
 
 
@@ -218,8 +245,13 @@ export default function makingImage(el, data={}, options={})
 
 	const defer = $.Deferred(); // resolve, notify, reject
 	let queues = makeQueue(el, data.grid);
+	let current = 0;
+	const queueTotal = queues.length;
 	// make canvas
 	let canvas = new lib.Canvas(el.offsetWidth, el.offsetHeight, data.setting.bgColor);
+
+	// send progress event
+	defer.notify(queueTotal, current++, null);
 
 	/**
 	 * play
@@ -231,9 +263,7 @@ export default function makingImage(el, data={}, options={})
 	function play(queue)
 	{
 		return new Promise((resolve, reject) => {
-			// queue, options.sampling
 			makeBlock(queue, options).then((block) => {
-				console.log('block', block);
 				drawBlock(canvas, block).then(resolve, reject);
 			}, reject);
 		});
@@ -242,15 +272,18 @@ export default function makingImage(el, data={}, options={})
 	/**
 	 * confirm
 	 * 큐를 하나 삭제하고 계속 `play`함수를 실행할지 종료할지 결정한다.
+	 *
+	 * @param {Canvas} image
 	 */
-	function confirm(canvas)
+	function confirm(image)
 	{
 		// 큐 하나빼기
 		queues.splice(0, 1);
 
-		// 중간 경과를 알려주기
-		defer.notify();
+		// send progress event
+		defer.notify(queueTotal, current++, image);
 
+		// check queues
 		if (queues.length)
 		{
 			play(queues[0]).then(confirm, error);
@@ -278,7 +311,7 @@ export default function makingImage(el, data={}, options={})
 	function end()
 	{
 		// 더이상 남아있는 큐가 없으므로 종료
-		defer.resolve();
+		defer.resolve(canvasToBase64(canvas.el, options.format, options.quality));
 	}
 
 	// check queue
