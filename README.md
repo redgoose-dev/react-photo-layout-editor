@@ -6,4 +6,3 @@ Photo layout editor for react
 1. `npm install`
 1. `npm start`
 1. in your browser, connect `http://localhost:4040`.
-```
