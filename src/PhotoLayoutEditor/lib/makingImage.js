@@ -233,16 +233,6 @@ function canvasToBase64(el=null, format=null, quality=0.75)
  */
 export default function makingImage(el, data={}, options={})
 {
-	/**
-	 * TODO: 동작과정
-	 * - make queue
-	 * - make canvas
-	 * - queue play
-	 * - make block image
-	 * - draw block
-	 * - end (make image from canvas)
-	 */
-
 	const defer = $.Deferred(); // resolve, notify, reject
 	let queues = makeQueue(el, data.grid);
 	let current = 0;
@@ -310,8 +300,16 @@ export default function makingImage(el, data={}, options={})
 	 */
 	function end()
 	{
-		// 더이상 남아있는 큐가 없으므로 종료
-		defer.resolve(canvasToBase64(canvas.el, options.format, options.quality));
+		switch(options.output)
+		{
+			case 'base64':
+				defer.resolve(canvasToBase64(canvas.el, options.format, options.quality));
+				break;
+			case 'canvas':
+			default:
+				defer.resolve(canvas.el);
+				break;
+		}
 	}
 
 	// check queue

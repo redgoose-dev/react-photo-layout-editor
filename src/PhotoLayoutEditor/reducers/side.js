@@ -67,9 +67,8 @@ export default function base(state=defaults.side, action)
 		case types.SIDE_UPDATE_SELECTED:
 			if (!(action.value && Object.keys(action.value).length)) return state;
 			Object.keys(action.value).forEach(k => {
-				let key = action.value[k].key;
-				if (!newState.files[key]) return;
-				newState.files[key].active = action.value[k].active;
+				if (!newState.files[k]) return;
+				newState.files[k].active = action.value[k].active;
 			});
 			return newState;
 

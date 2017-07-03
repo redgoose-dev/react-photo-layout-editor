@@ -131,9 +131,10 @@ export default class Util {
 	 * @param {String} format (jpg|png)
 	 * @param {Number} quality
 	 * @param {Number} sampling
+	 * @param {String} output
 	 * @return {Promise}
 	 */
-	makeImage(format='jpg', quality=.75, sampling=2)
+	makeImage(format='jpg', quality=.75, sampling=2, output=null)
 	{
 		const defer = $.Deferred();
 		const state = this.store.getState();
@@ -142,7 +143,7 @@ export default class Util {
 		lib.makingImage(
 			state.element.querySelector('.ple-grid'),
 			{ setting, grid },
-			{ format, quality, sampling }
+			{ format, quality, sampling, output }
 		).done((image) => {
 			defer.resolve(image);
 		}).progress((total, current, image) => {
