@@ -32,7 +32,7 @@ class Container extends React.Component {
 
 		props.dispatch(actions.core.init(
 			props.parent.api,
-			props.parent.preference || { side: {}, grid: {} },
+			props.parent.preference || { side: {}, body: {} },
 			this.el
 		));
 	}

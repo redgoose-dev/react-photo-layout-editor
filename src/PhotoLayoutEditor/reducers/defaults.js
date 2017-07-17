@@ -14,12 +14,12 @@ export const setting = {
 			bgColor: 'rgba(255,255,255,1)',
 		},
 		blockColor: 'rgba(211,211,211,1)',
-		grid: {},
+		grid: [],
 	},
 	side: {
-		files: {},
+		files: [],
 		visible: true,
-		progressPercent: null,
+		//progressPercent: null,
 	},
 };
 
