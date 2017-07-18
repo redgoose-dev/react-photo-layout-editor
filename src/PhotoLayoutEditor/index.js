@@ -11,6 +11,19 @@ import API from './API';
 class PhotoLayoutEditor extends React.Component {
 
 	static displayName = 'PhotoLayoutEditor';
+	static defaultProps = {
+		body: {
+			setting: {},
+			blockColor: null,
+			grid: []
+		},
+		side: {
+			files: [],
+			visible: true
+		},
+		uploadScript: null,
+		uploadParamsConvertFunc: null
+	};
 
 	constructor()
 	{
