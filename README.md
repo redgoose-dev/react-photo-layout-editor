@@ -1,6 +1,6 @@
 # react-photo-layout-editor
 
-`Photo layout editor for react`
+__Photo layout editor for react__
 
 사진 레이아웃을 편집하는 웹 프로그램입니다.
 
@@ -54,7 +54,7 @@ cli로 설치할 프로젝트에서 다음과 같은 명령을 실행합니다.
 ```
 import PhotoLayoutEditor from 'react-photo-layout-editor';
 
-<PhotoLayoutEditor ref={(r) => { this._photoLayoutEditor = r }}/>
+<PhotoLayoutEditor ref={(r) => { this._ple = r }}/>
 ```
 
 
@@ -106,11 +106,11 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 ## API
 
 `PhotoLayoutEditor`를 컨트롤할 수 있습니다. 먼저 컴포넌트를 접근할 수 있도록 인스턴스 변수로 만들어줍니다.  
-다음 컴포넌트와 같이 `ref`를 이용하여 `ple`이름의 변수를 이용하여 API를 사용할 수있습니다.
+다음 컴포넌트와 같이 `ref`를 이용하여 `this._ple`이름의 변수를 이용하여 API를 사용할 수있습니다.
 
 ```
 let ple = null;
-<PhotoLayoutEditor ref={(r) => { ple = r }}/>
+<PhotoLayoutEditor ref={(r) => { this._ple = r }}/>
 ```
 
 자세한 API의 내용은 다음 링크를 참고하세요.
