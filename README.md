@@ -105,9 +105,20 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 
 ## API
 
-`PhotoLayoutEditor`를 컨트롤할 수 있습니다. 자세한 내용은 다음 링크를 참고하세요.
+`PhotoLayoutEditor`를 컨트롤할 수 있습니다. 먼저 컴포넌트를 접근할 수 있도록 인스턴스 변수로 만들어줍니다.  
+다음 컴포넌트와 같이 `ref`를 이용하여 `ple`이름의 변수를 이용하여 API를 사용할 수있습니다.
 
-comming..
+```
+let ple = null;
+<PhotoLayoutEditor ref={(r) => { ple = r }}/>
+```
+
+자세한 API의 내용은 다음 링크를 참고하세요.
+
+- [Side](https://github.com/RedgooseDev/react-photo-layout-editor/wiki/API.Side)
+- [Grid](https://github.com/RedgooseDev/react-photo-layout-editor/wiki/API.Grid)
+- [Cropper](https://github.com/RedgooseDev/react-photo-layout-editor/wiki/API.Cropper)
+- [Util](https://github.com/RedgooseDev/react-photo-layout-editor/wiki/API.Util)
 
 
 ## Development
