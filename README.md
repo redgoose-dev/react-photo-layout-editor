@@ -34,16 +34,20 @@ PLE는 이런 특징들을 가지고 있습니다.
 
 
 ## Installation
+
 cli로 설치할 프로젝트에서 다음과 같은 명령을 실행합니다.
 
 ### npm
+
 `npm insatll --save react-photo-layout-editor`
 
 ### yarn
+
 `yarn add react-photo-layout-editor`
 
 
 ## Usage
+
 원하는곳에 컴포넌트를 삽입합니다.  
 한페이지에 단독으로 사용하는것을 권장합니다.
 
@@ -54,29 +58,65 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 ```
 
 
-## Props
+## Properties
 
-- body
-  - setting
-      - width: 100
-      - height: 100
-      - column: 5
-      - outerMargin: 10
-      - innerMargin: 10
-      - freeMode: false
-      - bgColor: 'rgba(255,255,255,1)'
-  - blockColor: 'rgba(211,211,211,1)'
-  - grid: []
-- side
-  - files: []
-  - visible: true
-- uploadScript: null
-- uploadParamsConvertFunc: null
+컴포넌트를 마운트할때 설정값을 정의할 수 있습니다.
+
+| Name | default | Type | Description |
+| ---- | ------- | ---- | ----------- |
+| body | {} | `object` | 툴바와 그리드를 편집하는 영역. 아래 `body` 항목을 참고 |
+| side | {} | `object` | 이미지를 관리하는 사이드 팔레트 영역. 아래 `side` 항목을 참고 |
+| uploadScript | null | `string` | 이미지를 서버로 업로드 처리하는 주소 |
+| uploadParamsConvertFunc | null | `function` | 이미지를 서버로 업로드하고 그 결과값을 받아 `side.files`에 이미지를 등록할 수 있도록 값을 변경하는 콜백함수 |
+
+### body
+
+툴바와 그리드 편집 영역
+
+| Name | default | Type | Description |
+| ---- | ------- | ---- | ----------- |
+| setting | {} | `object` | 그리드 편집기의 설정값. setting 섹션 참고 |
+| blockColor | rgba(211,211,211,1) | `string` | 블럭 하나의 기본 배경색 |
+| grid | [] | `array` | 블럭 데이터값 목록 |
+
+#### body.setting
+
+그리드 편집 영역의 설정값
+
+| Name | default | Type | Description |
+| ---- | ------- | ---- | ----------- |
+| width | 100 | `number` | 기본 블럭 하나의 가로사이즈 |
+| height | 100 | `number` | 기본 블럭 하나의 세로사이즈 |
+| column | 5 | `number` | 한줄에 들어가는 기본 블럭의 갯수 |
+| outerMargin | 10 | `number` | 그리드 겉부분의 여백값 |
+| innerMargin | 10 | `number` | 블럭 사이의 여백값 |
+| freeMode | false | `boolean` | 자유로운 배치모드 |
+| bgColor | rgba(255,255,255,1) | `string` | 그리드 배경색 |
+
+### side
+
+이미지를 관리하는 사이드 팔레트 영역
+
+| Name | default | Type | Description |
+| ---- | ------- | ---- | ----------- |
+| files | [] | `array` | 이미지 목록 |
+| visible | true | `boolean` | 팔레트 표시유무 |
 
 
+## API
+
+`PhotoLayoutEditor`를 컨트롤할 수 있습니다. 자세한 내용은 다음 링크를 참고하세요.
+
+comming..
+
+
+## Development
+
+이 프로그램을 개발하기 위하여 데모 페이지를 띄울 수 있습니다.  
+다음 과정을 통하여 브라우저에 개발에 사용되었던 데모 페이지를 열어볼 수 있습니다.
 
 1. `git clone https://github.com/RedgooseDev/react-photo-layout-editor.git`
 1. `cd react-photo-layout-editor`
 1. `npm install`
 1. `npm start`
-1. in your browser, connect `http://localhost:4040`.
+1. in your browser, connect `http://localhost:4040`
