@@ -64,8 +64,8 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 
 | Name | default | Type | Description |
 | ---- | ------- | ---- | ----------- |
-| body | {} | `object` | 툴바와 그리드를 편집하는 영역. 아래 [body 항목을 참고](https://github.com/RedgooseDev/react-photo-layout-editor#body) |
-| side | {} | `object` | 이미지를 관리하는 사이드 팔레트 영역. 아래 [side 항목을 참고](https://github.com/RedgooseDev/react-photo-layout-editor#side) |
+| body | {} | `object` | 툴바와 그리드를 편집하는 영역. 아래 [body 항목](https://github.com/RedgooseDev/react-photo-layout-editor#body)을 참고 |
+| side | {} | `object` | 이미지를 관리하는 사이드 팔레트 영역. 아래 [side 항목](https://github.com/RedgooseDev/react-photo-layout-editor#side)을 참고 |
 | uploadScript | null | `string` | 이미지를 서버로 업로드 처리하는 주소 |
 | uploadParamsConvertFunc | null | `function` | 이미지를 서버로 업로드하고 그 결과값을 받아 `side.files`에 이미지를 등록할 수 있도록 값을 변경하는 콜백함수 |
 
