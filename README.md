@@ -64,8 +64,8 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 
 | Name | default | Type | Description |
 | ---- | ------- | ---- | ----------- |
-| body | {} | `object` | 툴바와 그리드를 편집하는 영역. 아래 `body` 항목을 참고 |
-| side | {} | `object` | 이미지를 관리하는 사이드 팔레트 영역. 아래 `side` 항목을 참고 |
+| body | {} | `object` | 툴바와 그리드를 편집하는 영역. 아래 [body 항목을 참고](https://github.com/RedgooseDev/react-photo-layout-editor#body) |
+| side | {} | `object` | 이미지를 관리하는 사이드 팔레트 영역. 아래 [side 항목을 참고](https://github.com/RedgooseDev/react-photo-layout-editor#side) |
 | uploadScript | null | `string` | 이미지를 서버로 업로드 처리하는 주소 |
 | uploadParamsConvertFunc | null | `function` | 이미지를 서버로 업로드하고 그 결과값을 받아 `side.files`에 이미지를 등록할 수 있도록 값을 변경하는 콜백함수 |
 
@@ -75,7 +75,7 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 
 | Name | default | Type | Description |
 | ---- | ------- | ---- | ----------- |
-| setting | {} | `object` | 그리드 편집기의 설정값. setting 섹션 참고 |
+| setting | {} | `object` | 그리드 편집기의 설정값. [setting 섹션](https://github.com/RedgooseDev/react-photo-layout-editor#bodysetting) 참고 |
 | blockColor | rgba(211,211,211,1) | `string` | 블럭 하나의 기본 배경색 |
 | grid | [] | `array` | 블럭 데이터값 목록 |
 
