@@ -2,6 +2,7 @@ import $ from 'jquery/dist/jquery.slim';
 
 import * as actions from '../actions';
 import * as lib from '../lib';
+import { isArray } from "../lib/object";
 
 
 export default class Util {
@@ -85,9 +86,9 @@ export default class Util {
 	 * @param {Array|Object} value
 	 * @param {Boolean} replace
 	 */
-	import(type=null, value=null, replace=false)
+	import(value=null, replace=false)
 	{
-		if (!(type && value)) return;
+		if (!value) return;
 
 		const state = this.store.getState();
 
@@ -106,23 +107,9 @@ export default class Util {
 			state.api.grid.add(value);
 		}
 
-		switch(type)
-		{
-			case 'side':
-				side(value);
-				break;
-			case 'grid':
-				grid(value);
-				break;
-			case 'preference':
-				state.api.grid.setPreference(value);
-				break;
-			case 'all':
-				side(value.side);
-				grid(value.grid);
-				state.api.grid.setPreference(value.preference);
-				break;
-		}
+		if (value.side && isArray(value.side)) side(value.side);
+		if (value.grid && isArray(value.grid)) grid(value.grid);
+		if (value.preference && typeof value.preference === 'object') state.api.grid.setPreference(value.preference);
 	}
 
 	/**
@@ -148,8 +135,8 @@ export default class Util {
 			defer.resolve(image);
 		}).progress((total, current, image) => {
 			defer.notify(total, current, image);
-		}).fail(() => {
-			defer.reject();
+		}).fail((error) => {
+			defer.reject(error);
 		});
 
 		return defer.promise();

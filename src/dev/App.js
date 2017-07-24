@@ -169,14 +169,16 @@ export default class App extends React.Component {
 				console.log('export(all)', result);
 				break;
 			case 'util.import.side':
-				result = this._photoLayoutEditor.api.util.import('side', util.pickImages(3), true);
+				result = this._photoLayoutEditor.api.util.import({ side: util.pickImages(3) }, true);
 				break;
 			case 'util.import.grid':
-				this._photoLayoutEditor.api.util.import('grid', [
-					{ color: '#ee4149', layout: { w: 1, h: 1, x: 0 } },
-					{ color: '#36b40d', layout: { w: 2, h: 2, x: Infinity } },
-					{ color: '#b188ff', layout: { w: 3, h: 1, y: 2, x: 0 } },
-				], true);
+				this._photoLayoutEditor.api.util.import({
+					grid: [
+						{ color: '#ee4149', layout: { w: 1, h: 1, x: 0 } },
+						{ color: '#36b40d', layout: { w: 2, h: 2, x: Infinity } },
+						{ color: '#b188ff', layout: { w: 3, h: 1, y: 2, x: 0 } },
+					]
+				}, true);
 				break;
 			case 'util.import.preference':
 				preference = this._photoLayoutEditor.api.util.export('preference');
@@ -186,11 +188,11 @@ export default class App extends React.Component {
 					innerMargin: 2,
 					bgColor: '#ffefc2'
 				});
-				this._photoLayoutEditor.api.util.import('preference', preference);
+				this._photoLayoutEditor.api.util.import({ preference });
 				break;
 			case 'util.import.all':
 				preference = this._photoLayoutEditor.api.util.export('preference');
-				this._photoLayoutEditor.api.util.import('all', {
+				this._photoLayoutEditor.api.util.import({
 					side: util.pickImages(3),
 					grid: [
 						{ color: '#ee4149', layout: { w: 1, h: 1, x: 0 } },
@@ -207,15 +209,15 @@ export default class App extends React.Component {
 			case 'util.makeImage':
 				let makeImage = this._photoLayoutEditor.api.util.makeImage('jpg', .75, 1, 'base64');
 				makeImage.progress(function(total, current, image) {
-					console.log('PROGRESS', total, current);
+					console.log('PROGRESS', total, current, image);
 				});
 				makeImage.done(function(src) {
-					console.log('DONE');
+					console.warn('DONE');
 					let output = document.getElementById('makeImageArea');
 					output.innerHTML = `<img src="${src}" alt="output image"/>`;
 				});
-				makeImage.fail(function() {
-					console.warn('ERROR');
+				makeImage.fail(function(error) {
+					console.error('ERROR', error);
 				});
 				break;
 		}
