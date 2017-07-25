@@ -15,6 +15,7 @@ export default class Side {
 	 *
 	 * @param {String} mode
 	 * @param {Array} keys
+	 * @return {Array}
 	 */
 	getKeys(mode=null, keys=[])
 	{
@@ -99,9 +100,9 @@ export default class Side {
 	/**
 	 * select items
 	 *
-	 * @param {Array} value
+	 * @param {Object} value
 	 */
-	select(value=[])
+	select(value={})
 	{
 		this.store.dispatch(actions.side.updateSelected(value));
 	}
