@@ -169,9 +169,10 @@ export default class Grid {
 			options = Object.assign({}, defaultOptions, options);
 			options.layout = Object.assign({}, defaultOptions.layout, options.layout);
 			options.image = options.image ? {
-				src: options.image,
+				src: null,
 				position: '50% 50%',
 				size: 'cover',
+				...options.image
 			} : null;
 
 			dispatch(actions.body.addBlock(options));

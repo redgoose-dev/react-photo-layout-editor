@@ -56,7 +56,7 @@ function changeActive(key, item, start, end, type)
  *
  * @param {Object} props
  * @param {Number} key
- * @return {Array}
+ * @return {Object}
  */
 export default function selectItems(props, key)
 {
@@ -64,6 +64,7 @@ export default function selectItems(props, key)
 	const { files } = props.tree.side;
 	let type = null;
 	let selected = false;
+	let items = {};
 
 	if (keyName !== 'SHIFT')
 	{
@@ -92,13 +93,13 @@ export default function selectItems(props, key)
 			type = 'range';
 	}
 
-	let items = Object.keys(files).map(k => {
+	Object.keys(files).forEach(k => {
 		let obj = changeActive(parseInt(k), files[k], firstSelectIdx, key, type);
 		if (obj.active)
 		{
 			selected = true;
 		}
-		return obj;
+		items[k] = obj;
 	});
 
 	if (!selected)

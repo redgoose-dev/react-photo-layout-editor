@@ -50,9 +50,9 @@ export default function base(state=defaults.side, action)
 				files[nextFileId++] = { image: o, active: false }
 			});
 			return {
-				...state,
+				...newState,
 				files: {
-					...state.files,
+					...newState.files,
 					...files,
 				}
 			};

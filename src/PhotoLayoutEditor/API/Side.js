@@ -51,6 +51,42 @@ export default class Side {
 	}
 
 	/**
+	 * get items
+	 *
+	 * @param {Array} keys
+	 * @return {Object}
+	 */
+	getItems(keys=[])
+	{
+		const state = this.store.getState();
+		const { side } = state.tree;
+		keys = this.getKeys('value', keys);
+		let result = {};
+		keys.forEach((o) => {
+			if (side.files[o])
+			{
+				result[o] = side.files[o];
+			}
+		});
+
+		return result;
+	}
+
+	/**
+	 * get images
+	 *
+	 * @param {Array} keys
+	 * @return {Array}
+	 */
+	getImages(keys=[])
+	{
+		let items = this.getItems(keys);
+		return Object.keys(items).map((o) => {
+			return items[o].image;
+		});
+	}
+
+	/**
 	 * Add files
 	 *
 	 * @param {Array} files
@@ -245,42 +281,6 @@ export default class Side {
 		{
 			return e;
 		}
-	}
-
-	/**
-	 * get items
-	 *
-	 * @param {Array} keys
-	 * @return {Object}
-	 */
-	getItems(keys=[])
-	{
-		const state = this.store.getState();
-		const { side } = state.tree;
-		keys = this.getKeys('value', keys);
-		let result = {};
-		keys.forEach((o) => {
-			if (side.files[o])
-			{
-				result[o] = side.files[o];
-			}
-		});
-
-		return result;
-	}
-
-	/**
-	 * get images
-	 *
-	 * @param {Array} keys
-	 * @return {Array}
-	 */
-	getImages(keys=[])
-	{
-		let items = this.getItems(keys);
-		return Object.keys(items).map((o) => {
-			return items[o].image;
-		});
 	}
 
 }
