@@ -1,7 +1,7 @@
 # react-photo-layout-editor
 
 <p align="center">
-<img src="https://github.com/RedgooseDev/react-photo-layout-editor/blob/master/assets/logo.jpg" alt="logo">
+<img src="https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/logo.jpg" alt="logo">
 </p>
 
 사진 레이아웃을 편집하는 웹 프로그램입니다.  
@@ -11,7 +11,7 @@ This is photo layout editor for react
 블럭을 드래그 앤 드롭으로 위치와 크기를 편집하여 모던하게 정렬된 이미지나 레이아웃 만들 수 있습니다.
 
 <p align="center">
-<img src="https://github.com/RedgooseDev/react-photo-layout-editor/blob/master/assets/play_mov.gif" alt="logo">
+<img src="https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/play_mov.gif" alt="logo">
 </p>
 
 
@@ -23,13 +23,13 @@ PLE는 이런 특징들을 가지고 있습니다.
 
 사이드바에 이미지를 업로드하여 사진을 배치하기 전에 이미지를 담아둘 수 있습니다.
 
-![screen](https://github.com/RedgooseDev/react-photo-layout-editor/blob/master/assets/screen_1.jpg)
+![screen](https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/screen_1.jpg)
 
 ### Edit Blocks
 
 블럭의 갯수나 사이즈, 여백등을 조절할 수 있습니다.
 
-![grid editor](https://github.com/RedgooseDev/react-photo-layout-editor/blob/master/assets/screen_2.jpg)
+![grid editor](https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/screen_2.jpg)
 
 ### Drag \& Drop
 
@@ -39,13 +39,13 @@ PLE는 이런 특징들을 가지고 있습니다.
 
 블럭을 선택하고 펜 모양의 툴바(edit block)를 선택하면 편집창이 뜨면서 영역을 변경할 수 있습니다.
 
-![cropper](https://github.com/RedgooseDev/react-photo-layout-editor/blob/master/assets/screen_4.jpg)
+![cropper](https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/screen_4.jpg)
 
 ### Change color
 
 블럭의 배경색을 바꿀 수 있습니다. 빈 블럭을 만들고 색상을 수정할 수 있습니다.
 
-![change color](https://github.com/RedgooseDev/react-photo-layout-editor/blob/master/assets/screen_3.jpg)
+![change color](https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/screen_3.jpg)
 
 
 ## Installation
