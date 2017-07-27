@@ -120,12 +120,12 @@ class Cropper extends React.Component {
 						size={state.size}
 						bgColor={props.tree.cropper.item.color || props.setting.body.blockColor}/>
 					<nav className="ple-cropper__nav">
-						<button type="button" onClick={this._onClose.bind(this)}>
+						<button type="button" onClick={() => this._onClose()}>
 							<i className="ple-sp-ico ple-ico-close ple-abs">Close cropper</i>
 						</button>
 						<button
 							type="button"
-							onClick={this._toggleImageType.bind(this)}
+							onClick={() => this._toggleImageType()}
 							className={classNames({
 								'ple-cropper__nav-active': state.size !== 'cover'
 							})}>

@@ -188,7 +188,7 @@ class GridLayout extends React.Component {
 							backgroundColor: setting.bgColor
 						}}
 						className="ple-grid">
-						{Object.keys(props.tree.body.grid).map(this.renderItem.bind(this))}
+						{Object.keys(props.tree.body.grid).map((k) => this.renderItem(k))}
 					</ReactGridLayout>
 					{props.tree.cropper.visible ? ( <Cropper/> ) : null}
 				</div>

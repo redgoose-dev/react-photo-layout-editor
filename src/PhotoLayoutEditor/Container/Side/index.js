@@ -212,6 +212,7 @@ class Side extends React.Component {
 		else
 		{
 			// TODO : 확인해보고 처리하기
+			console.warn('')
 			//this._selectItem($(e.currentTarget).data('id'));
 		}
 	}
@@ -233,18 +234,18 @@ class Side extends React.Component {
 						show={props.tree.side.visible}
 						onClick={() => props.api.util.toggleSide(undefined)}/>
 					<Navigation
-						onAttach={this._attach.bind(this)}
+						onAttach={() => this._attach()}
 						onToggleSelect={() => props.api.side.toggleSelectAll()}
-						onUpload={this._upload.bind(this)}
-						onRemove={this._removeItems.bind(this)}/>
+						onUpload={(e) => this._upload(e)}
+						onRemove={() => this._removeItems()}/>
 					<Items
 						files={props.tree.side.files}
-						onSelect={this._selectItem.bind(this)}
-						onDragStart={this._dragStartItem.bind(this)}
-						onDragEnd={this._dragEndItem.bind(this)}
-						onTouchStart={this._touchStartItem.bind(this)}
-						onTouchMove={this._touchMoveItem.bind(this)}
-						onTouchEnd={this._touchEndItem.bind(this)}
+						onSelect={(e) => this._selectItem(e)}
+						onDragStart={(e) => this._dragStartItem(e)}
+						onDragEnd={(e) => this._dragEndItem(e)}
+						onTouchStart={(e) => this._touchStartItem(e)}
+						onTouchMove={(e) => this._touchMoveItem(e)}
+						onTouchEnd={(e) => this._touchEndItem(e)}
 						progress={props.tree.side.progressPercent}/>
 				</div>
 			</aside>

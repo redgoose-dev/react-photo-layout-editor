@@ -19,7 +19,7 @@ export default class Keyboard {
 		};
 
 		// init key down event
-		$(window).on(`keydown.${this.eventName}`, this._keyDown.bind(this));
+		$(window).on(`keydown.${this.eventName}`, (e) => this._keyDown(e));
 	}
 
 	/**
@@ -45,9 +45,9 @@ export default class Keyboard {
 
 		// set events
 		$(window)
-			.on(`keyup.${this.eventName}`, this._keyUp.bind(this))
-			.on(`contextmenu.${this.eventName}`, this._keyUp.bind(this))
-			.on(`blur.${this.eventName}`, this._keyUp.bind(this))
+			.on(`keyup.${this.eventName}`, () => this._keyUp())
+			.on(`contextmenu.${this.eventName}`, () => this._keyUp())
+			.on(`blur.${this.eventName}`, () => this._keyUp())
 			.off(`keydown.${this.eventName}`);
 	}
 
@@ -62,7 +62,7 @@ export default class Keyboard {
 
 		// set events
 		$(window)
-			.on(`keydown.${this.eventName}`, this._keyDown.bind(this))
+			.on(`keydown.${this.eventName}`, (e) => this._keyDown(e))
 			.off(`contextmenu.${this.eventName} keyup.${this.eventName} blur.${this.eventName}`);
 	}
 

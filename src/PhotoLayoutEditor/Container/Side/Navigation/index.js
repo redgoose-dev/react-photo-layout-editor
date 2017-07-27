@@ -46,7 +46,7 @@ export default class SideNavigation extends React.Component {
 						<i className="ple-sp-ico ple-ico-select ple-abs">Toggle all select</i>
 					</button>
 					<span title="upload images" key={state.timestamp}>
-						<input type="file" ref="inputFile" onChange={this.upload.bind(this)} multiple />
+						<input type="file" ref="inputFile" onChange={(e) => this.upload(e)} multiple />
 						<i className="ple-sp-ico ple-ico-upload ple-abs">upload images</i>
 					</span>
 					<button type="button" title="remove images" onClick={props.onRemove}>

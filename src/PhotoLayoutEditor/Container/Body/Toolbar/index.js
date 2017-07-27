@@ -176,7 +176,7 @@ class Toolbar extends React.Component {
 							}}
 							title="Edit preference">
 							<EditLayoutSetting
-								submit={this.submitEditSetting.bind(this)}
+								submit={(e) => this.submitEditSetting(e)}
 								setting={props.tree.body.setting}
 								defaultSetting={props.setting.body.setting}/>
 						</Button>

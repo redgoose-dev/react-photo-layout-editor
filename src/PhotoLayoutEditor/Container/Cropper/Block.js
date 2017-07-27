@@ -78,8 +78,8 @@ export default class Block extends React.Component {
 		};
 
 		$(document)
-			.on(`${controlEvent.move}.move`, this._moveIng.bind(this))
-			.on(`${controlEvent.end}.move`, this._moveEnd.bind(this));
+			.on(`${controlEvent.move}.move`, (e) => this._moveIng(e))
+			.on(`${controlEvent.end}.move`, (e) => this._moveEnd(e));
 	}
 	_moveIng(e)
 	{
@@ -128,8 +128,8 @@ export default class Block extends React.Component {
 		};
 
 		$(document)
-			.on(`${controlEvent.move}.resize`, this._resizeIng.bind(this))
-			.on(`${controlEvent.end}.resize`, this._resizeEnd.bind(this));
+			.on(`${controlEvent.move}.resize`, (e) => this._resizeIng(e))
+			.on(`${controlEvent.end}.resize`, (e) => this._resizeEnd(e));
 	}
 	_resizeIng(e)
 	{
@@ -230,8 +230,8 @@ export default class Block extends React.Component {
 					</span>
 				)}
 				<div
-					onMouseDown={this._moveStart.bind(this)}
-					onTouchStart={this._moveStart.bind(this)}
+					onMouseDown={(e) => this._moveStart(e)}
+					onTouchStart={(e) => this._moveStart(e)}
 					style={Object.assign({},
 						state.size !== 'cover' && {
 							width: size[0],
@@ -246,32 +246,32 @@ export default class Block extends React.Component {
 					<button
 						type="button"
 						title="resize-lt"
-						onMouseDown={this._resizeStart.bind(this)}
-						onTouchStart={this._resizeStart.bind(this)}
+						onMouseDown={(e) => this._resizeStart(e)}
+						onTouchStart={(e) => this._resizeStart(e)}
 						className="ple-cropperBlock__resize ple-cropperBlock__resize-lt">
 						<i className="ple-sp-ico ple-abs ple-ico-clamp"/>
 					</button>
 					<button
 						type="button"
 						title="resize-rt"
-						onMouseDown={this._resizeStart.bind(this)}
-						onTouchStart={this._resizeStart.bind(this)}
+						onMouseDown={(e) => this._resizeStart(e)}
+						onTouchStart={(e) => this._resizeStart(e)}
 						className="ple-cropperBlock__resize ple-cropperBlock__resize-rt">
 						<i className="ple-sp-ico ple-abs ple-ico-clamp"/>
 					</button>
 					<button
 						type="button"
 						title="resize-lb"
-						onMouseDown={this._resizeStart.bind(this)}
-						onTouchStart={this._resizeStart.bind(this)}
+						onMouseDown={(e) => this._resizeStart(e)}
+						onTouchStart={(e) => this._resizeStart(e)}
 						className="ple-cropperBlock__resize ple-cropperBlock__resize-lb">
 						<i className="ple-sp-ico ple-abs ple-ico-clamp"/>
 					</button>
 					<button
 						type="button"
 						title="resize-rb"
-						onMouseDown={this._resizeStart.bind(this)}
-						onTouchStart={this._resizeStart.bind(this)}
+						onMouseDown={(e) => this._resizeStart(e)}
+						onTouchStart={(e) => this._resizeStart(e)}
 						className="ple-cropperBlock__resize ple-cropperBlock__resize-rb">
 						<i className="ple-sp-ico ple-abs ple-ico-clamp"/>
 					</button>

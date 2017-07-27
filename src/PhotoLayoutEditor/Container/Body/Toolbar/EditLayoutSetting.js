@@ -82,12 +82,14 @@ export default class EditLayoutSetting extends React.Component {
 
 	_change(e)
 	{
+		let value = e.target.value || '';
 		switch(e.target.type) {
 			case 'text':
-				this.setState({ [e.target.name]: e.target.value });
+				this.setState({ [e.target.name]: value });
 				break;
 			case 'number':
-				this.setState({ [e.target.name]: parseInt(e.target.value) });
+				value = value || 0;
+				this.setState({ [e.target.name]: parseInt(value) });
 				break;
 		}
 	}
@@ -103,7 +105,7 @@ export default class EditLayoutSetting extends React.Component {
 		const { state, props } = this;
 
 		return (
-			<form onSubmit={this._submit.bind(this)} className="ple-edit-setting">
+			<form onSubmit={(e) => this._submit(e)} className="ple-edit-setting">
 				<fieldset className="ple-edit-setting__form">
 					<legend>Settings form</legend>
 					<h1 className="ple-edit-setting__title">Settings</h1>
@@ -114,7 +116,7 @@ export default class EditLayoutSetting extends React.Component {
 								type="number" name="width" id="frm_width"
 								min={1} max={999} maxLength={3}
 								value={state.width}
-								onChange={this._change.bind(this)}
+								onChange={(e) => this._change(e)}
 								required/>
 							<span>px</span>
 						</dd>
@@ -126,7 +128,7 @@ export default class EditLayoutSetting extends React.Component {
 								type="number" name="height" id="frm_height"
 								min={1} max={999}
 								value={state.height}
-								onChange={this._change.bind(this)}
+								onChange={(e) => this._change(e)}
 								required/>
 							<span>px</span>
 						</dd>
@@ -138,7 +140,7 @@ export default class EditLayoutSetting extends React.Component {
 								type="number" name="column" id="frm_column"
 								min={1} max={99}
 								value={state.column}
-								onChange={this._change.bind(this)}
+								onChange={(e) => this._change(e)}
 								required />
 							<span>ea</span>
 						</dd>
@@ -150,7 +152,7 @@ export default class EditLayoutSetting extends React.Component {
 								type="number" name="outerMargin" id="frm_outerMargin"
 								min={0} max={500}
 								value={state.outerMargin}
-								onChange={this._change.bind(this)}
+								onChange={(e) => this._change(e)}
 								required />
 							<span>px</span>
 						</dd>
@@ -162,7 +164,7 @@ export default class EditLayoutSetting extends React.Component {
 								type="number" name="innerMargin" id="frm_innerMargin"
 								min={0} max={500}
 								value={state.innerMargin}
-								onChange={this._change.bind(this)}
+								onChange={(e) => this._change(e)}
 								required />
 							<span>px</span>
 						</dd>
@@ -179,8 +181,8 @@ export default class EditLayoutSetting extends React.Component {
 										name="bgColor"
 										id="frm_bgColor"
 										value={state.bgColor}
-										onChange={this._change.bind(this)}
-										onClick={this._openBgColorPicker.bind(this)}
+										onChange={(e) => this._change(e)}
+										onClick={(e) => this._openBgColorPicker(e)}
 										readOnly={true}
 										required={true}
 										className="ple-edit-bgColor__input"
@@ -222,7 +224,7 @@ export default class EditLayoutSetting extends React.Component {
 
 				<nav className="ple-edit-setting__buttons">
 					<span>
-						<button type="button" onClick={this._reset.bind(this)}>Reset</button>
+						<button type="button" onClick={() => this._reset()}>Reset</button>
 					</span>
 					<span>
 						<button type="submit" className="ple-submit">Apply</button>
