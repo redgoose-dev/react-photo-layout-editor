@@ -8,6 +8,11 @@ export default class Cropper {
 		this.store = store;
 	}
 
+	/**
+	 * open cropper
+	 *
+	 * @param {Number} key
+	 */
 	open(key)
 	{
 		const state = this.store.getState();
@@ -24,6 +29,13 @@ export default class Cropper {
 		this.store.dispatch(actions.cropper.open(key, item));
 	};
 
+	/**
+	 * close cropper
+	 *
+	 * @param {Number} key
+	 * @param {String} position
+	 * @param {String} size
+	 */
 	close(key, position, size)
 	{
 		this.store.dispatch(actions.cropper.close(key, position, size));
