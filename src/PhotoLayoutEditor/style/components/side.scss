@@ -54,7 +54,7 @@
 	&__background {
 		position: absolute;
 		left: 0;
-		right: 0;
+		right: 20px;
 		top: 0;
 		bottom: 0;
 	}
@@ -73,10 +73,9 @@
 		z-index: 2;
 		left: 0;
 		right: 0;
-		top: 0;
-		background: $col-key;
+		top: 30px;
 		&__wrap {
-			margin: 30px 15px 10px;
+			margin: 0 15px;
 			border-radius: 3px;
 			background: #444;
 			overflow: hidden;
@@ -140,7 +139,6 @@
 	}
 	.ple-sideItems {
 		$item-height: 63px;
-		position: relative;
 		height: 100%;
 		margin: 0;
 		padding: 75px 0 0;
@@ -161,6 +159,7 @@
 			flex-flow: row wrap;
 		}
 		li {
+			position: relative;
 			width: 33.3333%;
 			padding: 5px;
 		}
