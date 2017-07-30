@@ -15,6 +15,13 @@ This is photo layout editor for react
 </p>
 
 
+## Demo
+
+다음 링크를 통하여 기능을 체험해볼 수 있습니다.
+
+https://redgoosedev.github.io/react-photo-layout-editor/
+
+
 ## Feature
 
 PLE는 이런 특징들을 가지고 있습니다.
