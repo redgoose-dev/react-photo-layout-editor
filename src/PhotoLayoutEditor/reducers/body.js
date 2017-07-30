@@ -53,20 +53,30 @@ export function grid(state={}, action)
 		case types.INIT_PLE:
 			let grid = {};
 			try {
-				if (!(action.preference.body.grid instanceof Array)) throw 'error';
-				action.preference.body.grid.forEach((o, k) => {
-					grid[k] = o;
+				if ((action.preference.body.grid instanceof Array))
+				{
+					action.preference.body.grid.forEach((o, k) => {
+						grid[k] = o;
+					});
+				}
+				else if (typeof action.preference.body.grid === 'object')
+				{
+					grid = action.preference.body.grid;
+				}
+				else
+				{
+					throw 'error';
+				}
+				Object.keys(grid).forEach((o) => {
+					newState[lastGridId++] = {
+						color: defaults.setting.body.blockColor,
+						...grid[o],
+						indexPrefix: shuffleIndex,
+					};
 				});
 			} catch(e) {
-				grid = action.preference.body.grid;
+				newState = {};
 			}
-			Object.keys(grid).forEach((o) => {
-				newState[lastGridId++] = {
-					color: defaults.setting.body.blockColor,
-					...grid[o],
-					indexPrefix: shuffleIndex,
-				};
-			});
 			return newState;
 
 		case types.GRID_ADD_BLOCK:

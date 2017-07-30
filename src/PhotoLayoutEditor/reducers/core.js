@@ -5,9 +5,11 @@ import * as defaults from './defaults';
 
 export function setting(state=null, action)
 {
+	let newState = Object.assign({}, state);
+
 	switch (action.type) {
 		case types.INIT_PLE:
-			return Object.assign({}, {
+			newState = Object.assign({}, {
 				base: {
 					...defaults.setting.base,
 					uploadScript: action.preference.uploadScript || defaults.setting.base.uploadScript,
@@ -22,7 +24,7 @@ export function setting(state=null, action)
 					...action.preference.body,
 				}
 			});
-			break;
+			return newState;
 
 		default:
 			return state;
