@@ -119,12 +119,15 @@ export default class Side {
 	{
 		try
 		{
-			let selected = this.getKeys('value', keys);
-			if (selected.length <= 0)
+			let selected = {};
+			let getKeys = this.getKeys('value', keys);
+			if (getKeys.length <= 0)
 			{
 				throw new Error('not found select item');
 			}
-			selected = selected.map((o) => ({ key: o, active }));
+			getKeys.forEach((o) => {
+				selected[o] = { key: o, active };
+			});
 			this.store.dispatch(actions.side.updateSelected(selected));
 		}
 		catch(e)
