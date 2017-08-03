@@ -117,6 +117,7 @@ export default class EditLayoutSetting extends React.Component {
 								min={1} max={999} maxLength={3}
 								value={state.width}
 								onChange={(e) => this._change(e)}
+								style={{ width: '72px' }}
 								required/>
 							<span>px</span>
 						</dd>
@@ -129,6 +130,7 @@ export default class EditLayoutSetting extends React.Component {
 								min={1} max={999}
 								value={state.height}
 								onChange={(e) => this._change(e)}
+								style={{ width: '72px' }}
 								required/>
 							<span>px</span>
 						</dd>
@@ -141,6 +143,7 @@ export default class EditLayoutSetting extends React.Component {
 								min={1} max={99}
 								value={state.column}
 								onChange={(e) => this._change(e)}
+								style={{ width: '54px' }}
 								required />
 							<span>ea</span>
 						</dd>
@@ -153,6 +156,7 @@ export default class EditLayoutSetting extends React.Component {
 								min={0} max={500}
 								value={state.outerMargin}
 								onChange={(e) => this._change(e)}
+								style={{ width: '58px' }}
 								required />
 							<span>px</span>
 						</dd>
@@ -165,6 +169,7 @@ export default class EditLayoutSetting extends React.Component {
 								min={0} max={500}
 								value={state.innerMargin}
 								onChange={(e) => this._change(e)}
+								style={{ width: '58px' }}
 								required />
 							<span>px</span>
 						</dd>

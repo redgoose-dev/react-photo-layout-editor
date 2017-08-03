@@ -108,12 +108,10 @@
 	}
 	&__form {
 		> dl {
-			display: table;
-			width: 100%;
+			display: flex;
+			align-items: center;
 			margin: 1px 0;
 			> * {
-				display: table-cell;
-				vertical-align: middle;
 				padding: 3px 0;
 			}
 			dt {
@@ -126,7 +124,8 @@
 				}
 			}
 			dd {
-				margin: 0 0 0 100px;
+				flex: 1;
+				margin: 0;
 			}
 		}
 	}
@@ -162,6 +161,7 @@
 	.ple-type-input {
 		input[type=text],
 		input[type=number] {
+			box-sizing: border-box;
 			margin: 0;
 			padding: 6px 6px;
 			font-size: 12px;
@@ -219,6 +219,7 @@
 		padding: 0;
 		border-radius: 0;
 		vertical-align: top;
+		cursor: pointer;
 	}
 	&__popup {
 		position: relative;
