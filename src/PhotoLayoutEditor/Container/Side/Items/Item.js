@@ -35,7 +35,7 @@ export default class Item extends React.Component {
 
 		return (
 			<li>
-				<button
+				<span
 					type="button"
 					data-id={props.id}
 					data-image={props.image}

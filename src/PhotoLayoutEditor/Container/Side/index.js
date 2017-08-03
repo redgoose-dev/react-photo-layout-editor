@@ -126,9 +126,12 @@ class Side extends React.Component {
 		}
 	}
 
-	_dragStartItem(e)
+	_dragStartItem(evt)
 	{
 		const { props } = this;
+
+		// for firefox
+		evt.dataTransfer.setData('text/plain', null);
 
 		this.$gridItems = $(props.element).find('.ple-grid > div');
 		this.$gridItems.on('dragover', (e) => {
@@ -208,12 +211,6 @@ class Side extends React.Component {
 				$(e.currentTarget).data('image')
 			));
 			this.dragPosition = [];
-		}
-		else
-		{
-			// TODO : 확인해보고 처리하기
-			console.warn('')
-			//this._selectItem($(e.currentTarget).data('id'));
 		}
 	}
 

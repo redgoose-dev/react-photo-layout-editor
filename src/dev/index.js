@@ -19,7 +19,7 @@ render(App);
 if (module.hot)
 {
 	module.hot.accept('./App', () => {
-		const NextApp = require('./App'); // TODO: WTF??
+		const NextApp = require('./App');
 		render(App);
 	});
 }
