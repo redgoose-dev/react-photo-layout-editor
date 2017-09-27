@@ -8,6 +8,10 @@
 		"transform-es2015-block-scoping"
 	],
 	"presets": [
-		"es2015"
+		["env", {
+			"targets": {
+				"browsers": ["last 2 versions"]
+			}
+		}]
 	]
 }

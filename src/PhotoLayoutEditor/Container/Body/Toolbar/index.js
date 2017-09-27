@@ -53,7 +53,6 @@ class Toolbar extends React.Component {
 		// select block
 		if (props.tree.body.activeBlock.length !== nextProps.tree.body.activeBlock.length)
 		{
-			//console.log(isImage);
 			let active = !!(nextProps.tree.body.activeBlock.length);
 			newState.visible = Object.assign({}, newState.visible, {
 				edit: false,

@@ -207,7 +207,7 @@ export default class App extends React.Component {
 				});
 				break;
 			case 'util.makeImage':
-				let makeImage = this._photoLayoutEditor.api.util.makeImage('jpg', .75, 1, 'base64');
+				let makeImage = this._photoLayoutEditor.api.util.makeImage('jpg', .9, 2, 'base64');
 				makeImage.progress(function(total, current, image) {
 					console.log('PROGRESS', total, current, image);
 				});

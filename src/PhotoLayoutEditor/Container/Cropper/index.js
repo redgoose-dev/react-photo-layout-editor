@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import $ from 'jquery/dist/jquery.slim';
 import classNames from 'classnames';
 
+// components
 import Block from './Block';
-import * as actions from '../../actions';
+
+// library
 import * as lib from '../../lib';
 
 
@@ -62,7 +64,6 @@ class Cropper extends React.Component {
 	/**
 	 * toggle image type
 	 * 직접 리사이즈를 사용하는지 기본(꽉채우는..)타입으로 사용할건지 변경하는 액션
-	 *
 	 */
 	_toggleImageType()
 	{
