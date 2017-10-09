@@ -135,10 +135,20 @@ class Toolbar extends React.Component {
 		});
 	}
 
+	/**
+	 * Submit edit setting
+	 *
+	 * @param {Object} state
+	 * @return {Boolean}
+	 */
 	submitEditSetting(state)
 	{
+		// update setting
 		this.props.dispatch(actions.body.updateSetting(state));
-		this.changeActive('setting', false);
+
+		// close palette
+		libs.util.sleep(50).then(() => this.changeActive('setting', false));
+
 		return false;
 	}
 
