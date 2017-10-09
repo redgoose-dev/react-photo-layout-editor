@@ -239,6 +239,7 @@ export default class App extends React.Component {
 					}}
 					//uploadScript="http://localhost/lab/uploader/upload.php"
 					uploadParamsConvertFunc={(file) => { return file.url; }}
+					updateStoreFunc={() => console.warn('update store')}
 					ref={(r) => { this._photoLayoutEditor = r }}/>
 
 				<article className="api-control">

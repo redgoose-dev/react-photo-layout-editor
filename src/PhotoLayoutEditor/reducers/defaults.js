@@ -2,6 +2,7 @@ export const setting = {
 	base: {
 		uploadScript: null,
 		uploadParamsConvertFunc: null,
+		updateStoreFunc: null,
 	},
 	body: {
 		setting: {

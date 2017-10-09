@@ -90,6 +90,7 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 | side | {} | `object` | 이미지를 관리하는 사이드 팔레트 영역. 아래 [side 항목](https://github.com/RedgooseDev/react-photo-layout-editor#side)을 참고 |
 | uploadScript | null | `string` | 이미지를 서버로 업로드 처리하는 주소 |
 | uploadParamsConvertFunc | null | `function` | 이미지를 서버로 업로드하고 그 결과값을 받아 `side.files`에 이미지를 등록할 수 있도록 값을 변경하는 콜백함수 |
+| updateStoreFunc | null | `function` | store 데이터가 변경될때마다 실행하는 콜백함수 |
 
 ### body
 

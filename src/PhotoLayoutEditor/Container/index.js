@@ -26,6 +26,13 @@ class Container extends React.Component {
 		this.el = null;
 	}
 
+	componentWillReceiveProps(nextProps)
+	{
+		const { props } = this;
+
+		this.checkChangeStore(props, nextProps);
+	}
+
 	componentDidMount()
 	{
 		const { props } = this;
@@ -35,6 +42,19 @@ class Container extends React.Component {
 			props.parent.preference || { side: {}, body: {} },
 			this.el
 		));
+	}
+
+	checkChangeStore(prev, next)
+	{
+		if (!(next.setting.base.updateStoreFunc && typeof next.setting.base.updateStoreFunc === 'function')) return null;
+		if (
+			prev.tree.side.visible !== next.tree.side.visible ||
+			prev.tree.side.files !== next.tree.side.files ||
+			prev.tree.body.setting !== next.tree.body.setting ||
+			prev.tree.body.grid !== next.tree.body.grid
+		) {
+			next.setting.base.updateStoreFunc();
+		}
 	}
 
 	render()

@@ -13,7 +13,8 @@ export function setting(state=null, action)
 				base: {
 					...defaults.setting.base,
 					uploadScript: action.preference.uploadScript || defaults.setting.base.uploadScript,
-					uploadParamsConvertFunc: action.preference.uploadParamsConvertFunc || defaults.setting.base.uploadParamsConvertFunc
+					uploadParamsConvertFunc: action.preference.uploadParamsConvertFunc || defaults.setting.base.uploadParamsConvertFunc,
+					updateStoreFunc: action.preference.updateStoreFunc || defaults.setting.base.updateStoreFunc,
 				},
 				side: {
 					...defaults.setting.side,
