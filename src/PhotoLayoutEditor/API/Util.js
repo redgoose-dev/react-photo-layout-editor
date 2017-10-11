@@ -44,7 +44,7 @@ export default class Util {
 
 		function side()
 		{
-			if (isInsertImage) return [];
+			if (!isInsertImage) return [];
 			let keys = state.api.side.getKeys('all');
 			return state.api.side.getImages(keys);
 		}
@@ -53,7 +53,7 @@ export default class Util {
 			let result = state.api.grid.getBlocks('all');
 			return Object.keys(result).sort().map(o => {
 				delete result[o].indexPrefix;
-				if (isInsertImage && result[o] && result[o].image) delete result[o].image;
+				if (!isInsertImage && result[o] && result[o].image) delete result[o].image;
 				return result[o];
 			});
 		}
