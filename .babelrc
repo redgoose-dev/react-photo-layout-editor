@@ -1,17 +1,17 @@
 {
-	"plugins": [
-		"transform-decorators-legacy",
-		"transform-class-properties",
-		"transform-object-rest-spread",
-		"transform-react-jsx",
-		"transform-flow-strip-types",
-		"transform-es2015-block-scoping"
-	],
 	"presets": [
-		["env", {
-			"targets": {
-				"browsers": ["last 2 versions"]
+		[
+			"env",
+			{
+				"targets": {
+					"browsers": [ "last 2 versions" ]
+				}
 			}
-		}]
+		],
+		"react",
+		"stage-2"
+	],
+	"plugins": [
+
 	]
 }

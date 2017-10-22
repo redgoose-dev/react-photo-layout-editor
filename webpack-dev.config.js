@@ -11,24 +11,25 @@ module.exports = {
 		'react-hot-loader/patch',
 		`webpack-dev-server/client?http://localhost:4040`,
 		'webpack/hot/only-dev-server',
+		'babel-polyfill',
 		'./dev/index.js'
 	],
-
-	devServer: {
-		hot: true,
-		contentBase: resolve(__dirname, 'build'),
-		publicPath: '/',
-		historyApiFallback: true,
-		disableHostCheck: true
-	},
 
 	output: {
 		path: resolve(__dirname, 'build'),
 		publicPath: './',
 		filename: '[name].js',
 		chunkFilename: '[name].js',
-		//library: 'PhotoLayoutEditor',
-		//libraryTarget: 'var',
+	},
+
+	devServer: {
+		hot: true,
+		contentBase: resolve(__dirname, 'build'),
+		publicPath: '/',
+		historyApiFallback: {
+			disableDotRule: true
+		},
+		disableHostCheck: true
 	},
 
 	devtool: 'cheap-eval-source-map',

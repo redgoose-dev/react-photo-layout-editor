@@ -14,7 +14,7 @@ class PhotoLayoutEditor extends React.Component {
 	static defaultProps = {
 		body: {
 			setting: {},
-			blockColor: null,
+			blockColor: '#dddddd',
 			grid: []
 		},
 		side: {
@@ -50,4 +50,3 @@ class PhotoLayoutEditor extends React.Component {
 }
 
 export default PhotoLayoutEditor;
-module.exports = PhotoLayoutEditor;

@@ -15,6 +15,9 @@ export default class SideNavigation extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.comps = {
+			inputFile: null,
+		};
 		this.state = {
 			timestamp : Date.now(),
 		};
@@ -34,7 +37,7 @@ export default class SideNavigation extends React.Component {
 	}
 
 	render() {
-		const { props, state } = this;
+		const { props, state, comps } = this;
 
 		return (
 			<nav className="ple-sideNavigation ple-side__navigation">
@@ -46,7 +49,10 @@ export default class SideNavigation extends React.Component {
 						<i className="ple-sp-ico ple-ico-select ple-abs">Toggle all select</i>
 					</button>
 					<span title="upload images" key={state.timestamp}>
-						<input type="file" ref="inputFile" onChange={(e) => this.upload(e)} multiple />
+						<input
+							ref={(r) => { comps.inputFile = r; }}
+							type="file"
+							onChange={(e) => this.upload(e)} multiple />
 						<i className="ple-sp-ico ple-ico-upload ple-abs">upload images</i>
 					</span>
 					<button type="button" title="remove images" onClick={props.onRemove}>

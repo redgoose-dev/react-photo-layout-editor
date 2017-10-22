@@ -37,6 +37,7 @@
 			background: $col-blur;
 			cursor: pointer;
 			outline: 0;
+			border-radius: 0;
 			i {
 				position: absolute;
 				display: block;
@@ -153,6 +154,7 @@
 			border: none;
 			cursor: pointer;
 			-webkit-appearance: none;
+			border-radius: 0;
 			&.ple-submit {
 				background: $col-key;
 			}
