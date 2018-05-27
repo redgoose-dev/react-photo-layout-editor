@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 
 module.exports = {
@@ -30,15 +31,40 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
-				use: [ 'babel-loader' ],
-				exclude: /node_modules/
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							babelrc: false,
+							presets: [
+								[
+									"env",
+									{
+										"targets": {
+											"browsers": [ "last 2 versions" ]
+										}
+									}
+								],
+								"react",
+								"stage-2"
+							],
+						}
+					}
+				],
+				exclude: /node_modules/,
 			},
 			{
 				test: /\.s?css$/,
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use: [
-						'css-loader',
+						{
+							loader: 'css-loader',
+							options: {
+								minimize: true,
+								alias: {},
+							},
+						},
 						'sass-loader'
 					]
 				})
@@ -55,17 +81,25 @@ module.exports = {
 
 	plugins: [
 		new webpack.DefinePlugin({
-			"process.env": {
-				NODE_ENV: JSON.stringify("production")
-			}
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: { warnings: false },
-			sourceMap: false
+			'process.env': {
+				'NODE_ENV': JSON.stringify('production'),
+			},
 		}),
 		new ExtractTextPlugin({
 			filename: '[name].css'
-		})
-	]
+		}),
+	],
+
+	optimization: {
+		minimizer: [
+			new UglifyJsPlugin({
+				uglifyOptions: {
+					output: {
+						comments: false,
+					}
+				}
+			})
+		]
+	},
 
 };

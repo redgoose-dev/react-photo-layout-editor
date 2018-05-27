@@ -8,9 +8,6 @@ module.exports = {
 	context: resolve(__dirname, 'src'),
 
 	entry: [
-		'react-hot-loader/patch',
-		`webpack-dev-server/client?http://localhost:4040`,
-		'webpack/hot/only-dev-server',
 		'babel-polyfill',
 		'./dev/index.js'
 	],
@@ -24,12 +21,9 @@ module.exports = {
 
 	devServer: {
 		hot: true,
-		contentBase: resolve(__dirname, 'build'),
+		open: false,
 		publicPath: '/',
-		historyApiFallback: {
-			disableDotRule: true
-		},
-		disableHostCheck: true
+		historyApiFallback: true,
 	},
 
 	devtool: 'cheap-eval-source-map',
@@ -42,8 +36,22 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						options: {
-							babelrc: true,
-							plugins: [ 'react-hot-loader/babel' ]
+							babelrc: false,
+							presets: [
+								[
+									'env',
+									{
+										targets: {
+											browsers: [ "last 2 versions" ]
+										}
+									}
+								],
+								'react',
+								'stage-2'
+							],
+							plugins: [
+								'react-hot-loader/babel'
+							]
 						}
 					}
 				],
@@ -69,8 +77,6 @@ module.exports = {
 
 	plugins: [
 		new HtmlWebpackPlugin({ template: 'dev/index.html' }),
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NamedModulesPlugin()
 	]
 
 };
