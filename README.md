@@ -61,7 +61,7 @@ cli로 설치할 프로젝트에서 다음과 같은 명령을 실행합니다.
 
 ### npm
 
-`npm insatll --save react-photo-layout-editor`
+`npm install --save react-photo-layout-editor`
 
 ### yarn
 
