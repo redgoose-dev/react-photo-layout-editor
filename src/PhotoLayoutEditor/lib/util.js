@@ -108,25 +108,24 @@ export function checkSupportCss(key, value)
 export function loadImage(src)
 {
 	return new Promise((resolve) => {
-		if (src)
-		{
-			let image = new Image();
-
-			image.onload = function(e)
-			{
-				resolve(image);
-			};
-			image.onError = function(e)
-			{
-				resolve(null);
-			};
-
-			image.setAttribute('crossOrigin', 'anonymous');
-			image.src = src;
-		}
-		else
+		if (!src)
 		{
 			resolve(null);
+			return;
 		}
+
+		let image = new Image();
+
+		image.onload = function(e)
+		{
+			resolve(image);
+		};
+		image.onError = function(e)
+		{
+			resolve(null);
+		};
+
+		image.crossOrigin = 'Anonymous';
+		image.src = src;
 	});
 }

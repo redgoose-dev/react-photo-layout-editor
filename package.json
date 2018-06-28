@@ -38,9 +38,9 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
+    "classnames": "^2.2.6",
     "jquery": "^3.3.1",
-    "prop-types": "^15.6.1",
+    "prop-types": "^15.6.2",
     "react-grid-layout": "^0.16.6",
     "react-redux": "^5.0.7",
     "react-simple-colorpicker": "github:RedgooseDev/react-simple-colorpicker",
@@ -60,17 +60,17 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.9.0",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-hot-loader": "^4.2.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-hot-loader": "^4.3.3",
     "redux-logger": "^3.0.6",
-    "sass-loader": "^7.0.1",
+    "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
-    "uglifyjs-webpack-plugin": "^1.2.5",
+    "uglifyjs-webpack-plugin": "^1.2.7",
     "url-loader": "^1.0.1",
-    "webpack": "^4.9.1",
+    "webpack": "^4.12.2",
     "webpack-chunk-hash": "^0.6.0",
-    "webpack-cli": "^2.1.4",
+    "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
   }
 }
