@@ -1,7 +1,7 @@
 # react-photo-layout-editor
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/logo.jpg" alt="logo">
+<img src="https://raw.githubusercontent.com/redgoose-dev/react-photo-layout-editor/master/assets/logo.jpg" alt="logo">
 </p>
 
 사진 레이아웃을 편집하는 웹 프로그램입니다.  
@@ -11,7 +11,7 @@ This is photo layout editor for react
 블럭을 드래그 앤 드롭으로 위치와 크기를 편집하여 모던하게 정렬된 이미지나 레이아웃 만들 수 있습니다.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/play_mov.gif" alt="logo">
+<img src="https://raw.githubusercontent.com/redgoose-dev/react-photo-layout-editor/master/assets/play_mov.gif" alt="logo">
 </p>
 
 
@@ -19,7 +19,7 @@ This is photo layout editor for react
 
 다음 링크를 통하여 기능을 체험해볼 수 있습니다.
 
-https://redgoosedev.github.io/react-photo-layout-editor/
+https://redgoose-dev.github.io/react-photo-layout-editor/
 
 
 ## Feature
@@ -30,13 +30,13 @@ PLE는 이런 특징들을 가지고 있습니다.
 
 사이드바에 이미지를 업로드하여 사진을 배치하기 전에 이미지를 담아둘 수 있습니다.
 
-![screen](https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/screen_1.jpg)
+![screen](https://raw.githubusercontent.com/redgoose-dev/react-photo-layout-editor/master/assets/screen_1.jpg)
 
 ### Edit Blocks
 
 블럭의 갯수나 사이즈, 여백등을 조절할 수 있습니다.
 
-![grid editor](https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/screen_2.jpg)
+![grid editor](https://raw.githubusercontent.com/redgoose-dev/react-photo-layout-editor/master/assets/screen_2.jpg)
 
 ### Drag \& Drop
 
@@ -46,13 +46,13 @@ PLE는 이런 특징들을 가지고 있습니다.
 
 블럭을 선택하고 펜 모양의 툴바(edit block)를 선택하면 편집창이 뜨면서 영역을 변경할 수 있습니다.
 
-![cropper](https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/screen_4.jpg)
+![cropper](https://raw.githubusercontent.com/redgoose-dev/react-photo-layout-editor/master/assets/screen_4.jpg)
 
 ### Change color
 
 블럭의 배경색을 바꿀 수 있습니다. 빈 블럭을 만들고 색상을 수정할 수 있습니다.
 
-![change color](https://raw.githubusercontent.com/RedgooseDev/react-photo-layout-editor/master/assets/screen_3.jpg)
+![change color](https://raw.githubusercontent.com/redgoose-dev/react-photo-layout-editor/master/assets/screen_3.jpg)
 
 
 ## Installation
@@ -86,8 +86,8 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 
 | Name | default | Type | Description |
 | ---- | ------- | ---- | ----------- |
-| body | {} | `object` | 툴바와 그리드를 편집하는 영역. 아래 [body 항목](https://github.com/RedgooseDev/react-photo-layout-editor#body)을 참고 |
-| side | {} | `object` | 이미지를 관리하는 사이드 팔레트 영역. 아래 [side 항목](https://github.com/RedgooseDev/react-photo-layout-editor#side)을 참고 |
+| body | {} | `object` | 툴바와 그리드를 편집하는 영역. 아래 [body 항목](https://github.com/redgoose-dev/react-photo-layout-editor#body)을 참고 |
+| side | {} | `object` | 이미지를 관리하는 사이드 팔레트 영역. 아래 [side 항목](https://github.com/redgoose-dev/react-photo-layout-editor#side)을 참고 |
 | uploadScript | null | `string` | 이미지를 서버로 업로드 처리하는 주소 |
 | uploadParamsConvertFunc | null | `function` | 이미지를 서버로 업로드하고 그 결과값을 받아 `side.files`에 이미지를 등록할 수 있도록 값을 변경하는 콜백함수 |
 | updateStoreFunc | null | `function` | store 데이터가 변경될때마다 실행하는 콜백함수 |
@@ -98,7 +98,7 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 
 | Name | default | Type | Description |
 | ---- | ------- | ---- | ----------- |
-| setting | {} | `object` | 그리드 편집기의 설정값. [setting 섹션](https://github.com/RedgooseDev/react-photo-layout-editor#bodysetting) 참고 |
+| setting | {} | `object` | 그리드 편집기의 설정값. [setting 섹션](https://github.com/redgoose-dev/react-photo-layout-editor#bodysetting) 참고 |
 | blockColor | rgba(211,211,211,1) | `string` | 블럭 하나의 기본 배경색 |
 | grid | [] | `array` | 블럭 데이터값 목록 |
 
@@ -138,10 +138,10 @@ let ple = null;
 
 자세한 API의 내용은 다음 링크를 참고하세요.
 
-- [Side](https://github.com/RedgooseDev/react-photo-layout-editor/wiki/API.Side)
-- [Grid](https://github.com/RedgooseDev/react-photo-layout-editor/wiki/API.Grid)
-- [Cropper](https://github.com/RedgooseDev/react-photo-layout-editor/wiki/API.Cropper)
-- [Util](https://github.com/RedgooseDev/react-photo-layout-editor/wiki/API.Util)
+- [Side](https://github.com/redgoose-dev/react-photo-layout-editor/wiki/API.Side)
+- [Grid](https://github.com/redgoose-dev/react-photo-layout-editor/wiki/API.Grid)
+- [Cropper](https://github.com/redgoose-dev/react-photo-layout-editor/wiki/API.Cropper)
+- [Util](https://github.com/redgoose-dev/react-photo-layout-editor/wiki/API.Util)
 
 
 ## Development
@@ -149,7 +149,7 @@ let ple = null;
 이 프로그램을 개발하기 위하여 데모 페이지를 띄울 수 있습니다.  
 다음 과정을 통하여 브라우저에 개발에 사용되었던 데모 페이지를 열어볼 수 있습니다.
 
-1. `git clone https://github.com/RedgooseDev/react-photo-layout-editor.git`
+1. `git clone https://github.com/redgoose-dev/react-photo-layout-editor.git`
 1. `cd react-photo-layout-editor`
 1. `npm install`
 1. `npm dev`
