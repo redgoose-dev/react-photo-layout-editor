@@ -3,6 +3,7 @@ export const setting = {
 		uploadScript: null,
 		uploadParamsConvertFunc: null,
 		updateStoreFunc: null,
+		callback: {},
 	},
 	body: {
 		setting: {

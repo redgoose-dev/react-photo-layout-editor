@@ -6,6 +6,9 @@ import Body from './Body';
 import Side from './Side';
 
 
+let ready = false;
+
+
 class Container extends React.Component {
 
   constructor(props)
@@ -24,6 +27,11 @@ class Container extends React.Component {
       prevProps.tree.body.grid !== props.tree.body.grid
     )) {
       props.setting.base.updateStoreFunc();
+    }
+    if (!ready && !!props.setting.base.callback)
+    {
+      props.setting.base.callback.init();
+      ready = true;
     }
   }
 

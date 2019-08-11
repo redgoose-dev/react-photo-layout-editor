@@ -91,6 +91,7 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 | uploadScript | null | `string` | 이미지를 서버로 업로드 처리하는 주소 |
 | uploadParamsConvertFunc | null | `function` | 이미지를 서버로 업로드하고 그 결과값을 받아 `side.files`에 이미지를 등록할 수 있도록 값을 변경하는 콜백함수 |
 | updateStoreFunc | null | `function` | store 데이터가 변경될때마다 실행하는 콜백함수 |
+| callback | {} | `object` | 여러가지 행동에 대한 콜백 함수들의 모음 |
 
 ### body
 
@@ -124,6 +125,20 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 | ---- | ------- | ---- | ----------- |
 | files | [] | `array` | 이미지 목록 |
 | visible | true | `boolean` | 팔레트 표시유무 |
+
+### callback
+
+컴포넌트 콜백 함수들
+
+| Name | params | Description |
+| ---- | ------ | ----------- |
+| init |  | 컴포넌트가 초기화 되었을때 호출합니다. |
+| sideUploadStart |  | 사이드 영역 이미지를 업로드를 시작할때 호출합니다. |
+| sideUploadProgress | `loaded,total,percent` | 사이드 영역 이미지를 업로드중일때 호출합니다. |
+| sideUploadComplete | `res` | 사이드 영역 이미지 하나를 업로드가 끝나면 호출합니다. |
+| sideUploadCompleteAll | | 사이드 영역 모든 이미지 업로드를 완료하면 호출합니다. |
+| sideUploadFail | | 사이드 영역 이미지 업로드를 실패하면 호출합니다. |
+| sideRemove | `images` | 사이드 영역 이미지를 삭제할때 호출합니다. |
 
 
 ## API

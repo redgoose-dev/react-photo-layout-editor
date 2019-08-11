@@ -180,7 +180,11 @@ class Side {
 			{
 				throw new Error('Not found items.')
 			}
+			const state = this.store.getState();
+			const { callback } = state.setting.base;
+			let files = keys.map((n) => state.tree.side.files[n].image);
 			this.store.dispatch(actions.side.removeFiles(keys));
+			if (callback.sideRemove) callback.sideRemove(files);
 		}
 		catch(e)
 		{
@@ -194,30 +198,27 @@ class Side {
 	clear()
 	{
 		let keys = this.getKeys('all');
-		this.store.dispatch(actions.side.removeFiles(keys))
+		const state = this.store.getState();
+		const { callback } = state.setting.base;
+		let files = Object.keys(state.tree.side.files).map((n) => state.tree.side.files[n].image);
+		this.store.dispatch(actions.side.removeFiles(keys));
+		if (callback.sideRemove) callback.sideRemove(files);
 	}
 
 	/**
 	 * Upload files
 	 *
 	 * @param {FileList} files
-	 * @param {Object} callbacks
 	 */
-	upload(files, callbacks={})
+	upload(files)
 	{
-		/**
-		 * @param {Function} callbacks.start
-		 * @param {Function} callbacks.progress
-		 * @param {Function} callbacks.complete
-		 * @param {Function} callbacks.completeAll
-		 * @param {Function} callbacks.fail
-		 */
 		if (this.uploading) return;
 
 		const state = this.store.getState();
+		const { callback } = state.setting.base;
 		this.uploading = true;
 
-		if (callbacks.start) callbacks.start();
+		if (callback.sideUploadStart) callback.sideUploadStart();
 
 		lib.uploader(files, state.setting.base.uploadScript)
 			.progress((type, res) => {
@@ -229,7 +230,7 @@ class Side {
 					case 'progress':
 						const percent = parseInt((res.loaded / res.total * 100));
 						this.store.dispatch(actions.side.updateProgress(percent));
-						if (callbacks.progress) callbacks.progress(res.loaded, res.total, percent);
+						if (callback.sideUploadProgress) callback.sideUploadProgress(res.loaded, res.total, percent);
 						break;
 					case 'done':
 						this.store.dispatch(actions.side.updateProgress(null));
@@ -243,17 +244,17 @@ class Side {
 						{
 							this.store.dispatch(actions.side.addFiles([res.data.url]));
 						}
-						if (callbacks.complete) callbacks.complete(res.data);
+						if (callback.sideUploadComplete) callback.sideUploadComplete(res.data);
 						return;
 				}
 			})
 			.done(() => {
 				this.uploading = false;
-				if (callbacks.completeAll) callbacks.completeAll();
+				if (callback.sideUploadCompleteAll) callback.sideUploadCompleteAll();
 			})
 			.fail((error) => {
 				this.uploading = false;
-				if (callbacks.fail) callbacks.fail(error);
+				if (callback.sideUploadFail) callback.sideUploadFail(error);
 			});
 	}
 

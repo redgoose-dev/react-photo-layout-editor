@@ -7,7 +7,8 @@ export function setting(state=null, action)
 {
 	let newState = Object.assign({}, state);
 
-	switch (action.type) {
+	switch (action.type)
+	{
 		case types.INIT_PLE:
 			newState = Object.assign({}, {
 				base: {
@@ -15,6 +16,7 @@ export function setting(state=null, action)
 					uploadScript: action.preference.uploadScript || defaults.setting.base.uploadScript,
 					uploadParamsConvertFunc: action.preference.uploadParamsConvertFunc || defaults.setting.base.uploadParamsConvertFunc,
 					updateStoreFunc: action.preference.updateStoreFunc || defaults.setting.base.updateStoreFunc,
+					callback: action.preference.callback || defaults.setting.base.callback,
 				},
 				side: {
 					...defaults.setting.side,
@@ -34,7 +36,8 @@ export function setting(state=null, action)
 
 export function api(state=null, action)
 {
-	switch (action.type) {
+	switch (action.type)
+	{
 		case types.INIT_PLE:
 			return action.api;
 
@@ -45,7 +48,8 @@ export function api(state=null, action)
 
 export function keyboard(state=null, action)
 {
-	switch (action.type) {
+	switch (action.type)
+	{
 		case types.INIT_PLE:
 			return new Keyboard();
 
@@ -56,7 +60,8 @@ export function keyboard(state=null, action)
 
 export function element(state=null, action)
 {
-	switch (action.type) {
+	switch (action.type)
+	{
 		case types.INIT_PLE:
 			return action.element;
 

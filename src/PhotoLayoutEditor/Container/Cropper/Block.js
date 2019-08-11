@@ -188,7 +188,6 @@ class Block extends React.Component {
 
 	render()
 	{
-		console.log('qweqwe');
 		const { state, props } = this;
 		const size = (state.size !== 'cover') ? state.size.split(' ') : state.size;
 		const position = state.position.split(' ');

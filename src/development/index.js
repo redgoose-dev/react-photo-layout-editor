@@ -52,23 +52,7 @@ class App extends React.Component {
 				this._photoLayoutEditor.api.side.attachToGrid(keys);
 				break;
 			case 'side.upload':
-				let upload = this._photoLayoutEditor.api.side.upload(value.target.files, {
-					start: () => {
-						console.log('upload start');
-					},
-					progress: (loaded, total, percent) => {
-						console.log('upload progress', loaded, total, percent);
-					},
-					complete: (res) => {
-						console.log('upload complete', res);
-					},
-					completeAll: () => {
-						console.log('upload complete all');
-					},
-					fail: (error) => {
-						console.log('upload fail', error);
-					},
-				});
+				this._photoLayoutEditor.api.side.upload(value.target.files);
 				break;
 			case 'side.getItems':
 				keys = this._photoLayoutEditor.api.side.getKeys('selected');
@@ -242,6 +226,27 @@ class App extends React.Component {
 					//uploadScript="http://localhost/lab/uploader/upload.php"
 					uploadParamsConvertFunc={(file) => { return file.url; }}
 					updateStoreFunc={() => console.warn('update store')}
+					callback={{
+						init: () => { console.log('init component') },
+						sideUploadStart: () => {
+							console.log('side/upload start');
+						},
+						sideUploadProgress: (loaded, total, percent) => {
+							console.log('side/upload progress', loaded, total, percent);
+						},
+						sideUploadComplete: (res) => {
+							console.log('side/upload complete', res);
+						},
+						sideUploadCompleteAll: () => {
+							console.log('side/upload complete all');
+						},
+						sideUploadFail: (error) => {
+							console.log('side/upload fail', error);
+						},
+						sideRemove: (images) => {
+							console.log('side/remove', images);
+						},
+					}}
 				/>
 
 				<article className="api-control">
