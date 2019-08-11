@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import $ from 'jquery/dist/jquery.slim';
 import classNames from 'classnames';
-
 import { util } from '../../lib';
 
 
@@ -13,16 +12,7 @@ const controlEvent = {
 };
 
 
-export default class Block extends React.Component {
-
-	static displayName = 'Block';
-
-	static defaultProps = {
-		src: '',
-		position: '',
-		size: '',
-		bgColor: '#fff',
-	};
+class Block extends React.Component {
 
 	constructor(props)
 	{
@@ -47,18 +37,17 @@ export default class Block extends React.Component {
 		this.$self = $(ReactDom.findDOMNode(this._self));
 	}
 
-	componentWillReceiveProps(nextProps)
+	static getDerivedStateFromProps(nextProps, prevState)
 	{
-		const { props } = this;
-
-		if (props.size !== nextProps.size)
+		if (prevState.size !== nextProps.size)
 		{
-			this.setState({
+			return {
 				position: nextProps.position,
 				size: nextProps.size,
 				isCover: nextProps.size === 'cover',
-			});
+			};
 		}
+		return null;
 	}
 
 	_moveStart(e)
@@ -150,7 +139,7 @@ export default class Block extends React.Component {
 				position.x = this.resizeStartInfo.posX + distanceX;
 				size.width = this.resizeStartInfo.width - distanceX;
 				ratio = size.width / this.$img.get(0).naturalWidth;
-				size.height = parseInt(this.$img.get(0).naturalHeight * ratio);
+				size.height = parseInt(this.$img.get(0).naturalHeight) * ratio;
 				distanceHeight = this.resizeStartInfo.height - size.height;
 				position.y = this.resizeStartInfo.posY + distanceHeight;
 				break;
@@ -158,7 +147,7 @@ export default class Block extends React.Component {
 				position.x = this.resizeStartInfo.posX;
 				size.width = this.resizeStartInfo.width + distanceX;
 				ratio = size.width / this.$img.get(0).naturalWidth;
-				size.height = parseInt(this.$img.get(0).naturalHeight * ratio);
+				size.height = parseInt(this.$img.get(0).naturalHeight) * ratio;
 				distanceHeight = this.resizeStartInfo.height - size.height;
 				position.y = this.resizeStartInfo.posY + distanceHeight;
 				break;
@@ -167,14 +156,14 @@ export default class Block extends React.Component {
 				position.y = this.resizeStartInfo.posY;
 				size.width = this.resizeStartInfo.width - distanceX;
 				ratio = size.width / this.$img.get(0).naturalWidth;
-				size.height = parseInt(this.$img.get(0).naturalHeight * ratio);
+				size.height = parseInt(this.$img.get(0).naturalHeight) * ratio;
 				break;
 			case 'resize-rb':
 				position.x = this.resizeStartInfo.posX;
 				position.y = this.resizeStartInfo.posY;
 				size.width = this.resizeStartInfo.width + distanceX;
 				ratio = size.width / this.$img.get(0).naturalWidth;
-				size.height = parseInt(this.$img.get(0).naturalHeight * ratio);
+				size.height = parseInt(this.$img.get(0).naturalHeight) * ratio;
 				break;
 			default:
 				return;
@@ -199,6 +188,7 @@ export default class Block extends React.Component {
 
 	render()
 	{
+		console.log('qweqwe');
 		const { state, props } = this;
 		const size = (state.size !== 'cover') ? state.size.split(' ') : state.size;
 		const position = state.position.split(' ');
@@ -281,3 +271,13 @@ export default class Block extends React.Component {
 	}
 
 }
+Block.displayName = 'Block';
+Block.defaultProps = {
+	src: '',
+	position: '',
+	size: '',
+	bgColor: '#fff',
+};
+
+
+export default Block;

@@ -1,12 +1,9 @@
 import React from 'react';
-
 import GridLayout from "./GridLayout";
 import Toolbar from './Toolbar';
 
 
-export default class Body extends React.Component {
-
-	static displayName = 'Body';
+class Body extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -24,3 +21,7 @@ export default class Body extends React.Component {
 	}
 
 }
+Body.displayName = 'Body';
+
+
+export default Body;

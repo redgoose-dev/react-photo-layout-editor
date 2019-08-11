@@ -1,16 +1,7 @@
 import React from 'react';
 
 
-export default class SideNavigation extends React.Component {
-
-	static displayName = 'Navigation';
-
-	static defaultProps = {
-		onRemove: () => {},
-		onToggleSelect: () => {},
-		onAttach: () => {},
-		onUpload: () => {},
-	};
+class SideNavigation extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -64,3 +55,13 @@ export default class SideNavigation extends React.Component {
 	}
 
 }
+SideNavigation.displayName = 'Navigation';
+SideNavigation.defaultProps = {
+	onRemove: function() {},
+	onToggleSelect: function() {},
+	onAttach: function() {},
+	onUpload: function() {},
+};
+
+
+export default SideNavigation;

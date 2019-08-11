@@ -1,7 +1,7 @@
 import * as actions from '../actions';
 
 
-export default class Cropper {
+class Cropper {
 
 	constructor(store)
 	{
@@ -42,3 +42,6 @@ export default class Cropper {
 	}
 
 }
+
+
+export default Cropper;

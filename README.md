@@ -1,6 +1,6 @@
 # react-photo-layout-editor
 
-<p align="center">
+<p style="text-align: center">
 <img src="https://raw.githubusercontent.com/redgoose-dev/react-photo-layout-editor/master/assets/logo.jpg" alt="logo">
 </p>
 
@@ -10,7 +10,7 @@ This is photo layout editor for react
 예전 Instagram blog( http://blog.instagram.com/ )에 있는 정렬된 이미지의 모습에 매료되어 저런 모습을 직접 편집하여 게시물로 올렸으면 좋겠다는 생각이 들어 만들게 되었습니다.  
 블럭을 드래그 앤 드롭으로 위치와 크기를 편집하여 모던하게 정렬된 이미지나 레이아웃 만들 수 있습니다.
 
-<p align="center">
+<p style="text-align: center">
 <img src="https://raw.githubusercontent.com/redgoose-dev/react-photo-layout-editor/master/assets/play_mov.gif" alt="logo">
 </p>
 
@@ -151,6 +151,6 @@ let ple = null;
 
 1. `git clone https://github.com/redgoose-dev/react-photo-layout-editor.git`
 1. `cd react-photo-layout-editor`
-1. `npm install`
-1. `npm dev`
-1. in your browser, connect `http://localhost:4040`
+1. `yarn install`
+1. `yarn run dev`
+1. in your browser, connect `http://localhost:3000`

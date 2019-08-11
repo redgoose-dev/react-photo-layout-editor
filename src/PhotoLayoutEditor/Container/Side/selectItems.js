@@ -58,7 +58,7 @@ function changeActive(key, item, start, end, type)
  * @param {Number} key
  * @return {Object}
  */
-export default function selectItems(props, key)
+function selectItems(props, key)
 {
 	const { keyName } = props.keyboard;
 	const { files } = props.tree.side;
@@ -109,3 +109,6 @@ export default function selectItems(props, key)
 
 	return items;
 }
+
+
+export default selectItems;

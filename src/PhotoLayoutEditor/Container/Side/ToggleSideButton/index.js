@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 
-export default class ToggleSideButton extends Component {
-
-	static displayName = 'ToggleSideButton';
-
-	static defaultProps = {
-		show: false,
-		onClick: () => {}
-	};
+class ToggleSideButton extends Component {
 
 	render() {
 		const { props } = this;
@@ -33,3 +26,11 @@ export default class ToggleSideButton extends Component {
 	}
 
 }
+ToggleSideButton.displayName = 'ToggleSideButton';
+ToggleSideButton.defaultProps = {
+	show: false,
+	onClick: function() {}
+};
+
+
+export default ToggleSideButton;

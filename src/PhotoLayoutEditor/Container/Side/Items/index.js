@@ -1,22 +1,8 @@
 import React from 'react';
-
 import Item from './Item';
 
 
-export default class Items extends React.Component {
-
-	static displayName = 'Items';
-
-	static defaultProps = {
-		files: [], // files
-		onSelect: (key) => {}, // on select event
-		onDragStart: null, // on drag start
-		onDragEnd: null, // on drag end
-		onTouchStart: null, // on touch start
-		onTouchMove: null, // on touch move
-		onTouchEnd: null, // on touch end
-		progress: null, // on progress number
-	};
+class Items extends React.Component {
 
 	render() {
 		const { props } = this;
@@ -57,3 +43,17 @@ export default class Items extends React.Component {
 	}
 
 }
+Items.displayName = 'Items';
+Items.defaultProps = {
+	files: [], // files
+	onSelect: (key) => {}, // on select event
+	onDragStart: null, // on drag start
+	onDragEnd: null, // on drag end
+	onTouchStart: null, // on touch start
+	onTouchMove: null, // on touch move
+	onTouchEnd: null, // on touch end
+	progress: null, // on progress number
+};
+
+
+export default Items;

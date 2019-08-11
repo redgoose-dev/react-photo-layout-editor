@@ -2,7 +2,7 @@ import * as actions from '../actions';
 import * as lib from '../lib';
 
 
-export default class Side {
+class Side {
 
 	constructor(store)
 	{
@@ -287,3 +287,6 @@ export default class Side {
 	}
 
 }
+
+
+export default Side;

@@ -1,24 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import * as lib from '../../../lib';
 
 
-export default class Item extends React.Component {
-
-	static displayName = 'Item';
-
-	static defaultProps = {
-		image: null, // image
-		id: null, // id
-		active: null, // active item
-		onClick: null, // on click item
-		onDragStart: null, // on drag start
-		onDragEnd: null, // on drag end
-		onTouchStart: null, // on touch start
-		onTouchMove: null, // on touch move
-		onTouchEnd: null, // on touch end
-	};
+class Item extends React.Component {
 
 	render() {
 		const { props } = this;
@@ -48,3 +33,18 @@ export default class Item extends React.Component {
 		);
 	}
 }
+Item.displayName = 'Item';
+Item.defaultProps = {
+	image: null, // image
+	id: null, // id
+	active: null, // active item
+	onClick: null, // on click item
+	onDragStart: null, // on drag start
+	onDragEnd: null, // on drag end
+	onTouchStart: null, // on touch start
+	onTouchMove: null, // on touch move
+	onTouchEnd: null, // on touch end
+};
+
+
+export default Item;

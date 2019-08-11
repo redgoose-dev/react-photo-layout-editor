@@ -1,16 +1,16 @@
 import React from 'react';
-
+import ReactDOM from 'react-dom';
 import PhotoLayoutEditor from '../PhotoLayoutEditor';
 import * as util from './util';
-
 import '../PhotoLayoutEditor/style/app.scss';
-import './layout.scss';
+import './index.scss';
 
 
-export default class App extends React.Component {
+class App extends React.Component {
 
-	constructor() {
-		super();
+	constructor(props)
+	{
+		super(props);
 		this._photoLayoutEditor = null;
 	}
 
@@ -228,6 +228,7 @@ export default class App extends React.Component {
 		return (
 			<div className="app">
 				<PhotoLayoutEditor
+					ref={(r) => { this._photoLayoutEditor = r }}
 					side={{ files: util.pickImages(5) }}
 					body={{
 						grid: [
@@ -241,7 +242,7 @@ export default class App extends React.Component {
 					//uploadScript="http://localhost/lab/uploader/upload.php"
 					uploadParamsConvertFunc={(file) => { return file.url; }}
 					updateStoreFunc={() => console.warn('update store')}
-					ref={(r) => { this._photoLayoutEditor = r }}/>
+				/>
 
 				<article className="api-control">
 					<section>
@@ -358,3 +359,5 @@ export default class App extends React.Component {
 	}
 
 }
+
+ReactDOM.render(<App/>, document.getElementById('app'));

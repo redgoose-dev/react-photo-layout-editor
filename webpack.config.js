@@ -1,105 +1,120 @@
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const config = (env, options) => {
+  const isDev = options.mode === 'development';
 
-module.exports = {
+  // base
+  let out = {
+    mode: isDev ? 'development' : 'production',
+    module: {
+      rules: [
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+          }
+        },
+        {
+          test: /\.s?css$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                hmr: isDev,
+              },
+            },
+            'css-loader',
+            'sass-loader',
+          ],
+        },
+        {
+          test: /\.(jpg|png)$/,
+          loader: 'file-loader',
+          options: {
+            publicPath: './',
+            name: '[name].[ext]',
+            limit: 10000,
+          },
+        },
+      ],
+    },
+    plugins: [
+      new MiniCssExtractPlugin({ filename: '[name].css' }),
+    ],
+    optimization: {},
+  };
 
-	context: __dirname,
+  if (isDev)
+  {
+    /**
+     * Development
+     */
+    out.entry = {
+      app: './src/development/index.js',
+    };
+    out.output = {
+      publicPath: '/',
+      filename: '[name].js',
+      chunkFilename: '[name].js',
+    };
+    out.module.rules.push({
+      test: /\.html$/,
+      use: [
+        {
+          loader: "html-loader",
+          options: { minimize: false }
+        }
+      ]
+    });
+    out.devtool = 'inline-source-map';
+    out.devServer = {
+      hot: true,
+      host: '0.0.0.0',
+      port: options.port || 3000,
+      stats: {
+        color: true,
+      },
+      //before: require('./upload/script-node'),
+      historyApiFallback: true,
+      noInfo: true,
+    };
+    out.plugins.push(new HtmlWebpackPlugin({
+      template: './src/development/index.html',
+    }));
+  }
+  else
+  {
+    /**
+     * Production
+     */
+    out.entry = {
+      PhotoLayoutEditor: './src/production/index.js',
+    };
+    out.output = {
+      path: __dirname + '/build',
+      filename: '[name].js',
+      publicPath: './',
+      library: '[name]',
+      libraryTarget: 'umd',
+      libraryExport: 'default'
+    };
+    out.externals = {
+      jquery: 'jQuery',
+      react: 'React',
+      'react-dom': 'ReactDOM'
+    };
+    out.optimization.minimizer = [
+      new TerserJSPlugin({}),
+      new OptimizeCSSAssetsPlugin({}),
+    ];
+  }
 
-	entry: {
-		PhotoLayoutEditor: './src/export.js'
-	},
-
-	output: {
-		path: __dirname + '/build',
-		publicPath: './',
-		filename: '[name].js',
-		libraryTarget: 'umd',
-		library: '[name]',
-		libraryExport: 'default'
-	},
-
-	devtool: false,
-
-	externals: {
-		react: 'React',
-		'react-dom': 'ReactDOM'
-	},
-
-	module: {
-		rules: [
-			{
-				test: /\.js$/,
-				use: [
-					{
-						loader: 'babel-loader',
-						options: {
-							babelrc: false,
-							presets: [
-								[
-									"env",
-									{
-										"targets": {
-											"browsers": [ "last 2 versions" ]
-										}
-									}
-								],
-								"react",
-								"stage-2"
-							],
-						}
-					}
-				],
-				exclude: /node_modules/,
-			},
-			{
-				test: /\.s?css$/,
-				use: ExtractTextPlugin.extract({
-					fallback: 'style-loader',
-					use: [
-						{
-							loader: 'css-loader',
-							options: {
-								minimize: true,
-								alias: {},
-							},
-						},
-						'sass-loader'
-					]
-				})
-			},
-			{
-				test: /\.(jpg|png)$/,
-				loader: 'file-loader',
-				options: {
-					name: 'assets/images/[name].[ext]',
-				},
-			},
-		]
-	},
-
-	plugins: [
-		new webpack.DefinePlugin({
-			'process.env': {
-				'NODE_ENV': JSON.stringify('production'),
-			},
-		}),
-		new ExtractTextPlugin({
-			filename: '[name].css'
-		}),
-	],
-
-	optimization: {
-		minimizer: [
-			new UglifyJsPlugin({
-				uglifyOptions: {
-					output: {
-						comments: false,
-					}
-				}
-			})
-		]
-	},
-
+  return out;
 };
+
+module.exports = config;

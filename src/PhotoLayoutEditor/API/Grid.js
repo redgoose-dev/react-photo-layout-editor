@@ -1,8 +1,7 @@
 import * as actions from '../actions';
-import * as lib from '../lib';
 
 
-export default class Grid {
+class Grid {
 
 	constructor(store)
 	{
@@ -293,3 +292,5 @@ export default class Grid {
 
 }
 
+
+export default Grid;

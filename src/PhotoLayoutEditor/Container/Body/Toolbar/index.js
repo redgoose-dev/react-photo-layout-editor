@@ -3,22 +3,13 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import $ from 'jquery/dist/jquery.slim';
 import ColorPicker from 'react-simple-colorpicker';
-
 import * as actions from '../../../actions';
 import * as libs from '../../../lib';
-
 import Button from './Button';
 import EditLayoutSetting from './EditLayoutSetting';
 
 
 class Toolbar extends React.Component {
-
-	static displayName = 'Toolbar';
-
-	static defaultProps = {
-		dispatch: null,
-		tree: null,
-	};
 
 	constructor(props)
 	{
@@ -39,19 +30,20 @@ class Toolbar extends React.Component {
 				duplicate: false,
 				removeBlock: false,
 				editColor: false
-			}
-		}
+			},
+			activeBlockCount: 0,
+		};
 	}
 
-	componentWillReceiveProps(nextProps)
+	static getDerivedStateFromProps(nextProps, prevState)
 	{
-		const { state, props } = this;
+		let newState = Object.assign({}, prevState);
 
-		let newState = Object.assign({}, state);
-		let updated = false;
+		// update active block count
+		newState.activeBlockCount = nextProps.tree.body.activeBlock.length;
 
 		// select block
-		if (props.tree.body.activeBlock.length !== nextProps.tree.body.activeBlock.length)
+		if (prevState.activeBlockCount !== nextProps.tree.body.activeBlock.length)
 		{
 			let active = !!(nextProps.tree.body.activeBlock.length);
 			newState.visible = Object.assign({}, newState.visible, {
@@ -61,7 +53,6 @@ class Toolbar extends React.Component {
 				removeBlock: active,
 				editColor: active
 			});
-			updated = true;
 		}
 
 		if (nextProps.tree.body.activeBlock[0])
@@ -82,13 +73,12 @@ class Toolbar extends React.Component {
 				removeImage: isImage,
 				edit: !!(block && block.image)
 			});
-			updated = true;
 		}
 
-		if (updated)
-		{
-			this.setState(newState);
-		}
+		return {
+			...prevState,
+			...newState,
+		};
 	}
 
 	changeActive(keyName, userSW, event)
@@ -284,6 +274,11 @@ class Toolbar extends React.Component {
 	}
 
 }
+Toolbar.displayName = 'Toolbar';
+Toolbar.defaultProps = {
+	dispatch: null,
+	tree: null,
+};
 
 
 export default connect((state) => Object.assign({}, state, {}))(Toolbar);

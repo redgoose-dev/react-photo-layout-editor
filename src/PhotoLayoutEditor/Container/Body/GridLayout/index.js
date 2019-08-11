@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactGridLayout from 'react-grid-layout';
 import classNames from 'classnames';
-
 import Cropper from '../../Cropper';
-
 import * as actions from '../../../actions';
 import * as libs from '../../../lib';
 
@@ -13,13 +11,6 @@ let timeStamp = [];
 
 
 class GridLayout extends React.Component {
-
-	static displayName = 'GridLayout';
-
-	static defaultProps = {
-		tree: null,
-		dispatch: null,
-	};
 
 	constructor(props)
 	{
@@ -197,6 +188,11 @@ class GridLayout extends React.Component {
 	}
 
 }
+GridLayout.displayName = 'GridLayout';
+GridLayout.defaultProps = {
+	tree: null,
+	dispatch: null,
+};
 
 
 export default connect((state) => Object.assign({}, state, {}))(GridLayout);

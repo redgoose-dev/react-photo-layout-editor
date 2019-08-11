@@ -4,23 +4,7 @@ import ColorPicker from 'react-simple-colorpicker';
 import className from 'classnames';
 
 
-export default class EditLayoutSetting extends React.Component {
-
-	static displayName = 'EditLayoutSetting';
-
-	static defaultProps = {
-		submit: (e) => {},
-		setting: null,
-		defaultSetting: {
-			width: 100,
-			height: 100,
-			column: 5,
-			outerMargin: 10,
-			innerMargin: 10,
-			freeMode: false,
-			bgColor: 'rgba(255,255,255,1)',
-		},
-	};
+class EditLayoutSetting extends React.Component {
 
 	constructor(props)
 	{
@@ -32,14 +16,12 @@ export default class EditLayoutSetting extends React.Component {
 		};
 	}
 
-	componentWillReceiveProps()
+	static getDerivedStateFromProps(nextProps, prevState)
 	{
-		const { props } = this;
-
-		this.setState({
-			...props.defaultSetting,
-			...props.setting,
-		});
+		return {
+			...nextProps.defaultSetting,
+			...nextProps.setting,
+		};
 	}
 
 	activeBgColorPopup(sw, e)
@@ -240,3 +222,20 @@ export default class EditLayoutSetting extends React.Component {
 	}
 
 }
+EditLayoutSetting.displayName = 'EditLayoutSetting';
+EditLayoutSetting.defaultProps = {
+	submit: (e) => {},
+	setting: null,
+	defaultSetting: {
+		width: 100,
+		height: 100,
+		column: 5,
+		outerMargin: 10,
+		innerMargin: 10,
+		freeMode: false,
+		bgColor: 'rgba(255,255,255,1)',
+	},
+};
+
+
+export default EditLayoutSetting;

@@ -2,27 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import $ from 'jquery/dist/jquery.slim';
-
 import * as actions from '../../actions';
-
 import ToggleSideButton from './ToggleSideButton';
 import Navigation from './Navigation';
 import Items from './Items';
-
 import * as lib from '../../lib';
 import selectItems from './selectItems';
 
 
 class Side extends React.Component {
-
-	static displayName = 'Side';
-
-	static defaultProps = {
-		tree: {}, // data tree in reduce
-		setting: {}, // setting in reduce
-		api: {}, // api
-		dispatch: null, // redux dispatch
-	};
 
 	constructor(props)
 	{
@@ -250,6 +238,13 @@ class Side extends React.Component {
 	}
 
 }
+Side.displayName = 'Side';
+Side.defaultProps = {
+	tree: {}, // data tree in reduce
+	setting: {}, // setting in reduce
+	api: {}, // api
+	dispatch: null, // redux dispatch
+};
 
 
 export default connect((state) => Object.assign({}, state))(Side);

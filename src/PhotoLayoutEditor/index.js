@@ -1,37 +1,18 @@
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-
 import Container from './Container';
-
 import reducers from './reducers';
 import API from './API';
 
 
 class PhotoLayoutEditor extends React.Component {
 
-	static displayName = 'PhotoLayoutEditor';
-	static defaultProps = {
-		body: {
-			setting: {},
-			blockColor: '#dddddd',
-			grid: []
-		},
-		side: {
-			files: [],
-			visible: true
-		},
-		uploadScript: null,
-		uploadParamsConvertFunc: null
-	};
-
-	constructor()
+	constructor(props)
 	{
-		super();
-
+		super(props);
 		// set store
 		this.store = createStore(reducers);
-
 		// set api
 		this.api = new API(this.store);
 	}
@@ -48,5 +29,20 @@ class PhotoLayoutEditor extends React.Component {
 	}
 
 }
+
+PhotoLayoutEditor.displayName = 'PhotoLayoutEditor';
+PhotoLayoutEditor.defaultProps = {
+	body: {
+		setting: {},
+		blockColor: '#dddddd',
+		grid: []
+	},
+	side: {
+		files: [],
+		visible: true
+	},
+	uploadScript: null,
+	uploadParamsConvertFunc: null
+};
 
 export default PhotoLayoutEditor;

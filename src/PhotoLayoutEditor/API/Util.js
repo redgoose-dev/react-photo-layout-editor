@@ -1,11 +1,10 @@
 import $ from 'jquery/dist/jquery.slim';
-
 import * as actions from '../actions';
 import * as lib from '../lib';
 import { isArray } from "../lib/object";
 
 
-export default class Util {
+class Util {
 
 	constructor(store)
 	{
@@ -145,3 +144,6 @@ export default class Util {
 	}
 
 }
+
+
+export default Util;

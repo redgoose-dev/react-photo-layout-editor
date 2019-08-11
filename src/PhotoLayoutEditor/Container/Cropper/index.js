@@ -2,17 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery/dist/jquery.slim';
 import classNames from 'classnames';
-
-// components
 import Block from './Block';
-
-// library
 import * as lib from '../../lib';
 
 
 class Cropper extends React.Component {
-
-	static displayName = 'Cropper';
 
 	constructor(props)
 	{
@@ -139,6 +133,7 @@ class Cropper extends React.Component {
 	}
 
 }
+Cropper.displayName = 'Cropper';
 
 
 export default connect((state) => Object.assign({}, state, {}))(Cropper);
