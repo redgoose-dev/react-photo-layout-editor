@@ -27,7 +27,30 @@ ReactDOM.render(
     },
     updateStoreFunc: function() {
       console.warn('update store');
-    }
+    },
+    callback: {
+      init: function() {
+        console.log('init component');
+      },
+      sideUploadStart: function() {
+        console.log('side/upload start');
+      },
+      sideUploadProgress: function(loaded, total, percent) {
+        console.log('side/upload progress', loaded, total, percent);
+      },
+      sideUploadComplete: function(res) {
+        console.log('side/upload complete', res);
+      },
+      sideUploadCompleteAll: function() {
+        console.log('side/upload complete all');
+      },
+      sideUploadFail: function(error) {
+        console.log('side/upload fail', error);
+      },
+      sideRemove: function(images) {
+        console.log('side/remove', images);
+      },
+    },
   }),
   document.getElementById('app')
 );
