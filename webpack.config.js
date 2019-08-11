@@ -104,8 +104,8 @@ const config = (env, options) => {
       libraryExport: 'default'
     };
     out.externals = {
-      jquery: 'jQuery',
-      react: 'React',
+      'jquery/dist/jquery.slim': 'jQuery',
+      'react': 'React',
       'react-dom': 'ReactDOM'
     };
     out.optimization.minimizer = [
