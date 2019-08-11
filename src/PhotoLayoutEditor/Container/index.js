@@ -28,7 +28,7 @@ class Container extends React.Component {
     )) {
       props.setting.base.updateStoreFunc();
     }
-    if (!ready && !!props.setting.base.callback)
+    if (!ready && !!props.setting.base.callback.init && typeof props.setting.base.callback.init === 'function')
     {
       props.setting.base.callback.init();
       ready = true;

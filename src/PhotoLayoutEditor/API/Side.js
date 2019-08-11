@@ -184,7 +184,10 @@ class Side {
 			const { callback } = state.setting.base;
 			let files = keys.map((n) => state.tree.side.files[n].image);
 			this.store.dispatch(actions.side.removeFiles(keys));
-			if (callback.sideRemove) callback.sideRemove(files);
+			if (!!callback.sideRemove && typeof callback.sideRemove === 'function')
+			{
+				callback.sideRemove(files);
+			}
 		}
 		catch(e)
 		{
@@ -202,7 +205,10 @@ class Side {
 		const { callback } = state.setting.base;
 		let files = Object.keys(state.tree.side.files).map((n) => state.tree.side.files[n].image);
 		this.store.dispatch(actions.side.removeFiles(keys));
-		if (callback.sideRemove) callback.sideRemove(files);
+		if (!!callback.sideRemove && typeof callback.sideRemove === 'function')
+		{
+			callback.sideRemove(files);
+		}
 	}
 
 	/**
@@ -218,7 +224,10 @@ class Side {
 		const { callback } = state.setting.base;
 		this.uploading = true;
 
-		if (callback.sideUploadStart) callback.sideUploadStart();
+		if (!!callback.sideUploadStart && typeof callback.sideUploadStart === 'function')
+		{
+			callback.sideUploadStart();
+		}
 
 		lib.uploader(files, state.setting.base.uploadScript)
 			.progress((type, res) => {
@@ -230,7 +239,10 @@ class Side {
 					case 'progress':
 						const percent = parseInt((res.loaded / res.total * 100));
 						this.store.dispatch(actions.side.updateProgress(percent));
-						if (callback.sideUploadProgress) callback.sideUploadProgress(res.loaded, res.total, percent);
+						if (!!callback.sideUploadProgress && typeof callback.sideUploadProgress === 'function')
+						{
+							callback.sideUploadProgress(res.loaded, res.total, percent);
+						}
 						break;
 					case 'done':
 						this.store.dispatch(actions.side.updateProgress(null));
@@ -244,17 +256,26 @@ class Side {
 						{
 							this.store.dispatch(actions.side.addFiles([res.data.url]));
 						}
-						if (callback.sideUploadComplete) callback.sideUploadComplete(res.data);
+						if (!!callback.sideUploadComplete && typeof callback.sideUploadComplete === 'function')
+						{
+							callback.sideUploadComplete(res.data);
+						}
 						return;
 				}
 			})
 			.done(() => {
 				this.uploading = false;
-				if (callback.sideUploadCompleteAll) callback.sideUploadCompleteAll();
+				if (!!callback.sideUploadCompleteAll && typeof callback.sideUploadCompleteAll === 'function')
+				{
+					callback.sideUploadCompleteAll();
+				}
 			})
 			.fail((error) => {
 				this.uploading = false;
-				if (callback.sideUploadFail) callback.sideUploadFail(error);
+				if (!!callback.sideUploadFail && typeof callback.sideUploadFail === 'function')
+				{
+					callback.sideUploadFail(error);
+				}
 			});
 	}
 
