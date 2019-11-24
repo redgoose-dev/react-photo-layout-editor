@@ -91,6 +91,16 @@ class Cropper extends React.Component {
 		}
 	}
 
+	/**
+	 * on update block
+	 *
+	 * @param {object} state
+	 */
+	onUpdateBlock(state)
+	{
+		this.setState(state);
+	}
+
 	render()
 	{
 		const { state, props } = this;
@@ -113,7 +123,8 @@ class Cropper extends React.Component {
 						src={props.tree.cropper.item.image.src}
 						position={state.position}
 						size={state.size}
-						bgColor={props.tree.cropper.item.color || props.setting.body.blockColor}/>
+						bgColor={props.tree.cropper.item.color || props.setting.body.blockColor}
+						onUpdateBlock={(e) => this.onUpdateBlock(e)}/>
 					<nav className="ple-cropper__nav">
 						<button type="button" onClick={() => this._onClose()}>
 							<i className="ple-sp-ico ple-ico-close ple-abs">Close cropper</i>

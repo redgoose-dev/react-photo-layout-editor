@@ -39,17 +39,22 @@ class Block extends React.Component {
 
 	static getDerivedStateFromProps(nextProps, prevState)
 	{
+		let newState = {};
 		if (prevState.size !== nextProps.size)
 		{
-			return {
-				position: nextProps.position,
+			newState = {
 				size: nextProps.size,
 				isCover: nextProps.size === 'cover',
 			};
 		}
-		return null;
+		if (prevState.position !== nextProps.position)
+		{
+			newState.position = nextProps.position;
+		}
+		return newState;
 	}
 
+	// move block group
 	_moveStart(e)
 	{
 		e.stopPropagation();
@@ -84,8 +89,8 @@ class Block extends React.Component {
 		distance.x = this.moveStartInfo.containerX + (mouse.x - this.moveStartInfo.mouseX);
 		distance.y = this.moveStartInfo.containerY + (mouse.y - this.moveStartInfo.mouseY);
 
-		this.setState({
-			position: `${parseInt(distance.x)}px ${parseInt(distance.y)}px`
+		this._update({
+			position: `${parseInt(distance.x)}px ${parseInt(distance.y)}px`,
 		});
 	}
 	_moveEnd(e)
@@ -100,6 +105,7 @@ class Block extends React.Component {
 			.off(`${controlEvent.end}.move`);
 	}
 
+	// resize block group
 	_resizeStart(e)
 	{
 		e.stopPropagation();
@@ -134,7 +140,8 @@ class Block extends React.Component {
 		let distanceX = (evt.clientX || evt.pageX) + $(window).scrollLeft() - this.resizeStartInfo.mouseX;
 
 		// set position and size
-		switch(this.resizeStartInfo.title) {
+		switch(this.resizeStartInfo.title)
+		{
 			case 'resize-lt':
 				position.x = this.resizeStartInfo.posX + distanceX;
 				size.width = this.resizeStartInfo.width - distanceX;
@@ -170,10 +177,9 @@ class Block extends React.Component {
 		}
 
 		// set image size
-
-		this.setState({
+		this._update({
 			size: `${parseInt(size.width)}px ${parseInt(size.height)}px`,
-			position: `${parseInt(position.x)}px ${parseInt(position.y)}px`
+			position: `${parseInt(position.x)}px ${parseInt(position.y)}px`,
 		});
 	}
 	_resizeEnd(e)
@@ -184,6 +190,16 @@ class Block extends React.Component {
 		$(document)
 			.off(`${controlEvent.move}.resize`)
 			.off(`${controlEvent.end}.resize`);
+	}
+
+	/**
+	 * update state
+	 *
+	 * @param {object} state
+	 */
+	_update(state)
+	{
+		this.props.onUpdateBlock(state);
 	}
 
 	render()
