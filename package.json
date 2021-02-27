@@ -1,64 +1,20 @@
 {
   "name": "react-photo-layout-editor",
-  "version": "1.2.7",
+  "version": "2.0.0",
   "description": "Photo layout editor for react",
-  "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/redgoose-dev/react-photo-layout-editor.git"
-  },
+  "main": "index.js",
+  "repository": "https://github.com/redgoose-dev/react-photo-layout-editor.git",
   "author": {
     "name": "redgoose",
     "email": "scripter@me.com",
     "url": "https://redgoose.me"
   },
   "license": "MIT",
-  "keywords": [
-    "Photo",
-    "layout",
-    "editor",
-    "redgoose",
-    "goose"
-  ],
-  "bugs": {
-    "url": "https://github.com/redgoose-dev/react-photo-layout-editor/issues"
-  },
-  "homepage": "https://github.com/redgoose-dev/react-photo-layout-editor",
   "scripts": {
-    "dev": "node_modules/.bin/webpack-dev-server --mode development",
-    "prebuild": "rm -rf docs/build/ && rm -rf build/ && node_modules/.bin/babel ./src/PhotoLayoutEditor --out-dir ./lib",
-    "build": "node_modules/.bin/webpack --mode production",
-    "postbuild": "cp -r build/ docs/build/",
+    "dev": "",
+    "prebuild": "",
+    "build": "",
+    "postbuild": "",
     "version-patch": "npm version patch"
-  },
-  "dependencies": {
-    "classnames": "^2.2.6",
-    "jquery": "^3.4.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-grid-layout": "^0.17.1",
-    "react-redux": "^7.1.3",
-    "react-simple-colorpicker": "github:redgoose-dev/react-simple-colorpicker",
-    "redux": "^4.0.4"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.7.5",
-    "@babel/core": "^7.7.5",
-    "@babel/preset-env": "^7.7.6",
-    "@babel/preset-react": "^7.7.4",
-    "babel-loader": "^8.0.6",
-    "css-loader": "^3.3.0",
-    "file-loader": "^5.0.2",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.13.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "sass-loader": "^8.0.0",
-    "terser-webpack-plugin": "^2.2.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
   }
 }
