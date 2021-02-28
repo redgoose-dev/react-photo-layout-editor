@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -44,7 +45,11 @@ const config = (env, options) => {
       dev && new HtmlWebpackPlugin({ template: './development/index.html' }),
       !dev && new MiniCssExtractPlugin({ filename: '[name].css' }),
     ].filter(Boolean),
-    optimization: {},
+    optimization: {
+      minimizer: [
+        !dev && new TerserJSPlugin({}),
+      ].filter(Boolean),
+    },
   };
 
   if (dev)
@@ -92,7 +97,6 @@ const config = (env, options) => {
       'react-dom': 'ReactDOM',
       'recoil': 'recoil',
     };
-    out.optimization.minimizer = [];
   }
 
   return out;
