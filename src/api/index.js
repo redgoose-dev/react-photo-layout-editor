@@ -1,14 +1,3 @@
-class API {
-
-  constructor(component) {
-    this.component = component;
-  }
-
+export default () => {
+  console.log('call api()');
 }
-
-// function API()
-// {
-//   //
-// }
-
-export default API;

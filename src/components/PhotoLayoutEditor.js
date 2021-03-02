@@ -1,8 +1,48 @@
-import React, { forwardRef, createRef, useRef, useImperativeHandle, useEffect } from 'react';
-import { RecoilRoot, useRecoilValue, useSetRecoilValue } from 'recoil';
+import React, { useEffect, forwardRef, useRef, useImperativeHandle } from 'react';
+import { RecoilRoot, useRecoilValue, useSetRecoilValue, useRecoilState } from 'recoil';
 import * as base from '~/store/base';
-import API from '~/api';
+import api from '~/api';
 import * as util from '~/libs/util';
+
+/**
+ * Component - Container
+ */
+const Container = forwardRef((props, ref) => {
+  const [ upload, setUpload ] = useRecoilState(base.upload);
+  useImperativeHandle(ref, () => ({
+    // TODO: api 동작 프로세스
+    // TODO: 외부에서 api 메서드를 호출한다. `_ref.current.api(address, value);`
+    // TODO: `address`값으로
+    base()
+    {
+      console.log('call base()');
+      // setUpload({
+      //   ...upload,
+      //   url: 'fooo',
+      // });
+    },
+    body()
+    {
+      console.log('call body()');
+    },
+    panel()
+    {
+      console.log('call panel()');
+    },
+    run()
+    {
+      //
+    },
+  }));
+  return (
+    <article className="ple">
+      <div className="ple__wrap">
+        <p>photo-layout-editor component</p>
+        <p>url: {upload.url}</p>
+      </div>
+    </article>
+  );
+});
 
 /**
  * Component - PhotoLayoutEditor
@@ -16,33 +56,3 @@ const PhotoLayoutEditor = forwardRef((props, ref) => {
 });
 PhotoLayoutEditor.displayName = 'PhotoLayoutEditor';
 export default PhotoLayoutEditor;
-
-/**
- * component - Container
- */
-const Container = forwardRef((props, ref) => {
-  const upload = useRecoilValue(base.upload);
-  // useImperativeHandle(ref, () => _ref.current);
-  useImperativeHandle(ref, () => ({
-    foo()
-    {
-      console.log('Container - fooo');
-    }
-  }));
-  return (
-    <article className="ple">
-      <div className="ple__wrap">
-        <p>photo-layout-editor component</p>
-        <p>url: {upload.url}</p>
-      </div>
-    </article>
-  );
-});
-
-// set API
-export const api = new API();
-
-export const foo = () => {
-  // const setUpload = useSetRecoilValue(base.upload);
-  // setUpload('foooooooOOOOooo');
-}

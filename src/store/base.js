@@ -8,12 +8,12 @@ export const upload = atom({
   },
 });
 
-export const store = atom({
-  key: 'baseStore',
-  default: {
-    updated: null, // TODO: 예전 `base.updateStoreFunc`
-  },
-});
+// export const store = atom({
+//   key: 'baseStore',
+//   default: {
+//     updated: null, // TODO: 예전 `base.updateStoreFunc` 데이터가 변했을때 호출되는 부분인데 `callbacks` 부분에 편입시켜야 한다.
+//   },
+// });
 
 export const callbacks = atom({
   key: 'baseCallbacks',
