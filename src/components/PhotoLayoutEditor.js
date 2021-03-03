@@ -1,14 +1,54 @@
-import React, { useEffect, forwardRef, useRef, useImperativeHandle } from 'react';
-import { RecoilRoot, useRecoilValue, useSetRecoilValue, useRecoilState } from 'recoil';
-import * as base from '~/store/base';
-import api from '~/api';
-import * as util from '~/libs/util';
+import React, { useEffect, forwardRef, useImperativeHandle, useState } from 'react';
+import PropTypes from 'prop-types';
+import { RecoilRoot, useRecoilState } from 'recoil';
+import * as body from '~/store/body';
+import * as panel from '~/store/panel';
+import * as callbacks from '~/libs/callbacks';
+// import api from '~/api';
+// import * as util from '~/libs/util';
+
+import Foo from './Foo';
 
 /**
  * Component - Container
  */
 const Container = forwardRef((props, ref) => {
-  const [ upload, setUpload ] = useRecoilState(base.upload);
+  const [ ready, setReady ] = useState(false);
+  const [ grid, setGrid ] = useRecoilState(body.grid);
+  const [ files, setFiles ] = useRecoilState(panel.files);
+  const [ preference, setPreference ] = useRecoilState(body.preference);
+  const [ openPanel, setOpenPanel ] = useRecoilState(panel.open);
+  const [ upload, setUpload ] = useRecoilState(panel.upload);
+
+  /**
+   * update data props
+   */
+  function updateProps()
+  {
+    if (props.grid !== grid) setGrid(props.grid);
+    if (props.files !== files) setFiles(props.files);
+    if (props.preference !== preference) setPreference({ ...preference, ...props.preference });
+    if (props.openPanel !== openPanel) setOpenPanel(props.openPanel);
+    if (props.upload !== upload) setUpload(props.upload);
+  }
+
+  // updated props
+  useEffect(() => updateProps(), [
+    props.grid,
+    props.files,
+    props.preference,
+    props.openPanel,
+    props.upload,
+  ]);
+
+  // mounted
+  useEffect(() => {
+    callbacks.init(props.callbacks);
+    setReady(true);
+    callbacks.run('init');
+  }, []);
+
+  // public functions
   useImperativeHandle(ref, () => ({
     // TODO: api 동작 프로세스
     // TODO: 외부에서 api 메서드를 호출한다. `_ref.current.api(address, value);`
@@ -21,38 +61,97 @@ const Container = forwardRef((props, ref) => {
       //   url: 'fooo',
       // });
     },
-    body()
-    {
-      console.log('call body()');
-    },
-    panel()
-    {
-      console.log('call panel()');
-    },
-    run()
-    {
-      //
-    },
   }));
-  return (
+
+  return ready && (
     <article className="ple">
       <div className="ple__wrap">
-        <p>photo-layout-editor component</p>
-        <p>url: {upload.url}</p>
+        <h1>photo-layout-editor component</h1>
+        <ul>
+          <li>grid: {grid.join(',')}</li>
+          <li>files: {files.join(',')}</li>
+          <li>
+            preference:
+            <pre>{JSON.stringify(preference, null, 2)}</pre>
+          </li>
+          <li>openPanel: {openPanel.toString()}</li>
+          <li>
+            upload:
+            <pre>{JSON.stringify(upload, null, 2)}</pre>
+          </li>
+        </ul>
+        <nav>
+          <Foo/>
+        </nav>
       </div>
     </article>
   );
 });
+Container.propTypes = {
+  // grid data items
+  grid: PropTypes.array,
+  // upload files
+  files: PropTypes.array,
+  // preference
+  preference: PropTypes.shape({
+    width: PropTypes.number,
+    height: PropTypes.number,
+    column: PropTypes.number,
+    outerMargin: PropTypes.number,
+    innerMargin: PropTypes.number,
+    freeMode: PropTypes.bool,
+    backgroundColor: PropTypes.string,
+    blockColor: PropTypes.string,
+  }),
+  // open side panel
+  openPanel: PropTypes.bool,
+  // file upload. 이 항목의 값이 없다면 브라우저 내부에 임시로 저장된다.
+  upload: PropTypes.shape({
+    // upload script url
+    url: PropTypes.string.isRequired,
+    // formData 객체에서 업로드 파일항목 파라메터 이름
+    formKey: PropTypes.string,
+    // TODO: 아마 나중에는 헤더에 관련된 옵션도 필요할 것이다.
+  }),
+  // callback functions
+  callbacks: PropTypes.shape({
+    // 컴포넌트 초기화가 끝냈을때 호출
+    init: PropTypes.func,
+    // 업로드할때 파라메터를 덧붙이고 싶을때 사용하는 함수 (업로드 직전에 실행되어 파라메터를 교체할 수 있다.)
+    uploadConvert: PropTypes.func,
+    // updateGrid: PropTypes.func,
+    // updateFiles: PropTypes.func,
+    // updatePreference: PropTypes.func,
+    // updateOpenPanel: PropTypes.func,
+    // updateUpload: PropTypes.func,
+    // TODO: 추후에 항목을 하나씩 추가할 예정이다.
+  }),
+};
+Container.defaultProps = {
+  grid: [],
+  files: [],
+  preference: {
+    width: 100,
+    height: 100,
+    column: 5,
+    outerMargin: 10,
+    innerMargin: 10,
+    freeMode: false,
+    backgroundColor: 'rgba(255,255,255,1)',
+    blockColor: 'rgba(211,211,211,1)',
+  },
+  openPanel: true,
+  upload: null,
+  callbacks: {},
+};
 
 /**
  * Component - PhotoLayoutEditor
  */
-const PhotoLayoutEditor = forwardRef((props, ref) => {
-  return (
-    <RecoilRoot>
-      <Container {...props} ref={ref}/>
-    </RecoilRoot>
-  );
-});
+const PhotoLayoutEditor = forwardRef((props, ref) => (
+  <RecoilRoot>
+    <Container {...props} ref={ref}/>
+  </RecoilRoot>
+));
 PhotoLayoutEditor.displayName = 'PhotoLayoutEditor';
 export default PhotoLayoutEditor;

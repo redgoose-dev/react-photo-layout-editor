@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
-export const setting = atom({
-  key: 'bodySetting',
+export const preference = atom({
+  key: 'bodyPreference',
   default: {
     width: 100,
     height: 100,
