@@ -30,6 +30,7 @@ const config = (env, options) => {
             !dev && MiniCssExtractPlugin.loader,
             dev && 'style-loader',
             'css-loader',
+            'scoped-css-loader',
             {
               loader: 'sass-loader',
               options: {

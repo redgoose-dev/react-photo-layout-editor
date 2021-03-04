@@ -10,16 +10,29 @@ const Foo = () => {
       <button
         type="button"
         onClick={() => {
-          callbacks.run('updateGrid');
+          callbacks.run('update', {
+            type: 'grid',
+            value: [ 7, 8, 9 ],
+          });
         }}>
         update grid
       </button>
       <button
         type="button"
         onClick={() => {
-          setFiles([ 'a', 'b', 'm' ]);
+          callbacks.run('update', {
+            type: 'files',
+            value: [ 'a', 'b', 'm' ],
+          });
         }}>
         update files
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          callbacks.run('update', { type: 'togglePanel' });
+        }}>
+        toggle panel
       </button>
     </nav>
   );

@@ -1,0 +1,29 @@
+.button {
+  --ple-icon-size: 20px;
+  --ple-icon-stroke: 2px;
+  --ple-icon-color: #fff;
+  display: block;
+  width: var(--ple-button-size, 46px);
+  height: var(--ple-button-size, 46px);
+  margin: 0;
+  padding: 0;
+  background-color: var(--ple-color-shape);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  &:active {
+    opacity: .5;
+  }
+  &:focus {}
+  &:disabled {
+    cursor: default;
+  }
+  &:nth-child(n+2) {
+    margin-left: 1px;
+  }
+  &--open-panel {
+    //background: red;
+  }
+}
+

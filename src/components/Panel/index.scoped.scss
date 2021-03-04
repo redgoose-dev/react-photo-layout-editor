@@ -1,0 +1,13 @@
+.panel {
+  height: 100%;
+  box-sizing: border-box;
+  background-color: var(--ple-color-panel-background);
+  padding: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  // TODO: 커스텀 스크롤 만들기
+  p {
+    margin: 0;
+    padding: 10px 0;
+  }
+}

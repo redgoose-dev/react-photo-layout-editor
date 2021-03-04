@@ -1,6 +1,23 @@
 @use "./mixins";
+@import '~react-grid-layout/css/styles.css';
 
 .ple {
-  background: lime;
-  padding: 24px;
+  // color
+  --ple-color-text: #222;
+  --ple-color-shape: #a1a4a7;
+  --ple-color-shape-strong: #75787b;
+  --ple-color-active: #20b292;
+  --ple-color-panel-background: #626164;
+  --ple-color-panel-toolbar-background: #444;
+  // size
+  --ple-size-min-width: 640px;
+  --ple-size-min-height: 480px;
+  --ple-size-max-width: none;
+  --ple-size-max-height: none;
+  --ple-size-panel-height: auto;
+}
+
+// popup mode
+html.ple-popup-mode {
+  overflow: hidden;
 }

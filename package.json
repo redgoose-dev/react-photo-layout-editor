@@ -23,6 +23,7 @@
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-grid-layout": "^1.2.2",
     "recoil": "^0.1.2"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.13.0",
     "babel-loader": "^8.2.2",
+    "babel-plugin-react-scoped-css": "^1.1.1",
     "cross-env": "^7.0.3",
     "css-loader": "^5.1.0",
     "fibers": "^5.0.0",
@@ -40,6 +42,7 @@
     "prop-types": "^15.7.2",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
+    "scoped-css-loader": "^1.0.0",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.1.1",
     "typescript": "^4.2.2",

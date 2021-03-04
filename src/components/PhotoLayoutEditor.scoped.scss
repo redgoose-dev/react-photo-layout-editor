@@ -1,0 +1,18 @@
+.ple {
+  position: relative;
+  display: flex;
+  min-width: var(--ple-size-min-width, 640px);
+  min-height: var(--ple-size-min-height, 480px);
+  max-width: var(--ple-size-max-width, none);
+  max-height: var(--ple-size-max-height, none);
+  box-sizing: border-box;
+  &__body {
+    flex: 1;
+    position: relative;
+  }
+  &__side {
+    position: relative;
+    width: var(--ple-side-width, 240px);
+    height: var(--ple-size-panel-height, auto);
+  }
+}
