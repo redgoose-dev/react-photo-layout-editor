@@ -6,7 +6,6 @@ import * as body from '~/store/body';
 import * as panel from '~/store/panel';
 import Body from '~/components/Body';
 import Panel from '~/components/Panel';
-import './PhotoLayoutEditor.scoped.scss';
 
 import Foo from './Foo';
 

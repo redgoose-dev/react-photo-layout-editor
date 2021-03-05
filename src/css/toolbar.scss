@@ -1,4 +1,25 @@
-.button {
+@use "./libs/mixins";
+
+// component - Toolbar
+.ple .ple-toolbar {
+  --ple-toolbar-button-size: 42px;
+  &__wrap {
+    display: flex;
+    margin: 0;
+    height: var(--ple-toolbar-button-size, 42px);
+    > dt {
+      flex: 1;
+      display: flex;
+    }
+    > dd {
+      margin: 0;
+      display: flex;
+    }
+  }
+}
+
+// component - Toolbar/Button
+.ple .ple-toolbar .ple-button {
   --ple-icon-size: 20px;
   --ple-icon-stroke: 2px;
   --ple-icon-color: #fff;
@@ -22,8 +43,4 @@
   &:nth-child(n+2) {
     margin-left: 1px;
   }
-  &--open-panel {
-    //background: red;
-  }
 }
-

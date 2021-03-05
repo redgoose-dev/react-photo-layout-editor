@@ -1,4 +1,7 @@
-.icon {
+@use "./libs/mixins";
+
+// component - Icon
+.ple .ple-icon {
   display: block;
   margin: 0 auto;
   width: var(--ple-icon-size, 20px);

@@ -4,14 +4,13 @@ import * as panel from '~/store/panel';
 import * as callbacks from '~/libs/callbacks';
 import Button from './Button';
 import Icon from '~/components/Icon';
-import './index.scoped.scss';
 
 const Toolbar = () => {
   const open = useRecoilValue(panel.open);
 
   return (
-    <nav className="toolbar">
-      <dl className="toolbar__wrap">
+    <nav className="ple-toolbar">
+      <dl className="ple-toolbar__wrap">
         <dt>
           <Button
             title="Preference"
@@ -37,9 +36,9 @@ const Toolbar = () => {
         <dd>
           <Button
             title={`${open ? 'Close' : 'Open'} Panel`}
-            className="button--open-panel"
+            className=""
             onClick={() => callbacks.run('update', { type: 'togglePanel' })}>
-            <Icon name="arrow-left"/>
+            <Icon name="arrow-left" className="foo"/>
           </Button>
         </dd>
       </dl>

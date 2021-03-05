@@ -1,6 +1,7 @@
-@use "./mixins";
-@import '~react-grid-layout/css/styles.css';
+@use "./libs/mixins";
+@import "~react-grid-layout/css/styles.css";
 
+// component - PhotoLayoutEditor
 .ple {
   // color
   --ple-color-text: #222;
@@ -15,9 +16,27 @@
   --ple-size-max-width: none;
   --ple-size-max-height: none;
   --ple-size-panel-height: auto;
+
+  position: relative;
+  display: flex;
+  min-width: var(--ple-size-min-width, 640px);
+  min-height: var(--ple-size-min-height, 480px);
+  max-width: var(--ple-size-max-width, none);
+  max-height: var(--ple-size-max-height, none);
+  box-sizing: border-box;
+  &__body {
+    flex: 1;
+    position: relative;
+  }
+  &__side {
+    position: relative;
+    width: var(--ple-side-width, 240px);
+    height: var(--ple-size-panel-height, auto);
+  }
 }
 
-// popup mode
-html.ple-popup-mode {
-  overflow: hidden;
-}
+@import "./icon";
+@import "./toolbar";
+@import "./panel";
+@import "./body";
+@import "./etc";

@@ -1,8 +1,7 @@
 import React, {} from 'react';
 import PropTypes from 'prop-types';
-import './index.scoped.scss';
 
-const Icon = ({ name }) => {
+const Icon = ({ name, className }) => {
   let icon;
   switch(name)
   {
@@ -48,7 +47,10 @@ const Icon = ({ name }) => {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="icon">
+      className={[
+        'ple-icon',
+        className,
+      ].filter(Boolean).join(' ')}>
       {icon}
     </svg>
   );

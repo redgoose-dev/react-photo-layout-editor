@@ -1,4 +1,7 @@
-.panel {
+@use "./libs/mixins";
+
+// component - Panel
+.ple .ple-panel {
   height: 100%;
   box-sizing: border-box;
   background-color: var(--ple-color-panel-background);

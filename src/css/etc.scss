@@ -1,0 +1,6 @@
+@use "./libs/mixins";
+
+// popup mode
+html.ple-popup-mode {
+  overflow: hidden;
+}
