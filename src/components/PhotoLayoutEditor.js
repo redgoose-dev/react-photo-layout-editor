@@ -57,27 +57,13 @@ const Container = forwardRef((props, ref) => {
       <div className="ple__body">
         <Body/>
       </div>
-      {openPanel && (
-        <aside className="ple__side">
-          <Panel/>
-        </aside>
-      )}
-      {/*<ul>*/}
-      {/*  <li>grid: {grid.join(',')}</li>*/}
-      {/*  <li>files: {files.join(',')}</li>*/}
-      {/*  <li>*/}
-      {/*    preference:*/}
-      {/*    <pre>{JSON.stringify(preference, null, 2)}</pre>*/}
-      {/*  </li>*/}
-      {/*  <li>openPanel: {openPanel.toString()}</li>*/}
-      {/*  <li>*/}
-      {/*    upload:*/}
-      {/*    <pre>{JSON.stringify(upload, null, 2)}</pre>*/}
-      {/*  </li>*/}
-      {/*</ul>*/}
-      {/*<nav>*/}
-      {/*  <Foo/>*/}
-      {/*</nav>*/}
+      <aside
+        className={[
+          'ple__side',
+          openPanel && 'ple__side--on',
+        ].filter(Boolean).join(' ')}>
+        <Panel/>
+      </aside>
     </article>
   );
 });

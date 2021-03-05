@@ -16,6 +16,13 @@
       display: flex;
     }
   }
+  .ple-toggle {
+    &--on {
+      > svg {
+        transform: scaleX(-1);
+      }
+    }
+  }
 }
 
 // component - Toolbar/Button
@@ -34,7 +41,7 @@
   cursor: pointer;
   outline: none;
   &:active {
-    opacity: .5;
+    opacity: .75;
   }
   &:focus {}
   &:disabled {

@@ -1,9 +1,9 @@
 @use "./libs/mixins";
-@import "~react-grid-layout/css/styles.css";
 
-// component - PhotoLayoutEditor
+// root variables
 .ple {
   // color
+  --ple-color-background: transparent;
   --ple-color-text: #222;
   --ple-color-shape: #a1a4a7;
   --ple-color-shape-strong: #75787b;
@@ -16,7 +16,10 @@
   --ple-size-max-width: none;
   --ple-size-max-height: none;
   --ple-size-panel-height: auto;
+}
 
+// component - PhotoLayoutEditor
+.ple {
   position: relative;
   display: flex;
   min-width: var(--ple-size-min-width, 640px);
@@ -24,17 +27,23 @@
   max-width: var(--ple-size-max-width, none);
   max-height: var(--ple-size-max-height, none);
   box-sizing: border-box;
+  background-color: var(--ple-color-background);
   &__body {
     flex: 1;
     position: relative;
   }
   &__side {
     position: relative;
+    display: none;
     width: var(--ple-side-width, 240px);
     height: var(--ple-size-panel-height, auto);
+    &--on {
+      display: block;
+    }
   }
 }
 
+@import "~react-grid-layout/css/styles.css";
 @import "./icon";
 @import "./toolbar";
 @import "./panel";

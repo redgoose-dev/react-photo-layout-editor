@@ -4,6 +4,7 @@ import PhotoLayoutEditor from '~/components/PhotoLayoutEditor';
 import useToggle from '~/libs/useToggle';
 import './normalize.scss';
 import '~/css/main.scss';
+import './index.scss';
 
 function App()
 {

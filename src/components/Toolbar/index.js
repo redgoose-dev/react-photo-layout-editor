@@ -36,9 +36,9 @@ const Toolbar = () => {
         <dd>
           <Button
             title={`${open ? 'Close' : 'Open'} Panel`}
-            className=""
+            className={[ 'ple-toggle', open && 'ple-toggle--on' ].filter(Boolean).join(' ')}
             onClick={() => callbacks.run('update', { type: 'togglePanel' })}>
-            <Icon name="arrow-left" className="foo"/>
+            <Icon name="arrow-left"/>
           </Button>
         </dd>
       </dl>
