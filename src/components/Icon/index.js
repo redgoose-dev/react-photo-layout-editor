@@ -42,6 +42,34 @@ const Icon = ({ name, className }) => {
         <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
       );
       break;
+    case 'input':
+      icon = (
+        <g transform="translate(3,3)">
+          <path d="M18,8.4 L18,15.6 C18,16.9254834 16.9254834,18 15.6,18 L2.4,18 C1.0745166,18 0,16.9254834 0,15.6 L0,2.4 C0,1.0745166 1.0745166,0 2.4,0 L9.6,0"/>
+          <polyline transform="translate(10,8) rotate(-180) translate(-10,-8) " points="7 5 13 5 13 11"/>
+          <line x1="17" y1="1" x2="7" y2="11"/>
+        </g>
+      );
+      break;
+    case 'upload':
+      icon = (
+        <>
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </>
+      );
+      break;
+    case 'trash':
+      icon = (
+        <>
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          <line x1="10" y1="11" x2="10" y2="17"/>
+          <line x1="14" y1="11" x2="14" y2="17"/>
+        </>
+      );
+      break;
     default:
       icon = (
         <polyline points="20 6 9 17 4 12"/>

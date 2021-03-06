@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
+import Navigation from './Navigation';
+import Files from './Files';
 
 const Panel = () => {
   return (
     <div className="ple-panel">
-      <p>.panel</p>
-      <p>space</p>
-      <p>space</p>
-      <p>space</p>
-      <p>space</p>
-      <p>space</p>
-      <p>space</p>
-      <p>space</p>
+      <div className="ple-panel__wrap">
+        <Navigation/>
+        <div className="ple-panel__files">
+          <Files/>
+        </div>
+      </div>
     </div>
   );
 };

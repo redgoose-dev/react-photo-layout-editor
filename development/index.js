@@ -10,7 +10,16 @@ function App()
 {
   const _ref = useRef();
   const [ grid, setGrid ] = useState([1,2,3]);
-  const [ files, setFiles ] = useState(['apple', 'banana', 'mango']);
+  const [ files, setFiles ] = useState([
+    {
+      image: 'https://goose.redgoose.me/data/upload/original/202103/hud-tadpole-001.jpg',
+      active: false,
+    },
+    {
+      image: 'https://goose.redgoose.me/data/upload/original/202010/project-002-001.jpg',
+      active: false,
+    }
+  ]);
   const [ preference, setPreference ] = useState({
     width: 200,
     height: 300,
@@ -33,7 +42,7 @@ function App()
         callbacks={{
           init: () => {
             console.warn('PhotoLayoutEditor init()');
-            setTimeout(() => setGrid([4,5,6]), 3000);
+            // setTimeout(() => setFiles([4,5,6]), 3000);
           },
           update: ({ type, value }) => {
             switch (type)

@@ -11,5 +11,4 @@ const Body = () => {
 };
 Body.displayName = 'Body';
 
-
 export default Body;
