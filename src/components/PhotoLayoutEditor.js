@@ -4,21 +4,26 @@ import { RecoilRoot, useRecoilState } from 'recoil';
 import * as callbacks from '~/libs/callbacks';
 import * as body from '~/store/body';
 import * as panel from '~/store/panel';
+import * as util from '~/libs/util';
+import * as keyboard from '~/libs/keyboard';
 import Body from '~/components/Body';
 import Panel from '~/components/Panel';
-
-import Foo from './Foo';
 
 /**
  * Component - Container
  */
 const Container = forwardRef((props, ref) => {
   const [ ready, setReady ] = useState(false);
-  const [ grid, setGrid ] = useRecoilState(body.grid);
-  const [ files, setFiles ] = useRecoilState(panel.files);
-  const [ preference, setPreference ] = useRecoilState(body.preference);
-  const [ openPanel, setOpenPanel ] = useRecoilState(panel.open);
-  const [ upload, setUpload ] = useRecoilState(panel.upload);
+  const stateGrid = useRecoilState(body.grid);
+  const stateFiles = useRecoilState(panel.files);
+  const statePreference = useRecoilState(body.preference);
+  const stateOpenPanel = useRecoilState(panel.open);
+  const stateUpload = useRecoilState(panel.upload);
+  const [ grid, setGrid ] = stateGrid;
+  const [ files, setFiles ] = stateFiles;
+  const [ preference, setPreference ] = statePreference;
+  const [ openPanel, setOpenPanel ] = stateOpenPanel;
+  const [ upload, setUpload ] = stateUpload;
 
   // update data props
   useEffect(() => {
@@ -36,7 +41,10 @@ const Container = forwardRef((props, ref) => {
   ]);
   // mounted
   useEffect(() => {
+    util.initCustomEvent();
+    keyboard.initialEvent();
     callbacks.init(props.callbacks);
+    // initial keyboard event
     setReady(true);
     callbacks.run('init');
   }, []);
@@ -49,6 +57,10 @@ const Container = forwardRef((props, ref) => {
     base()
     {
       console.log('call base()');
+    },
+    panel()
+    {
+      //
     },
   }));
 

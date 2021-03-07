@@ -84,15 +84,19 @@
   // component - Panel/File
   .ple-file {
     display: block;
-    background-size: cover;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-image: var(--background-image, none);
-    background-color: #fff;
     touch-action: pan-x;
     outline: none;
     text-indent: -9999px;
     cursor: pointer;
+    > em {
+      display: block;
+      height: 100%;
+      background-size: cover;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-image: var(--background-image, none);
+      background-color: #fff;
+    }
     &:after {
       content: '';
       display: block;
@@ -104,7 +108,7 @@
       border: 4px solid var(--ple-color-active);
       box-sizing: border-box;
       opacity: 0;
-      transition: opacity 200ms ease-out;
+      transition: opacity 150ms ease-out;
     }
     &--active {
       &:after {

@@ -1,10 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRecoilState } from 'recoil';
+import PropTypes from 'prop-types';
 import File from './File';
 import * as panel from '~/store/panel';
+import * as apiPanel from '~/api/panel';
 
 const Files = props => {
-  const [ files, setFiles ] = useRecoilState(panel.files);
+  const store = useRecoilState(panel.files);
+  const [ files, setFiles ] = store;
+
+  const onClickFile = e => {
+    e.stopPropagation();
+  };
+
   return files?.length > 0 ? (
     <ul
       className={[
@@ -12,8 +20,11 @@ const Files = props => {
         props?.className && props.className,
       ].filter(Boolean).join(' ')}>
       {files.map((o, k) => (
-        <li key={k}>
-          <File {...o}/>
+        <li key={k} onClick={onClickFile}>
+          <File
+            active={o.active}
+            image={o.image}
+            onClick={() => apiPanel.selectFiles(store, k)}/>
         </li>
       ))}
     </ul>
@@ -23,5 +34,9 @@ const Files = props => {
     </div>
   );
 }
+Files.displayName = 'Files';
+Files.propTypes = {
+  className: PropTypes.string,
+};
 
 export default Files;

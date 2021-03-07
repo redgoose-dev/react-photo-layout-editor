@@ -1,3 +1,5 @@
-export default () => {
-  console.log('call api()');
+import * as panel from './panel';
+
+export default {
+  panel,
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import PropTypes from 'prop-types';
 import Icon from '~/components/Icon';
@@ -18,7 +18,7 @@ const Navigation = props => {
   // TODO: 여기서 리코일을 활용하면 대부분의 `props`를 빼버릴 수 있을것이다.
 
   return (
-    <nav className="ple-navigation">
+    <nav className="ple-navigation" onClick={e => e.stopPropagation()}>
       <div>
         <button
           type="button"

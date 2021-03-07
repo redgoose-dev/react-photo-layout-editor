@@ -18,7 +18,19 @@ function App()
     {
       image: 'https://goose.redgoose.me/data/upload/original/202010/project-002-001.jpg',
       active: false,
-    }
+    },
+    {
+      image: 'https://goose.redgoose.me/data/upload/original/202003/double-generator-001.jpg',
+      active: false,
+    },
+    {
+      image: 'https://goose.redgoose.me/data/upload/original/201912/vortex.jpg',
+      active: false,
+    },
+    {
+      image: 'https://goose.redgoose.me/data/upload/original/201909/2019-09-17-001.jpg',
+      active: false,
+    },
   ]);
   const [ preference, setPreference ] = useState({
     width: 200,

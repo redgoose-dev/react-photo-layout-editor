@@ -18,3 +18,9 @@ export function getProps(): any
 {
   return props;
 }
+
+export function isKey(key: string): boolean
+{
+  if (!key) return false;
+  return props[key] && typeof props[key] === 'function';
+}

@@ -1,11 +1,16 @@
-import React, { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import React from 'react';
+import { useRecoilState } from 'recoil';
 import Navigation from './Navigation';
 import Files from './Files';
+import * as panel from '~/store/panel';
+import * as apiPanel from '~/api/panel';
 
 const Panel = () => {
+  const storeFiles = useRecoilState(panel.files);
   return (
-    <div className="ple-panel">
+    <div
+      className="ple-panel"
+      onClick={() => apiPanel.selectFiles(storeFiles)}>
       <div className="ple-panel__wrap">
         <Navigation/>
         <div className="ple-panel__files">
