@@ -1,10 +1,6 @@
 // TODO: 이 값은 그저 구조를 위한 샘플일 뿐이고 실제로는 사용되지 않는다.
 export const props: object = {
   base: {
-    upload: {
-      url: '',
-      convertParams: null,
-    },
     store: {
       updated: null,
     },

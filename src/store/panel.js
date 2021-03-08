@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 export const open = atom({
   key: 'panelOpen',
@@ -10,13 +10,23 @@ export const files = atom({
   default: [],
 });
 
-/**
- * 파일 업로드할때 필요한 값들
- *
- * @param {String} url 서버에 파일을 업로드 스크립트 url
- * @param {String} formKey `formData`객체에서 업로드 파일항목 파라메터 이름
- */
-export const upload = atom({
-  key: 'baseUpload',
-  default: null,
+export const filesExist = selector({
+  key: 'panelFilesExist',
+  get: ({ get }) => {
+    const stateFiles = get(files);
+    return stateFiles.length > 0;
+  },
+});
+
+export const filesActiveExist = selector({
+  key: 'panelFilesActiveExist',
+  get: ({ get }) => {
+    const stateFiles = get(files);
+    if (stateFiles.length <= 0) return false;
+    let active = false;
+    stateFiles.forEach(o => {
+      if (o.active) active = true;
+    });
+    return active;
+  },
 });

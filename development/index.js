@@ -36,11 +36,7 @@ function App()
     width: 200,
     height: 300,
   });
-  const [ openPanel, setOpenPanel ] = useToggle(true);
-  const [ upload, setUpload ] = useState(!!false ? {
-    url: '',
-    formKey: null,
-  } : null);
+  const [ openPanel, setOpenPanel ] = useState(true);
 
   return (
     <>
@@ -50,7 +46,6 @@ function App()
         files={files}
         preference={preference}
         openPanel={openPanel}
-        upload={upload}
         callbacks={{
           init: () => {
             console.warn('PhotoLayoutEditor init()');
@@ -69,7 +64,10 @@ function App()
                 setPreference(value);
                 break;
               case 'togglePanel':
-                setOpenPanel();
+                setOpenPanel(value);
+                break;
+              case 'addFiles':
+                console.log('add files');
                 break;
             }
           },

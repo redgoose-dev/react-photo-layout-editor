@@ -18,12 +18,10 @@ const Container = forwardRef((props, ref) => {
   const stateFiles = useRecoilState(panel.files);
   const statePreference = useRecoilState(body.preference);
   const stateOpenPanel = useRecoilState(panel.open);
-  const stateUpload = useRecoilState(panel.upload);
   const [ grid, setGrid ] = stateGrid;
   const [ files, setFiles ] = stateFiles;
   const [ preference, setPreference ] = statePreference;
   const [ openPanel, setOpenPanel ] = stateOpenPanel;
-  const [ upload, setUpload ] = stateUpload;
 
   // update data props
   useEffect(() => {
@@ -31,20 +29,19 @@ const Container = forwardRef((props, ref) => {
     if (props.files !== files) setFiles(props.files);
     if (props.preference !== preference) setPreference({ ...preference, ...props.preference });
     if (props.openPanel !== openPanel) setOpenPanel(props.openPanel);
-    if (props.upload !== upload) setUpload(props.upload);
   }, [
     props.grid,
     props.files,
     props.preference,
     props.openPanel,
-    props.upload,
   ]);
   // mounted
   useEffect(() => {
-    util.initCustomEvent();
-    keyboard.initialEvent();
     callbacks.init(props.callbacks);
+    // initial custom event
+    util.initCustomEvent();
     // initial keyboard event
+    keyboard.initialEvent();
     setReady(true);
     callbacks.run('init');
   }, []);
@@ -82,7 +79,7 @@ const Container = forwardRef((props, ref) => {
 Container.propTypes = {
   // grid data items
   grid: PropTypes.array,
-  // upload files
+  // files
   files: PropTypes.array,
   // preference
   preference: PropTypes.shape({
@@ -97,14 +94,6 @@ Container.propTypes = {
   }),
   // open side panel
   openPanel: PropTypes.bool,
-  // file upload. 이 항목의 값이 없다면 브라우저 내부에 임시로 저장된다.
-  upload: PropTypes.shape({
-    // upload script url
-    url: PropTypes.string.isRequired,
-    // formData 객체에서 업로드 파일항목 파라메터 이름
-    formKey: PropTypes.string,
-    // TODO: 아마 나중에는 헤더에 관련된 옵션도 필요할 것이다.
-  }),
   // callback functions
   callbacks: PropTypes.shape({
     /**
@@ -113,14 +102,9 @@ Container.propTypes = {
      */
     init: PropTypes.func,
     /**
-     * uploadConvert
-     * 업로드할때 파라메터를 덧붙이고 싶을때 사용하는 함수 (업로드 직전에 실행되어 파라메터를 교체할 수 있다.)
-     */
-    uploadConvert: PropTypes.func,
-    /**
      * update (type, value)
      * 데이터가 변경되었을때 호출되는 콜백함수
-     * @param String type `grid,files,preference,openPanel,upload`
+     * @param String type `grid,files,preference,openPanel`
      * @param any value
      */
     update: PropTypes.func,
@@ -141,7 +125,6 @@ Container.defaultProps = {
     blockColor: 'rgba(211,211,211,1)',
   },
   openPanel: true,
-  upload: null,
   callbacks: {},
 };
 

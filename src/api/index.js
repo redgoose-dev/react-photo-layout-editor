@@ -1,5 +1,9 @@
 import * as panel from './panel';
+import * as files from './files';
+import * as grid from './grid';
 
-export default {
+export {
   panel,
+  grid,
+  files,
 }

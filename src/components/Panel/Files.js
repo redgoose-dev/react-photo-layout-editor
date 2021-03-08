@@ -3,11 +3,11 @@ import { useRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
 import File from './File';
 import * as panel from '~/store/panel';
-import * as apiPanel from '~/api/panel';
+import * as api from '~/api';
 
 const Files = props => {
   const store = useRecoilState(panel.files);
-  const [ files, setFiles ] = store;
+  const [ files ] = store;
 
   const onClickFile = e => {
     e.stopPropagation();
@@ -24,7 +24,7 @@ const Files = props => {
           <File
             active={o.active}
             image={o.image}
-            onClick={() => apiPanel.selectFiles(store, k)}/>
+            onClick={() => api.files.select(store, k)}/>
         </li>
       ))}
     </ul>

@@ -1,52 +1,54 @@
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import PropTypes from 'prop-types';
 import Icon from '~/components/Icon';
 import * as panel from '~/store/panel';
+import * as api from '~/api';
 
-const Navigation = props => {
-  const {
-    disabledAttach,
-    disabledSelectAll,
-    disabledRemove,
-    onClickAttach,
-    onClickSelectAll,
-    onClickUpload,
-    onClickRemove,
-  } = props;
+const Navigation = () => {
+  const storeFiles = useRecoilState(panel.files);
+  const filesExist = useRecoilValue(panel.filesExist);
+  const filesActiveExist = useRecoilValue(panel.filesActiveExist);
 
-  // TODO: 여기서 리코일을 활용하면 대부분의 `props`를 빼버릴 수 있을것이다.
+  function removeItems()
+  {
+    const [ files ] = storeFiles;
+    let selected = [];
+    files.forEach((o,k) => {
+      if (o.active) selected.push(k);
+    });
+    api.files.remove(storeFiles, selected);
+  }
 
   return (
     <nav className="ple-navigation" onClick={e => e.stopPropagation()}>
       <div>
         <button
           type="button"
-          disabled={disabledAttach}
-          onClick={onClickAttach}>
+          disabled={!filesExist || !filesActiveExist}
+          onClick={() => {}}>
           <Icon name="input"/>
         </button>
       </div>
       <div>
         <button
           type="button"
-          disabled={disabledSelectAll}
-          onClick={onClickSelectAll}>
+          disabled={!filesExist}
+          onClick={() => api.files.selectAll(storeFiles)}>
           <Icon name="maximize"/>
         </button>
       </div>
       <div>
         <button
           type="button"
-          onClick={onClickUpload}>
-          <Icon name="upload"/>
+          onClick={() => api.files.add()}>
+          <Icon name="plus"/>
         </button>
       </div>
       <div>
         <button
           type="button"
-          disabled={disabledRemove}
-          onClick={onClickRemove}>
+          disabled={!filesExist || !filesActiveExist}
+          onClick={removeItems}>
           <Icon name="trash"/>
         </button>
       </div>
@@ -54,14 +56,5 @@ const Navigation = props => {
   );
 };
 Navigation.displayName = 'PanelNavigation';
-Navigation.propTypes = {
-  disabledAttach: PropTypes.bool,
-  disabledSelectAll: PropTypes.bool,
-  disabledRemove: PropTypes.bool,
-  onClickAttach: PropTypes.func,
-  onClickSelectAll: PropTypes.func,
-  onClickUpload: PropTypes.func,
-  onClickRemove: PropTypes.func,
-};
 
 export default Navigation;

@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import React from 'react';
+import { useRecoilState } from 'recoil';
 import * as panel from '~/store/panel';
-import * as callbacks from '~/libs/callbacks';
+import * as api from '~/api';
 import Button from './Button';
 import Icon from '~/components/Icon';
 
 const Toolbar = () => {
-  const open = useRecoilValue(panel.open);
+  const storeOpenPanel = useRecoilState(panel.open);
+  const [ open ] = storeOpenPanel;
 
   return (
     <nav className="ple-toolbar">
@@ -37,7 +38,7 @@ const Toolbar = () => {
           <Button
             title={`${open ? 'Close' : 'Open'} Panel`}
             className={[ 'ple-toggle', open && 'ple-toggle--on' ].filter(Boolean).join(' ')}
-            onClick={() => callbacks.run('update', { type: 'togglePanel' })}>
+            onClick={() => api.panel.visible(storeOpenPanel)}>
             <Icon name="arrow-left"/>
           </Button>
         </dd>

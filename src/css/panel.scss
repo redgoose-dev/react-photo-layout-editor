@@ -45,7 +45,7 @@
       }
       &:disabled {
         opacity: .75;
-        cursor: default;
+        cursor: not-allowed;
         svg {
           opacity: .75;
         }
