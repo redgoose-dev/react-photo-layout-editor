@@ -24,17 +24,10 @@ const Container = forwardRef((props, ref) => {
   const [ openPanel, setOpenPanel ] = stateOpenPanel;
 
   // update data props
-  useEffect(() => {
-    if (props.grid !== grid) setGrid(props.grid);
-    if (props.files !== files) setFiles(props.files);
-    if (props.preference !== preference) setPreference({ ...preference, ...props.preference });
-    if (props.openPanel !== openPanel) setOpenPanel(props.openPanel);
-  }, [
-    props.grid,
-    props.files,
-    props.preference,
-    props.openPanel,
-  ]);
+  useEffect(() => { setGrid(props.grid); }, [ props.grid ]);
+  useEffect(() => setFiles(props.files), [ props.files ]);
+  useEffect(() => setPreference({ ...preference, ...props.preference }), [ props.preference ]);
+  useEffect(() => setOpenPanel(props.openPanel), [ props.openPanel ]);
   // mounted
   useEffect(() => {
     callbacks.init(props.callbacks);

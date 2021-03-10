@@ -53,6 +53,7 @@
       svg {
         --ple-icon-color: #eee;
         --ple-icon-size: 18px;
+        margin: 0 auto;
       }
     }
   }
@@ -79,7 +80,23 @@
       }
     }
   }
-  .ple-empty {}
+  .ple-files-empty {
+    padding: 40px 0;
+    > svg {
+      --ple-icon-color: #fff;
+      --ple-icon-size: 42px;
+      --ple-icon-stroke: .75px;
+      margin: 0 auto;
+    }
+    > span {
+      display: block;
+      margin: 5px 0 0;
+      text-align: center;
+      color: #fff;
+      font-size: 11px;
+      user-select: none;
+    }
+  }
 
   // component - Panel/File
   .ple-file {

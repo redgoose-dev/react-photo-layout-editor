@@ -70,6 +70,22 @@ const Icon = ({ name, className }) => {
         </>
       );
       break;
+    case 'x':
+      icon = (
+        <>
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </>
+      );
+      break;
+    case 'slash':
+      icon = (
+        <>
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+        </>
+      );
+      break;
     default:
       icon = (
         <polyline points="20 6 9 17 4 12"/>

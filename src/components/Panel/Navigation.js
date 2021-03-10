@@ -16,6 +16,7 @@ const Navigation = () => {
     files.forEach((o,k) => {
       if (o.active) selected.push(k);
     });
+    if (!confirm(`Are you sure you want to delete ${selected.length} photos?`)) return;
     api.files.remove(storeFiles, selected);
   }
 
@@ -40,7 +41,7 @@ const Navigation = () => {
       <div>
         <button
           type="button"
-          onClick={() => api.files.add()}>
+          onClick={() => api.files.add(storeFiles)}>
           <Icon name="plus"/>
         </button>
       </div>

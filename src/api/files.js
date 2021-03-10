@@ -108,11 +108,15 @@ export function selectAll(store)
 
 /**
  * add item
+ *
+ * @param {*} store `panel.files`
  */
-export function add()
+export function add(store)
 {
   if (!callbacks.isKey('update')) return;
-  callbacks.run('update', { type: 'addFiles' });
+  if (!store) return;
+  const [ files ] = store;
+  callbacks.run('update', { type: 'addFiles', value: files });
 }
 
 /**
