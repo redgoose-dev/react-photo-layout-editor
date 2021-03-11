@@ -1,5 +1,5 @@
 {
-  "include": [ "src" ],
+  "include": [ "src", "development" ],
   "exclude": [ "node_modules" ],
   "compilerOptions": {
     "module": "esnext",

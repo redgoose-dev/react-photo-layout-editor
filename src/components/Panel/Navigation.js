@@ -26,7 +26,9 @@ const Navigation = () => {
         <button
           type="button"
           disabled={!filesExist || !filesActiveExist}
-          onClick={() => {}}>
+          onClick={() => {
+            // TODO: 블럭에 이미지 담기
+          }}>
           <Icon name="input"/>
         </button>
       </div>

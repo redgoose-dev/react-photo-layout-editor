@@ -10,13 +10,13 @@ import './index.scss';
 function App()
 {
   const _ref = useRef();
-  const [ grid, setGrid ] = useState([1,2,3]);
-  let [ files, setFiles ] = useState(util.pickFiles(10));
+  const [ grid, setGrid ] = useState(util.pickGrid(3, 0));
+  let [ files, setFiles ] = useState(util.pickFiles(10, 0));
   const [ preference, setPreference ] = useState({
     width: 200,
     height: 300,
   });
-  const [ openPanel, setOpenPanel ] = useState(true);
+  const [ openPanel, setOpenPanel ] = useToggle(true);
   let filesLastKey = files.length;
 
   return (
@@ -45,12 +45,15 @@ function App()
                 setPreference(value);
                 break;
               case 'togglePanel':
-                setOpenPanel(value);
+                setOpenPanel();
                 break;
               case 'addFiles':
                 const step = 1;
                 filesLastKey += step;
-                let res = [ ...value, ...util.pickFiles(step, filesLastKey) ];
+                let res = [
+                  ...value,
+                  ...util.pickFiles(step, filesLastKey),
+                ];
                 setFiles(res);
                 break;
             }

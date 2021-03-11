@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 export const preference = atom({
   key: 'bodyPreference',
@@ -17,4 +17,26 @@ export const preference = atom({
 export const grid = atom({
   key: 'bodyGrid',
   default: [],
+});
+
+export const gridSelectedBlock = selector({
+  key: 'bodyGridSelectedBlock',
+  get: ({ get }) => {
+    const stateGrid = get(grid);
+    if (stateGrid.length <= 0) return false;
+    let active = false;
+    // TODO: 작업예정
+    return active;
+  },
+});
+
+export const gridSelectedBlockImage = selector({
+  key: 'bodyGridSelectedBlockImage',
+  get: ({ get }) => {
+    const stateGrid = get(grid);
+    if (stateGrid.length <= 0) return false;
+    let active = false;
+    // TODO: 작업예정
+    return active;
+  },
 });

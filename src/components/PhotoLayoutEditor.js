@@ -71,9 +71,22 @@ const Container = forwardRef((props, ref) => {
 });
 Container.propTypes = {
   // grid data items
-  grid: PropTypes.array,
+  grid: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.number,
+    color: PropTypes.string,
+    layout: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number,
+      w: PropTypes.number,
+      h: PropTypes.number,
+    }),
+  })),
   // files
-  files: PropTypes.array,
+  files: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.number,
+    image: PropTypes.string,
+    active: PropTypes.bool,
+  })),
   // preference
   preference: PropTypes.shape({
     width: PropTypes.number,

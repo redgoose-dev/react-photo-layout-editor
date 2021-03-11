@@ -1,10 +1,10 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import Toolbar from '~/components/Toolbar';
-import * as panel from '~/store/panel';
+import * as body from '~/store/body';
 
 const Body = () => {
-  const files = useRecoilValue(panel.files);
+  const grid = useRecoilValue(body.grid);
   return (
     <div className="ple-body">
       <Toolbar/>
@@ -15,7 +15,7 @@ const Body = () => {
         padding: '30px',
         fontSize: '12px',
       }}>
-        {JSON.stringify(files, null, 2)}
+        {JSON.stringify(grid, null, 2)}
       </pre>
     </div>
   );

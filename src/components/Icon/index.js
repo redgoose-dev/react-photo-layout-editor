@@ -86,6 +86,24 @@ const Icon = ({ name, className }) => {
         </>
       );
       break;
+    case 'pen':
+      icon = (
+        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+      );
+      break;
+    case 'copy':
+      icon = (
+        <>
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </>
+      );
+      break;
+    case 'droplet':
+      icon = (
+        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+      )
+      break;
     default:
       icon = (
         <polyline points="20 6 9 17 4 12"/>

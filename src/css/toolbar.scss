@@ -16,6 +16,11 @@
       display: flex;
     }
   }
+  &__preference {
+    > div {
+      position: relative;
+    }
+  }
   .ple-toggle {
     &--on {
       > svg {
@@ -26,32 +31,62 @@
 }
 
 // component - Toolbar/Button
-.ple .ple-toolbar .ple-button {
-  --ple-icon-size: 20px;
-  --ple-icon-stroke: 2px;
-  --ple-icon-color: #fff;
-  display: block;
-  width: var(--ple-button-size, 46px);
-  height: var(--ple-button-size, 46px);
-  margin: 0;
-  padding: 0;
-  background-color: var(--ple-color-shape);
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  outline: none;
-  transition: opacity 200ms ease-out;
-  > svg {
-    margin: 0 auto;
+.ple .ple-toolbar {
+  .ple-button {
+    --ple-icon-size: 20px;
+    --ple-icon-stroke: 2px;
+    --ple-icon-color: #fff;
+    display: block;
+    width: var(--ple-button-size, 46px);
+    height: var(--ple-button-size, 46px);
+    margin: 0;
+    padding: 0;
+    background-color: var(--ple-color-shape);
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    outline: none;
+    transition: opacity 200ms ease-out;
+    > svg {
+      margin: 0 auto;
+    }
+    &:active {
+      opacity: .75;
+    }
+    &:focus {}
+    &:disabled {
+      cursor: default;
+    }
+    &:nth-child(n+2) {
+      margin-left: 1px;
+    }
+    &--active {
+      background-color: var(--ple-color-active);
+    }
   }
-  &:active {
-    opacity: .75;
+}
+
+// component - Toolbar/Preference
+.ple .ple-preference {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 99999;
+  width: 270px;
+  background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 0 1px 12px rgba(0,0,0,.25);
+  border-radius: 2px;
+  &__body {
+    margin: 0;
+    padding: 20px;
+    border: none;
   }
-  &:focus {}
-  &:disabled {
-    cursor: default;
+  &__title {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -.2px;
   }
-  &:nth-child(n+2) {
-    margin-left: 1px;
-  }
+  &__field {}
 }

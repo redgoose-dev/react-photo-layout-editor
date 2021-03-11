@@ -9,22 +9,49 @@ const sampleImages = [
   'https://images.unsplash.com/photo-1561084195-ee7372303a19?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
 ];
 
+/**
+ * random pick files
+ *
+ * @param {Number} count
+ * @param {Number} start
+ * @return {Array}
+ */
 export function pickFiles(count = 3, start = 0)
 {
+  const randomPick = images => images.splice(Math.floor(Math.random() * images.length), 1)[0];
   let images = Object.assign([], sampleImages);
   let result = [];
-  for (let i=start; i<start+count; i++)
+  for (let i = start; i < start + count; i++)
   {
-    let image = images.splice(Math.floor(Math.random() * images.length), 1)[0];
+    let image = randomPick(images);
     if (!image)
     {
       images = Object.assign([], sampleImages);
-      image = images.splice(Math.floor(Math.random() * images.length), 1)[0];
+      image = randomPick(images);
     }
     result.push({
       key: i,
       image,
       active: false,
+    });
+  }
+  return result;
+}
+
+/**
+ * random pick grid
+ *
+ * @param {Number} count
+ * @param {Number} start
+ * @return {Array}
+ */
+export function pickGrid(count = 3, start = 0)
+{
+  let result = [];
+  for (let i = start; i < start + count; i++)
+  {
+    result.push({
+      key: i,
     });
   }
   return result;
