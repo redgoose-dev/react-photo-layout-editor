@@ -5,6 +5,7 @@ import * as body from '~/store/body';
 
 const Body = () => {
   const grid = useRecoilValue(body.grid);
+  const preference = useRecoilValue(body.preference);
   return (
     <div className="ple-body">
       <Toolbar/>
@@ -13,9 +14,9 @@ const Body = () => {
         wordBreak: 'break-all',
         whiteSpace: 'pre-wrap',
         padding: '30px',
-        fontSize: '12px',
+        fontSize: '14px',
       }}>
-        {JSON.stringify(grid, null, 2)}
+        {JSON.stringify(preference, null, 2)}
       </pre>
     </div>
   );

@@ -5,8 +5,8 @@
   // color
   --ple-color-background: transparent;
   --ple-color-text: #222;
-  --ple-color-shape: #a1a4a7;
-  --ple-color-shape-strong: #75787b;
+  --ple-color-shape: #aaadb1;
+  --ple-color-shape-strong: #727478;
   --ple-color-active: #20b292;
   --ple-color-panel-background: #626164;
   --ple-color-panel-toolbar-background: #444;
@@ -16,6 +16,9 @@
   --ple-size-max-width: none;
   --ple-size-max-height: none;
   --ple-size-panel-height: auto;
+  // font
+  --ple-font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --ple-font-eng: Helvetica Neue, Arial, sans-serif;
 }
 
 // component - PhotoLayoutEditor
@@ -28,6 +31,7 @@
   max-height: var(--ple-size-max-height, none);
   box-sizing: border-box;
   background-color: var(--ple-color-background);
+  font-family: var(--ple-font-base);
   &__body {
     flex: 1;
     position: relative;
@@ -44,6 +48,7 @@
 }
 
 @import "~react-grid-layout/css/styles.css";
+@import '~react-simple-colorpicker/src/ColorPicker/index.scss';
 @import "./icon";
 @import "./toolbar";
 @import "./panel";

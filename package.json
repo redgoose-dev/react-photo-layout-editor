@@ -39,6 +39,7 @@
     "html-webpack-plugin": "^5.2.0",
     "mini-css-extract-plugin": "^1.3.9",
     "prop-types": "^15.7.2",
+    "react-simple-colorpicker": "github:redgoose-dev/react-simple-colorpicker",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",

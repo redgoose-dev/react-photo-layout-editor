@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import * as panel from '~/store/panel';
 import * as api from '~/api';
@@ -12,6 +12,32 @@ const Toolbar = () => {
   const storeGrid = useRecoilState(body.grid);
   const [ open ] = storeOpenPanel;
   const [ grid, setGrid ] = storeGrid;
+  const [ showPreference, setShowPreference ] = useState(false);
+
+  function togglePreference(e)
+  {
+    e.stopPropagation();
+    if (!showPreference)
+    {
+      window.on('click.pleShowPreference', e => {
+        if (e.target.closest('.ple-toolbar__preference > div')) return;
+        window.off('click.pleShowPreference');
+        setShowPreference(false);
+      });
+    }
+    else
+    {
+      window.off('click.pleShowPreference');
+    }
+    setShowPreference(!showPreference);
+  }
+
+  // lifecycles
+  useEffect(() => {
+    return () => {
+      window.off('click.pleShowPreference');
+    };
+  }, []);
 
   return (
     <nav className="ple-toolbar">
@@ -21,12 +47,18 @@ const Toolbar = () => {
             <Button
               title="Preference"
               active={false}
-              onClick={() => {}}>
+              focus={showPreference}
+              onClick={togglePreference}>
               <Icon name="setting"/>
             </Button>
-            <div>
-              <Preference/>
-            </div>
+            {showPreference && (
+              <div>
+                <div>
+                  <Preference
+                    onClose={() => setShowPreference(false)}/>
+                </div>
+              </div>
+            )}
           </div>
           <Button
             title="Shuffle"
@@ -43,7 +75,7 @@ const Toolbar = () => {
             onClick={() => {}}>
             <Icon name="maximize"/>
           </Button>
-          {!!true && (
+          {!!false && (
             <Button
               title="Edit block"
               active={true}
@@ -51,7 +83,7 @@ const Toolbar = () => {
               <Icon name="pen"/>
             </Button>
           )}
-          {!!true && (
+          {!!false && (
             <Button
               title="Remove image in block"
               active={true}
@@ -59,7 +91,7 @@ const Toolbar = () => {
               <Icon name="slash"/>
             </Button>
           )}
-          {!!true && (
+          {!!false && (
             <Button
               title="Duplicate block"
               active={true}
@@ -67,7 +99,7 @@ const Toolbar = () => {
               <Icon name="copy"/>
             </Button>
           )}
-          {!!true && (
+          {!!false && (
             <Button
               title="Remove block"
               active={true}
@@ -75,7 +107,7 @@ const Toolbar = () => {
               <Icon name="trash"/>
             </Button>
           )}
-          {!!true && (
+          {!!false && (
             <Button
               title="Change color"
               active={true}
