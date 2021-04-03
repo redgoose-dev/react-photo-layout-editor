@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import React  from 'react';
 import PropTypes from 'prop-types';
-import { files } from '~/store/panel';
-import * as callbacks from '~/libs/callbacks';
+import './File.scss';
 
 const File = props => {
   return (
@@ -17,7 +15,9 @@ const File = props => {
       onClick={props.onClick}>
       <em
         className="ple-file__image"
-        style={{ '--background-image': props.image ? `url('${props.image}')` : 'none' }}/>
+        style={{
+          backgroundImage: props.image ? `url('${props.image}')` : 'none',
+        }}/>
     </span>
   );
 };

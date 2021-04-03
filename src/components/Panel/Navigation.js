@@ -3,6 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import Icon from '~/components/Icon';
 import * as panel from '~/store/panel';
 import * as api from '~/api';
+import './Navigation.scss';
 
 const Navigation = () => {
   const storeFiles = useRecoilState(panel.files);
@@ -21,7 +22,7 @@ const Navigation = () => {
   }
 
   return (
-    <nav className="ple-navigation" onClick={e => e.stopPropagation()}>
+    <nav className="ple-panel-navigation" onClick={e => e.stopPropagation()}>
       <div>
         <button
           type="button"

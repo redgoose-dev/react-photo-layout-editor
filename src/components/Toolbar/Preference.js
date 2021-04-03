@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import * as body from '~/store/body';
 import ColorPicker from 'react-simple-colorpicker';
 import Switch from './Switch';
+import './Preference.scss';
 
 const Preference = props => {
   const storePreference = useRecoilState(body.preference);

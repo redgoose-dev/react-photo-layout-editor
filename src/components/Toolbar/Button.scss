@@ -1,0 +1,34 @@
+.ple .ple-toolbar-button {
+  --ple-icon-size: 20px;
+  --ple-icon-stroke: 2px;
+  --ple-icon-color: #fff;
+  display: block;
+  width: var(--ple-button-size, 46px);
+  height: var(--ple-button-size, 46px);
+  margin: 0;
+  padding: 0;
+  background-color: var(--ple-color-shape);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  transition: opacity 200ms ease-out, background-color 200ms ease-out;
+  > svg {
+    margin: 0 auto;
+  }
+  &:active {
+    opacity: .75;
+  }
+  &:disabled {
+    cursor: default;
+  }
+  &:nth-child(n+2) {
+    margin-left: 1px;
+  }
+  &--active {
+    background-color: var(--ple-color-active);
+  }
+  &--focus {
+    background-color: var(--ple-color-shape-strong);
+  }
+}

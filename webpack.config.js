@@ -39,6 +39,13 @@ const config = (env, options) => {
             },
           ].filter(Boolean),
         },
+        {
+          test: /\.(png|jpe?g|gif)$/i,
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+          },
+        },
       ],
     },
     plugins: [

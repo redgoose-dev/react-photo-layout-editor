@@ -1,0 +1,39 @@
+.ple .ple-files {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  > li {
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 100%;
+    > * {
+      position: absolute;
+      box-sizing: border-box;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}
+
+.ple .ple-files-empty {
+  padding: 40px 0;
+  > svg {
+    --ple-icon-color: #fff;
+    --ple-icon-size: 42px;
+    --ple-icon-stroke: .75px;
+    margin: 0 auto;
+  }
+  > span {
+    display: block;
+    margin: 5px 0 0;
+    text-align: center;
+    color: #fff;
+    font-size: 11px;
+    user-select: none;
+  }
+}

@@ -1,4 +1,7 @@
-@use "./libs/mixins";
+@use "./mixins";
+
+@import "~react-grid-layout/css/styles.css";
+@import "~react-simple-colorpicker/src/ColorPicker/index.scss";
 
 // root variables
 .ple {
@@ -47,10 +50,7 @@
   }
 }
 
-@import "~react-grid-layout/css/styles.css";
-@import '~react-simple-colorpicker/src/ColorPicker/index.scss';
-@import "./icon";
-@import "./toolbar";
-@import "./panel";
-@import "./body";
-@import "./etc";
+// popup mode
+html.ple-popup-mode {
+  overflow: hidden;
+}

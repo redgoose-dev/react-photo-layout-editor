@@ -13,8 +13,8 @@ function App()
   const [ grid, setGrid ] = useState(util.pickGrid(3, 0));
   let [ files, setFiles ] = useState(util.pickFiles(10, 0));
   const [ preference, setPreference ] = useState({
-    width: 200,
-    height: 300,
+    width: 100,
+    height: 100,
   });
   const [ openPanel, setOpenPanel ] = useToggle(true);
   let filesLastKey = files.length;

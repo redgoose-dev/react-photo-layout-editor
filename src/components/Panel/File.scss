@@ -1,0 +1,33 @@
+.ple .ple-file {
+  display: block;
+  touch-action: pan-x;
+  outline: none;
+  text-indent: -9999px;
+  cursor: pointer;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: 4px solid var(--ple-color-active);
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+  }
+  &__image {
+    display: block;
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-color: #fff;
+  }
+  &--active {
+    &:after {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+@use "../../css/mixins";
+
+.ple .ple-body {
+  padding: 30px;
+  background-color: #ccc;
+  background-image: url('./bg-space.png');
+  background-size: 16px 16px;
+  box-shadow: inset 2px 4px 5px rgba(0,0,0,.1);
+
+  &__wrap {
+    position: relative;
+    background-color: var(--ple-grid-background, #fff);
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+    border-radius: 1px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+}
+
+.ple .ple-grid {
+  max-width: 100%;
+}
+
+.ple .ple-grid-item {
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+  figure {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  &--active {
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border: 4px solid var(--ple-color-active);
+      pointer-events: none;
+    }
+  }
+}

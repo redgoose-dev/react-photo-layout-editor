@@ -19,6 +19,11 @@ export const grid = atom({
   default: [],
 });
 
+export const gridSelectedBlocks = atom({
+  key: 'bodyGridSelectedBlocks',
+  default: [],
+});
+
 export const gridSelectedBlock = selector({
   key: 'bodyGridSelectedBlock',
   get: ({ get }) => {

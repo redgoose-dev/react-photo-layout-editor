@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Button.scss';
 
 const Button = ({ title, active, focus, className, onClick, children }) => {
   return (
@@ -7,9 +8,9 @@ const Button = ({ title, active, focus, className, onClick, children }) => {
       type="button"
       title={title}
       className={[
-        'ple-button',
-        active && 'ple-button--active',
-        focus && 'ple-button--focus',
+        'ple-toolbar-button',
+        active && 'ple-toolbar-button--active',
+        focus && 'ple-toolbar-button--focus',
         className,
       ].filter(Boolean).join(' ')}
       onClick={onClick}>

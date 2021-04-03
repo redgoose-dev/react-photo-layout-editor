@@ -6,6 +6,7 @@ import * as body from '~/store/body';
 import Button from './Button';
 import Icon from '~/components/Icon';
 import Preference from './Preference';
+import './index.scss';
 
 const Toolbar = () => {
   const storeOpenPanel = useRecoilState(panel.open);
@@ -119,7 +120,7 @@ const Toolbar = () => {
         <dd>
           <Button
             title={`${open ? 'Close' : 'Open'} Panel`}
-            className={[ 'ple-toggle', open && 'ple-toggle--on' ].filter(Boolean).join(' ')}
+            className={[ 'ple-side-toggle', open && 'ple-side-toggle--on' ].filter(Boolean).join(' ')}
             onClick={() => api.panel.visible(storeOpenPanel)}>
             <Icon name="arrow-left"/>
           </Button>

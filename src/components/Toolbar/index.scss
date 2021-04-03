@@ -1,0 +1,30 @@
+.ple .ple-toolbar {
+  --ple-toolbar-button-size: 42px;
+  &__wrap {
+    display: flex;
+    margin: 0;
+    height: var(--ple-toolbar-button-size, 42px);
+    --ple-button-size: var(--ple-toolbar-button-size);
+    > dt {
+      flex: 1;
+      display: flex;
+    }
+    > dd {
+      margin: 0;
+      display: flex;
+    }
+  }
+  &__preference {
+    > div {
+      position: relative;
+    }
+  }
+
+  .ple-side-toggle {
+    &--on {
+      > svg {
+        transform: scaleX(-1);
+      }
+    }
+  }
+}

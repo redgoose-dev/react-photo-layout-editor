@@ -47,12 +47,18 @@ export function pickFiles(count = 3, start = 0)
  */
 export function pickGrid(count = 3, start = 0)
 {
-  let result = [];
-  for (let i = start; i < start + count; i++)
-  {
-    result.push({
-      key: i,
-    });
-  }
-  return result;
+  // for (let i = start; i < start + count; i++)
+  // {
+  //   result.push({
+  //     key: i,
+  //     layout: {  },
+  //   });
+  // }
+  return [
+    { key: 0, layout: { x: 0, y: 0, w: 2, h: 2 } },
+    { key: 1, layout: { x: 2, y: 0, w: 1, h: 2 } },
+    { key: 2, layout: { x: 3, y: 0, w: 2, h: 1 } },
+    { key: 3, layout: { x: 3, y: 1, w: 1, h: 1 } },
+    { key: 4, layout: { x: 4, y: 1, w: 1, h: 1 } },
+  ];
 }

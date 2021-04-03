@@ -8,6 +8,7 @@ import * as util from '~/libs/util';
 import * as keyboard from '~/libs/keyboard';
 import Body from '~/components/Body';
 import Panel from '~/components/Panel';
+import Toolbar from '~/components/Toolbar';
 
 /**
  * Component - Container
@@ -57,7 +58,17 @@ const Container = forwardRef((props, ref) => {
   return ready && (
     <article className="ple">
       <div className="ple__body">
+        <Toolbar/>
         <Body/>
+        <pre style={{
+          wordBreak: 'break-all',
+          whiteSpace: 'pre-wrap',
+          fontSize: '14px',
+          padding: '30px',
+          margin: '0',
+        }}>
+          {JSON.stringify(preference, null, 2)}
+        </pre>
       </div>
       <aside
         className={[

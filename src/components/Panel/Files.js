@@ -5,6 +5,7 @@ import * as panel from '~/store/panel';
 import * as api from '~/api';
 import Icon from '~/components/Icon';
 import File from './File';
+import './Files.scss';
 
 const Files = props => {
   const store = useRecoilState(panel.files);

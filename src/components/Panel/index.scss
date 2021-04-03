@@ -1,0 +1,17 @@
+.ple .ple-panel {
+  height: 100%;
+  padding: 0;
+  background-color: var(--ple-color-panel-background);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+
+  // TODO: 커스텀 스크롤 만들기
+
+  &__wrap {
+    padding: 16px;
+  }
+  &__files {
+    margin-top: 12px;
+  }
+}

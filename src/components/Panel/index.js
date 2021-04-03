@@ -4,6 +4,7 @@ import Navigation from './Navigation';
 import Files from './Files';
 import * as panel from '~/store/panel';
 import * as api from '~/api';
+import './index.scss';
 
 const Panel = () => {
   const storeFiles = useRecoilState(panel.files);
