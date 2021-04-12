@@ -6,14 +6,12 @@
   background-image: url('./bg-space.png');
   background-size: 16px 16px;
   box-shadow: inset 2px 4px 5px rgba(0,0,0,.1);
-
   &__wrap {
     position: relative;
     background-color: var(--ple-grid-background, #fff);
     box-shadow: 0 2px 5px rgba(0,0,0,.25);
     border-radius: 1px;
     box-sizing: border-box;
-    overflow: hidden;
     margin: 0 auto;
   }
 }
@@ -21,7 +19,6 @@
 .ple .ple-grid {
   max-width: 100%;
 }
-
 .ple .ple-grid-item {
   cursor: pointer;
   overflow: hidden;
@@ -43,6 +40,13 @@
       bottom: 0;
       border: 4px solid var(--ple-color-active);
       pointer-events: none;
+    }
+  }
+
+  .react-resizable-handle {
+    &:after {
+      right: 5px;
+      bottom: 5px;
     }
   }
 }

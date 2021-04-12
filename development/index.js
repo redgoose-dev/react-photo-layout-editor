@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import PhotoLayoutEditor from '~/components/PhotoLayoutEditor';
 import useToggle from '~/libs/useToggle';
 import * as util from './util';
+import * as api from '~/api';
 import './normalize.scss';
 import '~/css/main.scss';
 import './index.scss';
@@ -18,6 +19,13 @@ function App()
   });
   const [ openPanel, setOpenPanel ] = useToggle(true);
   let filesLastKey = files.length;
+
+  function onClickTest()
+  {
+    // console.log('onClickTest');
+    // api.files.select();
+    _ref.current.panel();
+  }
 
   return (
     <>
@@ -59,6 +67,30 @@ function App()
             }
           },
         }}/>
+      <hr/>
+      <nav>
+        <button type="button" onClick={onClickTest}>test</button>
+      </nav>
+      <hr/>
+      <pre style={{
+        wordBreak: 'break-all',
+        whiteSpace: 'pre-wrap',
+        fontSize: '14px',
+        padding: '30px',
+        margin: '0',
+      }}>
+        {JSON.stringify(preference, null, 2)}
+      </pre>
+      <hr/>
+      <pre style={{
+        wordBreak: 'break-all',
+        whiteSpace: 'pre-wrap',
+        fontSize: '14px',
+        padding: '30px',
+        margin: '0',
+      }}>
+        {JSON.stringify(grid, null, 2)}
+      </pre>
     </>
   );
 }

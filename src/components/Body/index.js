@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import * as body from '~/store/body';
 import * as keyboard from '~/libs/keyboard';
+import * as callbacks from '~/libs/callbacks';
 import ReactGridLayout from 'react-grid-layout';
 // import Cropper from '~/components/Cropper';
 import './index.scss';
@@ -15,6 +16,11 @@ const Body = () => {
     (preference.outerMargin * 2);
   let timeStamp = [];
 
+  /**
+   * select block
+   *
+   * @param {number} key
+   */
   function selectBlock(key = null)
   {
     if (typeof key !== 'number')
@@ -45,22 +51,31 @@ const Body = () => {
     }
   }
 
-  function updateBlocks()
-  {
-    //
-  }
-
   function onUpdateStartGrid()
   {
     timeStamp[0] = new Date().getTime();
   }
-
-  function onUpdateStopGrid(layout, oldItem, newItem, placeholder, e, element)
+  function onUpdateStopGrid(layout)
   {
     timeStamp[1] = new Date().getTime();
     if (timeStamp[1] - timeStamp[0] > 500)
     {
-      console.log('onUpdateStopGrid');
+      let newGrid = [];
+      grid.forEach((o,k) => {
+        newGrid.push({
+          ...o,
+          layout: {
+            x: layout[k].x,
+            y: layout[k].y,
+            w: layout[k].w,
+            h: layout[k].h,
+          },
+        });
+      });
+      callbacks.run('update', {
+        type: 'grid',
+        value: newGrid,
+      });
     }
     timeStamp = [];
   }
@@ -72,7 +87,7 @@ const Body = () => {
 
   return grid?.length > 0 && (
     <>
-      <div className="ple-body">
+      <div className="ple-body" onClick={() => selectBlock(null)}>
         <div className="ple-body__wrap" style={{ width: `${gridWidth}px` }}>
           <ReactGridLayout
             width={gridWidth}
@@ -100,9 +115,13 @@ const Body = () => {
                   e.stopPropagation();
                   selectBlock(item.key);
                 }}>
-                <figure style={{
-                  //
-                }}/>
+                {item.image && (
+                  <figure style={{
+                    backgroundImage: `url('${item.image.src}')`,
+                    backgroundPosition: item.image.position,
+                    backgroundSize: item.image.size,
+                  }}/>
+                )}
               </div>
             ))}
           </ReactGridLayout>

@@ -1,15 +1,27 @@
 import { atom, selector } from 'recoil';
 
+/**
+ * atoms
+ */
+
+// open panel
 export const open = atom({
   key: 'panelOpen',
   default: true,
 });
 
+// files
 export const files = atom({
   key: 'panelFiles',
   default: [],
 });
 
+
+/**
+ * selectors
+ */
+
+// exist files
 export const filesExist = selector({
   key: 'panelFilesExist',
   get: ({ get }) => {
@@ -18,6 +30,7 @@ export const filesExist = selector({
   },
 });
 
+// active exist files
 export const filesActiveExist = selector({
   key: 'panelFilesActiveExist',
   get: ({ get }) => {

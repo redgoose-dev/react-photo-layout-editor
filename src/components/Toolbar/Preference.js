@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import * as body from '~/store/body';
+import * as callbacks from '~/libs/callbacks';
 import ColorPicker from 'react-simple-colorpicker';
 import Switch from './Switch';
 import './Preference.scss';
 
 const Preference = props => {
-  const storePreference = useRecoilState(body.preference);
-  const [ preference, setPreference ] = storePreference;
+  const preference = useRecoilValue(body.preference);
   const [ width, setWidth ] = useState(preference.width);
   const [ height, setHeight ] = useState(preference.height);
   const [ column, setColumn ] = useState(preference.column);
@@ -89,15 +89,18 @@ const Preference = props => {
   function onSubmit(e)
   {
     e.preventDefault();
-    setPreference({
-      width,
-      height,
-      column,
-      outerMargin,
-      innerMargin,
-      backgroundColor,
-      blockColor,
-      freeMode,
+    callbacks.run('update', {
+      type: 'preference',
+      value: {
+        width,
+        height,
+        column,
+        outerMargin,
+        innerMargin,
+        backgroundColor,
+        blockColor,
+        freeMode,
+      },
     });
     props.onClose();
   }

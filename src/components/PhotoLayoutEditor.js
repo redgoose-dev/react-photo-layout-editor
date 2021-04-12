@@ -6,6 +6,7 @@ import * as body from '~/store/body';
 import * as panel from '~/store/panel';
 import * as util from '~/libs/util';
 import * as keyboard from '~/libs/keyboard';
+import * as api from '~/api';
 import Body from '~/components/Body';
 import Panel from '~/components/Panel';
 import Toolbar from '~/components/Toolbar';
@@ -16,8 +17,9 @@ import Toolbar from '~/components/Toolbar';
 const Container = forwardRef((props, ref) => {
   const [ ready, setReady ] = useState(false);
   const stateGrid = useRecoilState(body.grid);
-  const stateFiles = useRecoilState(panel.files);
   const statePreference = useRecoilState(body.preference);
+  const stateSelectedGridBlocks = useRecoilState(body.gridSelectedBlocks);
+  const stateFiles = useRecoilState(panel.files);
   const stateOpenPanel = useRecoilState(panel.open);
   const [ grid, setGrid ] = stateGrid;
   const [ files, setFiles ] = stateFiles;
@@ -32,6 +34,16 @@ const Container = forwardRef((props, ref) => {
   // mounted
   useEffect(() => {
     callbacks.init(props.callbacks);
+    // initial api
+    // TODO: 외부 공간에서 api 컨트롤이 가능하도록 하려면 리코일 스토어가 api에 존재해야한다.
+    // TODO: 그래서 무언가 방법을 찾아야 할것이다.
+    api.init({
+      preference: statePreference,
+      grid: stateGrid,
+      selectedGridBlocks: stateSelectedGridBlocks,
+      files: stateFiles,
+      openPanel: stateOpenPanel,
+    });
     // initial custom event
     util.initCustomEvent();
     // initial keyboard event
@@ -51,7 +63,7 @@ const Container = forwardRef((props, ref) => {
     },
     panel()
     {
-      //
+      console.log('call panel()');
     },
   }));
 
@@ -60,15 +72,6 @@ const Container = forwardRef((props, ref) => {
       <div className="ple__body">
         <Toolbar/>
         <Body/>
-        <pre style={{
-          wordBreak: 'break-all',
-          whiteSpace: 'pre-wrap',
-          fontSize: '14px',
-          padding: '30px',
-          margin: '0',
-        }}>
-          {JSON.stringify(preference, null, 2)}
-        </pre>
       </div>
       <aside
         className={[

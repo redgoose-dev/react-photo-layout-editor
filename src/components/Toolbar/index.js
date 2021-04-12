@@ -14,6 +14,7 @@ const Toolbar = () => {
   const [ open ] = storeOpenPanel;
   const [ grid, setGrid ] = storeGrid;
   const [ showPreference, setShowPreference ] = useState(false);
+  let shuffleIndex = 0;
 
   function togglePreference(e)
   {
@@ -31,6 +32,11 @@ const Toolbar = () => {
       window.off('click.pleShowPreference');
     }
     setShowPreference(!showPreference);
+  }
+
+  function onClickShuffle()
+  {
+    // shuffleIndex
   }
 
   // lifecycles
@@ -55,8 +61,7 @@ const Toolbar = () => {
             {showPreference && (
               <div>
                 <div>
-                  <Preference
-                    onClose={() => setShowPreference(false)}/>
+                  <Preference onClose={() => setShowPreference(false)}/>
                 </div>
               </div>
             )}

@@ -1,5 +1,10 @@
 import { atom, selector } from 'recoil';
 
+/**
+ * atoms
+ */
+
+// preference
 export const preference = atom({
   key: 'bodyPreference',
   default: {
@@ -14,15 +19,22 @@ export const preference = atom({
   },
 });
 
+// grid items
 export const grid = atom({
   key: 'bodyGrid',
   default: [],
 });
 
+// selected grid blocks
 export const gridSelectedBlocks = atom({
   key: 'bodyGridSelectedBlocks',
   default: [],
 });
+
+
+/**
+ * selectors
+ */
 
 export const gridSelectedBlock = selector({
   key: 'bodyGridSelectedBlock',

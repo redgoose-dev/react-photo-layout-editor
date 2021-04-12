@@ -44,6 +44,9 @@
     display: none;
     width: var(--ple-side-width, 240px);
     height: var(--ple-size-panel-height, auto);
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: var(--ple-side-width, 240px);
     &--on {
       display: block;
     }
