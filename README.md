@@ -114,7 +114,6 @@ import PhotoLayoutEditor from 'react-photo-layout-editor';
 | column | 5 | `number` | 한줄에 들어가는 기본 블럭의 갯수 |
 | outerMargin | 10 | `number` | 그리드 겉부분의 여백값 |
 | innerMargin | 10 | `number` | 블럭 사이의 여백값 |
-| freeMode | false | `boolean` | 자유로운 배치모드 |
 | bgColor | rgba(255,255,255,1) | `string` | 그리드 배경색 |
 
 ### side

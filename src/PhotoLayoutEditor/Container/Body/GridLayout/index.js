@@ -169,7 +169,6 @@ class GridLayout extends React.Component {
 						width={bodyWidth}
 						margin={[setting.innerMargin, setting.innerMargin]}
 						containerPadding={[setting.outerMargin, setting.outerMargin]}
-						verticalCompact={!setting.freeMode}
 						onDragStart={() => this._updateBlocks('start')}
 						onDragStop={(layout, oldItem, newItem, placeholder, e, element) => this._updateBlocks('end', layout, element)}
 						onResizeStart={() => this._updateBlocks('start')}

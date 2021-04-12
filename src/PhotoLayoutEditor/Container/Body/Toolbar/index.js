@@ -165,12 +165,16 @@ class Toolbar extends React.Component {
 								'ple-toolbar__block-active': state.active.setting
 							})}
 							onClick={(e) => {
-								e.persist();
+								e.stopPropagation();
 								if (!state.active.setting)
 								{
 									this.deactivate().then(() => {
 										this.changeActive('setting', null, e);
 									});
+								}
+								else
+								{
+									this.changeActive('setting', false, e);
 								}
 							}}
 							title="Edit preference">
@@ -252,10 +256,14 @@ class Toolbar extends React.Component {
 								{ 'ple-toolbar__block-active': state.active.editColor }
 							)}
 							onClick={(e) => {
-								e.persist();
+								e.stopPropagation();
 								if (!state.active.editColor)
 								{
 									this.deactivate().then(() => this.changeActive('editColor', null, e));
+								}
+								else
+								{
+									this.changeActive('editColor', false, e);
 								}
 							}}
 							title="Change color">

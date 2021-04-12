@@ -180,25 +180,6 @@ class EditLayoutSetting extends React.Component {
 							</div>
 						</dd>
 					</dl>
-					<dl>
-						<dt><label htmlFor="frm_freeMode">Free mode</label></dt>
-						<dd className="ple-type-checkbox">
-							<label>
-								<input
-									type="radio" name="freeMode" id="frm_freeMode"
-									onChange={() => this.setState({ freeMode: true })}
-									checked={state.freeMode}/>
-								<span>true</span>
-							</label>
-							<label>
-								<input
-									type="radio" name="freeMode"
-									onChange={() => this.setState({ freeMode: false })}
-									checked={!state.freeMode}/>
-								<span>false</span>
-							</label>
-						</dd>
-					</dl>
 				</fieldset>
 
 				<nav className="ple-edit-setting__buttons">
@@ -224,7 +205,6 @@ EditLayoutSetting.defaultProps = {
 		column: 5,
 		outerMargin: 10,
 		innerMargin: 10,
-		freeMode: false,
 		bgColor: 'rgba(255,255,255,1)',
 	},
 };
